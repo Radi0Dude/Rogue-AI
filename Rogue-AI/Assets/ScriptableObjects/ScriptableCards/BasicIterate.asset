@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
   m_Name: BasicIterate
   m_EditorClassIdentifier: 
-  cardName: BasicIterate
   cardType: 1
   promptType: 8
+  cardName: Basic Iterate
+  cardDescription: Description of BasicIterate
+  cardSymbol: {fileID: 0}
+  cardImage: {fileID: 0}

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
   m_Name: BasicVirus
   m_EditorClassIdentifier: 
-  cardName: BasicVirus
   cardType: 8
   promptType: 0
+  cardName: Basic Virus
+  cardDescription: Description of BasicVirus
+  cardSymbol: {fileID: 0}
+  cardImage: {fileID: 0}
