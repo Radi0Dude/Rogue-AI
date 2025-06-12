@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,11 +7,13 @@ public class Deck : MonoBehaviour
 {
     public static Deck Instance {get; private set;} //Singleton
 
+    [SerializeField] private Hand hand;
+    
     [SerializeField] private CardCollection playerDeck;
     [SerializeField] private Card cardPrefab;
 
-    public List<Card> _deckPile = new ();
-    public List<Card> _discardPile = new ();
+    private List<Card> _deckPile = new ();
+    private List<Card> _discardPile = new ();
 
     [SerializeField] public List<Card> HandCards { get; private set; } = new();
 
@@ -56,6 +57,8 @@ public class Deck : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
+            if (HandCards.Count > GameManager.MaxHandSize)
+            { continue; }
             // Check if shuffle is necessary
             if (_deckPile.Count <= 0)
             {
@@ -63,12 +66,14 @@ public class Deck : MonoBehaviour
                 _discardPile.Clear();
                 ShuffleDeck();
             }
-
+            // Draw card
             if (_deckPile.Count > 0)
             {
                 HandCards.Add(_deckPile[0]);
+                _deckPile[0].transform.position = transform.position;
                 _deckPile[0].gameObject.SetActive(true);
                 _deckPile.RemoveAt(0);
+                hand.UpdateCardPositions(HandCards);
             }
         }
     }
@@ -80,6 +85,8 @@ public class Deck : MonoBehaviour
             card.gameObject.SetActive(false);
             HandCards.Remove(card);
             _discardPile.Add(card);
+            hand.UpdateCardPositions(HandCards);
+
         }
     }
     

@@ -48,8 +48,17 @@ public class CardMovement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100))
             {
-                // Goal Area
-                deck.DiscardCard(_card);
+                if (hit.transform.TryGetComponent(out PlayArea playArea))
+                {
+                    // Play Card
+                    deck.DiscardCard(_card);
+                    // TODO: Send signal to prompt bar and perform actions
+                }
+                else
+                {
+                    // Return card to hand
+                }
+                
             }
         }
     }
