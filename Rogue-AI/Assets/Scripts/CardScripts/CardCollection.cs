@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardCollection : MonoBehaviour
+[CreateAssetMenu(fileName = "New Card Collection", menuName = "Card Collection")]
+public class CardCollection : ScriptableObject
 {
-    [SerializeField] public List<CardData> CardsInCollection { get; private set; } = new();
+    [SerializeField] public List<CardData> CardsInCollection;
 
     public void RemoveCardFromCollection(CardData card)
     {

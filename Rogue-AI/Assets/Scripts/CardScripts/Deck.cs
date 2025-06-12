@@ -11,8 +11,8 @@ public class Deck : MonoBehaviour
     [SerializeField] private CardCollection playerDeck;
     [SerializeField] private Card cardPrefab;
 
-    private List<Card> _deckPile = new ();
-    private List<Card> _discardPile = new ();
+    public List<Card> _deckPile = new ();
+    public List<Card> _discardPile = new ();
 
     [SerializeField] public List<Card> HandCards { get; private set; } = new();
 
@@ -56,14 +56,15 @@ public class Deck : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
+            // Check if shuffle is necessary
             if (_deckPile.Count <= 0)
             {
-                 _deckPile = _discardPile;
+                 _deckPile.AddRange(_discardPile);
                 _discardPile.Clear();
                 ShuffleDeck();
             }
 
-            if (_deckPile.Count <= 0)
+            if (_deckPile.Count > 0)
             {
                 HandCards.Add(_deckPile[0]);
                 _deckPile[0].gameObject.SetActive(true);
@@ -76,7 +77,9 @@ public class Deck : MonoBehaviour
     {
         if (HandCards.Contains(card))
         {
-            
+            card.gameObject.SetActive(false);
+            HandCards.Remove(card);
+            _discardPile.Add(card);
         }
     }
     
