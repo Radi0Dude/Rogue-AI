@@ -1,33 +1,15 @@
-using System;
 using UnityEngine;
 
-[Flags]
-public enum CardType
+public class Card : MonoBehaviour
 {
-    Prompt = 1 << 0,
-    Draw = 1 << 1,
-    Delete = 1 << 2,
-    Virus = 1 << 3,
-}
+    [SerializeField] public CardData cardData;
+    [Header("Attached Scripts")]
+    [SerializeField] private CardVisual cardVisual;
+    
 
-[Flags]
-public enum PromptType
-{
-    Specify = 1 << 0,
-    Persona = 1 << 1,
-    Format = 1 << 2,
-    Iterate = 1 << 3,
-}
-
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-public class Card : ScriptableObject
-{
-    public CardType cardType;
-    public PromptType promptType;
-
-    public string cardName;
-    [TextArea]
-    public string cardDescription;
-    public Sprite cardSymbol;
-    public Sprite cardImage;
+    public void SetUp(CardData data)
+    {
+        cardData = data;
+        cardVisual.UpdateCardVisuals(data);
+    }
 }

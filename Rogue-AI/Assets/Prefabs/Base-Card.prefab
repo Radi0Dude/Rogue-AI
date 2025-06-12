@@ -250,6 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4851659859463166994}
+  - component: {fileID: 8051989537993218962}
   - component: {fileID: 8683528191210187323}
   m_Layer: 0
   m_Name: Base-Card
@@ -275,6 +276,20 @@ Transform:
   - {fileID: 2940029038858727194}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8051989537993218962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235951033535634374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d669fe2a0920e4fa2c4c96306f0558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardData: {fileID: 11400000, guid: ba34a511b3e10e34884258aaea9aac77, type: 2}
+  cardVisual: {fileID: 8683528191210187323}
 --- !u!114 &8683528191210187323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,7 +302,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8010e57f5fafd3e48a7ec72e7bf9fa6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 0}
   cardName: {fileID: 1622860252345511668}
   cardSymbol: {fileID: 4226154310173808753}
   cardImage: {fileID: 7456928449324985802}
