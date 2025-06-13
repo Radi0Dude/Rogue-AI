@@ -473,6 +473,10 @@ MonoBehaviour:
   nodes: []
   nodePrefab: {fileID: 7901678500797783853, guid: ce9f4f4b2217fe14d8ab34ce29b83079, type: 3}
   mainCamera: {fileID: 0}
+  nodeOnHover: NodeOnHover
+  nodeExtendor: NodeExtendor
+  nodeOnPickup: NodeOnClick
+  lineRenderer: {fileID: 0}
 --- !u!4 &1474502172
 Transform:
   m_ObjectHideFlags: 0

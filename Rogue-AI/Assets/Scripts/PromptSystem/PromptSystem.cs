@@ -6,38 +6,91 @@ using UnityEngine.InputSystem;
 public class PromptSystem : MonoBehaviour
 {
 	public List<PromptNode> storyNodes = new List<PromptNode>();
-	[SerializeField]
-	public List<GameObject> nodes = new List<GameObject>();
-	[SerializeField]
-	GameObject nodePrefab;
-	bool currentlyNode;
-	bool moveCam;
 
+	[SerializeField] public List<GameObject> nodes = new List<GameObject>();
+	[SerializeField] GameObject nodePrefab;
+	[SerializeField] Camera mainCamera;
 
-	GameObject currentNodePickup;
-	GameObject currentNodeHover;
-	GameObject lastSplineShown;
-	[SerializeField]
-	Camera mainCamera;
+	[SerializeField, Layer] string nodeOnHover;
+	int currentNodeOnHoverLayer;
+	[SerializeField, Layer] string nodeExtendor;
+	int currentNodeExtendorLayer;
+	[SerializeField, Layer] string nodeOnPickup;
+	int currentNodeOnPickupLayer;
 
-	Vector2 camPosTemp;
+	private GameObject currentNodePickup;
+
+	private GameObject currentNodeHover;
+	private GameObject lastSplineShown;
+
+	private Vector2 camPosTemp;
+
+	GameObject hoveredObject;
+
+	private GameObject currentNodeExtendor;
+
+	[SerializeField] LineRenderer lineRenderer;
+
+	bool onHover;
+
+	private enum EditorState
+	{
+		Idle,
+		DraggingNode,
+		HoverState,
+		ConnectingNodes,
+		MoveingCamera
+	}
+
+	private EditorState currentState = EditorState.Idle;
 
 	private void Awake()
 	{
 		mainCamera = FindFirstObjectByType<Camera>();
+		currentNodeExtendorLayer = 1 << LayerMask.NameToLayer(nodeExtendor);
+		currentNodeOnHoverLayer = 1 << LayerMask.NameToLayer(nodeOnHover);
+		currentNodeOnPickupLayer = 1 << LayerMask.NameToLayer(nodeOnPickup);
+
 	}
+
 	public void GetClick(InputAction.CallbackContext context)
 	{
+
 		if (context.performed)
 		{
-
-			currentlyNode = true;
 			currentNodeHover = null;
-			CheckWhatYouHitSomething();
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			if (Physics.Raycast(ray, out RaycastHit hit, 100, currentNodeOnPickupLayer))
+			{
+				PickupNode();
+				currentState = EditorState.DraggingNode;
+			}
+			else if (Physics.Raycast(ray, out RaycastHit extendorHit, 100, currentNodeExtendorLayer))
+			{
+				GetExtendor();
+				currentState = EditorState.ConnectingNodes;
+			}
+			else
+			{
+				AddNode();
+				currentState = EditorState.DraggingNode;
+			}
 		}
+
 		if (context.canceled)
 		{
-			currentlyNode = false;
+			
+			if(currentState == EditorState.DraggingNode)
+			{
+				PlaceNode();
+			}
+			else if (currentState == EditorState.ConnectingNodes)
+			{
+				ConnectNodes();
+				currentNodeExtendor = null;
+			}
+			currentState = EditorState.Idle;
+
 		}
 	}
 
@@ -46,25 +99,72 @@ public class PromptSystem : MonoBehaviour
 		if (context.performed)
 		{
 			camPosTemp = Mouse.current.position.ReadValue();
-			moveCam = true;
+			currentState = EditorState.MoveingCamera;
 		}
+
 		if (context.canceled)
 		{
-			moveCam = false;
-			camPosTemp = Mouse.current.position.ReadValue();
+			currentState = EditorState.Idle;
 		}
 	}
-	private void CheckWhatYouHitSomething()
+
+	private void Update()
 	{
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, 100))
+		switch (currentState)
 		{
-			PickupNode();
+			case EditorState.DraggingNode:
+				MoveNode();
+				break;
+
+			case EditorState.MoveingCamera:
+				MoveCam();
+				break;
+
+			case EditorState.HoverState:
+
+				break;
+
+			case EditorState.ConnectingNodes:
+				ConnectingNodes();
+				break;
+
+			case EditorState.Idle:
+			default:
+				break;
+		}
+
+		ScrollData();
+		OnHover();
+	}
+
+	private void ConnectingNodes()
+	{
+		if (currentNodeExtendor == null) return;
+		if (lineRenderer == null)
+		{
+			lineRenderer = new GameObject("ExtendorLine").AddComponent<LineRenderer>();
+			lineRenderer.positionCount = 2;
+			lineRenderer.startWidth = 0.1f;
+			lineRenderer.endWidth = 0.1f;
+			lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+			lineRenderer.startColor = Color.black;
+			lineRenderer.endColor = Color.black;
+		}
+
+		lineRenderer.SetPosition(0, currentNodeExtendor.transform.position);
+		lineRenderer.SetPosition(1, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue() + new Vector2(0, 10f)));
+	}
+
+	private void ConnectNodes()
+	{
+		if (onHover)
+		{
+			lineRenderer.SetPosition(1, hoveredObject.transform.position);
+			lineRenderer = null;
 		}
 		else
 		{
-			AddNode();
+			Destroy(lineRenderer);
 		}
 	}
 
@@ -74,125 +174,23 @@ public class PromptSystem : MonoBehaviour
 		currentNodePickup = newNode;
 		nodes.Add(newNode);
 	}
+
 	public void MoveNode()
 	{
-		//Bool
-		if (currentNodePickup == null)
-		{
-			return;
-		}
-		if (currentlyNode)
-		{
-			Vector3 mousePosition = Input.mousePosition;
-			mousePosition.z = 10f;
-			currentNodePickup.transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
-		}
-	}
-	private void Update()
-	{
-		if (currentlyNode)
-		{
-			MoveNode();
-		}
-		ScrollData();
-		if (moveCam)
-		{
-			MoveCam();
-		}
-		OnHover();
+		if (currentNodePickup == null) return;
+
+		Vector3 mousePosition = Input.mousePosition;
+		mousePosition.z = 10f;
+		currentNodePickup.transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
 	}
 
-	void ScrollData()
-	{
-		if (Mouse.current != null)
-		{
-			Vector2 scrollDelta = Mouse.current.scroll.ReadValue();
-			if (scrollDelta.y != 0)
-			{
-
-				//Zoom in or out
-				mainCamera.orthographicSize -= scrollDelta.y;
-				mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 2f, 20f);
-
-			}
-
-		}
-	}
-
-	void MoveCam()
-	{
-		if (camPosTemp != Mouse.current.position.ReadValue())
-		{
-			Vector2 mouseDif = camPosTemp - Mouse.current.position.ReadValue();
-
-			camPosTemp = Mouse.current.position.ReadValue();
-
-			Vector3 newPos = new Vector3(-mouseDif.x, -mouseDif.y, 0);
-
-			mainCamera.transform.position += newPos * Time.deltaTime;
-		}
-
-	}
 	public void PickupNode()
 	{
-		//bool
-		currentlyNode = true;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, 100))
+		if (Physics.Raycast(ray, out hit, 100, currentNodeOnPickupLayer))
 		{
-			//Temp gameobject
 			currentNodePickup = hit.collider.transform.root.gameObject;
-		}
-	}
-
-	void OnHover()
-	{
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-
-		if (Physics.Raycast(ray, out hit, 100))
-		{
-			GameObject hoveredObject = hit.collider.transform.root.gameObject;
-
-
-			if (hoveredObject != currentNodeHover)
-			{
-
-				if (lastSplineShown != null)
-				{
-					lastSplineShown.SetActive(false);
-					lastSplineShown = null;
-				}
-
-
-				currentNodeHover = hoveredObject;
-
-				foreach(Transform child in currentNodeHover.transform)
-				{
-					child.gameObject.SetActive(true);
-				}
-
-				ConnectNodes connect = currentNodeHover.GetComponentInChildren<ConnectNodes>();
-				Debug.Log("Hovering over: " + currentNodeHover.name);
-				Debug.Log("Connect: " + connect + " " + connect.gameObject.name);
-				if (connect != null)
-				{
-					connect.gameObject.SetActive(true);
-					lastSplineShown = connect.gameObject;
-				}
-			}
-			
-		}
-		else
-		{
-		
-			if (lastSplineShown != null)
-			{
-				lastSplineShown.SetActive(false);
-				lastSplineShown = null;
-			}
-			currentNodeHover = null;
 		}
 	}
 
@@ -201,17 +199,97 @@ public class PromptSystem : MonoBehaviour
 		currentNodePickup = null;
 	}
 
+	public void GetExtendor()
+	{
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
+		if (Physics.Raycast(ray, out hit, 100, currentNodeExtendorLayer))
+		{
+			currentNodeExtendor = hit.collider.transform.gameObject;
+
+		}
+	}
+	private void ScrollData()
+	{
+		if (Mouse.current != null)
+		{
+			Vector2 scrollDelta = Mouse.current.scroll.ReadValue();
+			if (scrollDelta.y != 0)
+			{
+				mainCamera.orthographicSize -= scrollDelta.y;
+				mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 2f, 20f);
+			}
+		}
+	}
+
+	private void MoveCam()
+	{
+		if (camPosTemp != Mouse.current.position.ReadValue())
+		{
+			Vector2 mouseDif = camPosTemp - Mouse.current.position.ReadValue();
+			camPosTemp = Mouse.current.position.ReadValue();
+
+			Vector3 newPos = new Vector3(-mouseDif.x, -mouseDif.y, 0);
+			mainCamera.transform.position += newPos * Time.deltaTime;
+		}
+	}
+
+	private void OnHover()
+	{
+		
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		if (Physics.Raycast(ray, out RaycastHit hit, 100, currentNodeOnHoverLayer))
+		{
+			hoveredObject = hit.collider.transform.root.gameObject;
+			onHover = true;
+			if (hoveredObject != currentNodeHover)
+			{
+				if (lastSplineShown != null)
+				{
+					lastSplineShown.SetActive(false);
+					lastSplineShown = null;
+				}
+
+				currentNodeHover = hoveredObject;
+
+				foreach (Transform child in currentNodeHover.transform)
+				{
+					child.gameObject.SetActive(true);
+				}
+
+				ConnectNodes connect = currentNodeHover.GetComponentInChildren<ConnectNodes>();
+				if (connect != null)
+				{
+					connect.gameObject.SetActive(true);
+					lastSplineShown = connect.gameObject;
+				}
+			}
+		}
+		else
+		{
+			if (lastSplineShown != null)
+			{
+				lastSplineShown.SetActive(false);
+				lastSplineShown = null;
+			}
+			if(hoveredObject != null)
+			{
+				hoveredObject = null;
+			}
+			onHover = false;
+			currentNodeHover = null;
+		}
+	}
+
 	public void RemoveNode()
 	{
-
+		// Placeholder for node deletion
 	}
 
 	public void GetScriptableObject()
 	{
-
+		// Placeholder for scriptable object loading
 	}
-
-
 
 
 }
