@@ -12,9 +12,6 @@ public class Hand : MonoBehaviour
     public void UpdateCardPositions(List<Card> handCards)
     {
         if (handCards.Count == 0) return;
-
-        
-        
         float cardspacing = 1f / GameManager.MaxHandSize;
         float firstCardPosition = 0.5f - (handCards.Count - 1) * cardspacing / 2;
         Spline spline = splineContainer.Spline;

@@ -13,4 +13,9 @@ public class Card : MonoBehaviour
         cardData = data;
         cardVisual.UpdateCardVisuals(data);
     }
+
+    public CardData GetData()
+    {
+        return cardData;
+    }
 }

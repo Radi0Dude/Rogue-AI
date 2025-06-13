@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class PlayArea : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private InputField inputField;
+    
+    public void PlayCard(Card card)
     {
+        var cardData = card.GetData();
         
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        inputField.UpdatePrompt(cardData.promptType);
     }
 }

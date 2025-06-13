@@ -53,6 +53,7 @@ public class CardMovement : MonoBehaviour
                 {
                     // Play Card
                     deck.DiscardCard(_card);
+                    playArea.PlayCard(_card);
                     // TODO: Send signal to prompt bar and perform actions
                 }
                 else
