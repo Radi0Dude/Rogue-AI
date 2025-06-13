@@ -160,6 +160,7 @@ public class PromptSystem : MonoBehaviour
 		if (onHover)
 		{
 			lineRenderer.SetPosition(1, hoveredObject.transform.position);
+			hoveredObject.GetComponent<ConnectNodes>().connectedLines.Add(lineRenderer);
 			lineRenderer = null;
 		}
 		else
