@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    public CardData cardData;
+    private CardData cardData;
     [Header("Attached Scripts")]
     [SerializeField] private CardVisual cardVisual;
     

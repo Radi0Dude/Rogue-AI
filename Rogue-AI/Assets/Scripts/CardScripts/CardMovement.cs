@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class CardMovement : MonoBehaviour
 {
     [SerializeField] private Deck deck;
+    [SerializeField] private Hand hand;
     
     private bool _isMoving;
     private Card _card;
@@ -57,8 +58,8 @@ public class CardMovement : MonoBehaviour
                 else
                 {
                     // Return card to hand
+                    deck.UpdateCardPositionsHand();
                 }
-                
             }
         }
     }

@@ -73,7 +73,7 @@ public class Deck : MonoBehaviour
                 _deckPile[0].transform.position = transform.position;
                 _deckPile[0].gameObject.SetActive(true);
                 _deckPile.RemoveAt(0);
-                hand.UpdateCardPositions(HandCards);
+                UpdateCardPositionsHand();
             }
         }
     }
@@ -85,9 +85,13 @@ public class Deck : MonoBehaviour
             card.gameObject.SetActive(false);
             HandCards.Remove(card);
             _discardPile.Add(card);
-            hand.UpdateCardPositions(HandCards);
-
+            UpdateCardPositionsHand();
         }
+    }
+
+    public void UpdateCardPositionsHand()
+    {
+        hand.UpdateCardPositions(HandCards);
     }
     
 }
