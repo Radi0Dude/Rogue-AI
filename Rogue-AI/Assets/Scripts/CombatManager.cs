@@ -1,15 +1,38 @@
+using System;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private InputField inputField;
+
+
+    private void OnEnable()
+    {
+        inputField.EndingTurnEvent += EndTurn;
+    }
+
+    public void EndTurn()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private void StartTurn()
+    {
+        // If there are no prompt present, give a new prompt
+        // Player draws card
+    }
+
+    private void EnemyAdvancement()
+    {
+        
+    }
+
+    private void BeginCombat()
+    {
+        
+    }
+
+    private void EndCombat()
     {
         
     }

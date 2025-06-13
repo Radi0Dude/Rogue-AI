@@ -5,6 +5,9 @@ using UnityEngine;
 public class InputField : MonoBehaviour
 {
     [SerializeField] private TMP_Text promptText;
+    
+    public event Action EndingTurnEvent;
+    
     private string currentPrompt = "Prompt";
 
 
@@ -35,6 +38,7 @@ public class InputField : MonoBehaviour
 
     public void EndTurn()
     {
-        
+        // Use event to call Combat manager
+        EndingTurnEvent.Invoke();
     }
 }
