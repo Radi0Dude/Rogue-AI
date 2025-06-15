@@ -16,6 +16,9 @@ public class AIData : ScriptableObject
     public float startSanity = 10.0f;
     
     public AITypes aiType;
+    
     public List<AIAction> aiActions;
-     
+
+    [Header("Option for stronger Enemies")]
+    public AIAction endOfTurnAction;
 }

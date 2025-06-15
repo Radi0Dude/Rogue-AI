@@ -7,7 +7,7 @@ public abstract class AIAction : ScriptableObject
 
     
 
-    public virtual void PerformAction()
+    public virtual void PerformAction(AI ai)
     {
         Debug.Log("AI not given action");
     }

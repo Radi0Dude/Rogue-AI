@@ -4,10 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AIDamageAction", menuName = "AI/Actions/AI Damage")]
 public class AIDamageAction : AIAction
 {
+    public int damage;
     
-    public override void PerformAction()
+    public override void PerformAction(AI ai)
     {
         Debug.Log("AI Perform Damage action");
 
+        GameManager.PlayerHealth -= damage;
     }
 }

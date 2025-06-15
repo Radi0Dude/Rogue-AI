@@ -7,7 +7,7 @@ public class AI : MonoBehaviour
     private float _maxSanity;
     private float _currentSanity;
     private int _countDown;
-
+    
     private AIAction _currentAction;
 
     public void Initialize()
@@ -26,10 +26,16 @@ public class AI : MonoBehaviour
     public void ReduceCountDown()
     {
         _countDown--;
-
+        
+        if (data.endOfTurnAction != null)
+        {
+            data.endOfTurnAction.PerformAction(this);
+        }
+        
         if (_countDown <= 0)
         {
-            _currentAction.PerformAction();
+            _currentAction.PerformAction(this);
+            GetNextAction();
         }
     }
 

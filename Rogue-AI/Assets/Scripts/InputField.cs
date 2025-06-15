@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class InputField : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class InputField : MonoBehaviour
     
     public void SendPrompt()
     {
+        //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
         
         
         EndTurn();
@@ -39,6 +41,6 @@ public class InputField : MonoBehaviour
     public void EndTurn()
     {
         // Use event to call Combat manager
-        EndingTurnEvent.Invoke();
+        EndingTurnEvent?.Invoke();
     }
 }

@@ -13,7 +13,7 @@ public class CombatManager : MonoBehaviour
 
     public void EndTurn()
     {
-        
+        EnemyAdvancement();
     }
 
     private void StartTurn()
@@ -34,6 +34,11 @@ public class CombatManager : MonoBehaviour
 
     private void EndCombat()
     {
-        
+        // Sends the player to road select screen
+    }
+
+    private void OnDisable()
+    {
+        inputField.EndingTurnEvent -= EndTurn;
     }
 }

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e7d2b3109656e4fa13692c42888fa7, type: 3}
-  m_Name: LightDamageAction
+  m_Script: {fileID: 11500000, guid: 339bccce2793ffe4298142be470bd23e, type: 3}
+  m_Name: SmallHealAction
   m_EditorClassIdentifier: 
-  actionName: 
-  roundsUntilAction: 0
+  actionName: Small Heal
+  roundsUntilAction: 3
+  healAmount: 20
