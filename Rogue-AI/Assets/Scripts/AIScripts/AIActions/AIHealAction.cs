@@ -6,7 +6,7 @@ public class AIHealAction : AIAction
 {
     [Header("Amount of sanity lost")]
     public int healAmount;
-    public override void PerformAction(AI ai)
+    public override void PerformAction(AI ai, Player player)
     {
         Debug.Log("AI Perform Heal action");
         

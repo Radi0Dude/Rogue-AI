@@ -6,10 +6,10 @@ public class AIDamageAction : AIAction
 {
     public int damage;
     
-    public override void PerformAction(AI ai)
+    public override void PerformAction(AI ai, Player player)
     {
         Debug.Log("AI Perform Damage action");
 
-        GameManager.PlayerHealth -= damage;
+        player.ChangeHealth(-damage);
     }
 }

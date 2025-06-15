@@ -8,6 +8,7 @@ public class AI : MonoBehaviour
     private float _currentSanity;
     private int _countDown;
     
+    private Player _player;
     private AIAction _currentAction;
 
     public void Initialize()
@@ -29,12 +30,12 @@ public class AI : MonoBehaviour
         
         if (data.endOfTurnAction != null)
         {
-            data.endOfTurnAction.PerformAction(this);
+            data.endOfTurnAction.PerformAction(this, _player);
         }
         
         if (_countDown <= 0)
         {
-            _currentAction.PerformAction(this);
+            _currentAction.PerformAction(this, _player);
             GetNextAction();
         }
     }

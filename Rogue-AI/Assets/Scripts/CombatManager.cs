@@ -3,42 +3,40 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    [SerializeField] private InputField inputField;
+    private InputField _inputField;
 
-
-    private void OnEnable()
+    private Player _player;
+    private AI _ai;
+    
+    
+    public void BeginCombat()
     {
-        inputField.EndingTurnEvent += EndTurn;
+        _inputField.EndingTurnEvent += EndTurn;
     }
-
-    public void EndTurn()
-    {
-        EnemyAdvancement();
-    }
-
+    
+   
     private void StartTurn()
     {
         // If there are no prompt present, give a new prompt
         // Player draws card
     }
+    
+    public void EndTurn()
+    {
+        EnemyAdvancement();
+    }
+
 
     private void EnemyAdvancement()
     {
-        
+        _ai.ReduceCountDown();
     }
 
-    private void BeginCombat()
-    {
-        
-    }
-
-    private void EndCombat()
+    
+    public void EndCombat()
     {
         // Sends the player to road select screen
-    }
+        _inputField.EndingTurnEvent -= EndTurn;
 
-    private void OnDisable()
-    {
-        inputField.EndingTurnEvent -= EndTurn;
     }
 }
