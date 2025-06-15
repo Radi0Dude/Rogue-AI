@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Card Collection", menuName = "Card Collection")]
+[CreateAssetMenu(fileName = "CardCollection", menuName = "Card/Card Collection")]
 public class CardCollection : ScriptableObject
 {
     [SerializeField] public List<CardData> CardsInCollection;

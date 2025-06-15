@@ -19,7 +19,7 @@ public enum PromptType
     Iterate = 1 << 3,
 }
 
-[CreateAssetMenu(fileName = "New Card", menuName = "Card")]
+[CreateAssetMenu(fileName = "CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
     public CardType cardType;

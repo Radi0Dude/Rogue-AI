@@ -1,21 +1,21 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum AITypes
 {
-    
+    Grammar,
+    Research,
+    Summarization,
+    Programming,
 }
 
-public class AIData : MonoBehaviour
+[CreateAssetMenu(fileName = "New AI Data", menuName = "AI/AI Data")]
+public class AIData : ScriptableObject
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float maxSanity = 100.0f;
+    public float startSanity = 10.0f;
+    
+    public AITypes aiType;
+    public List<AIAction> aiActions;
+     
 }
