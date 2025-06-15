@@ -23,12 +23,10 @@ public class Deck : MonoBehaviour
             Instance = this;
         else
             Destroy(this.gameObject);
-    }
-
-    private void Start()
-    {
+        
         InstantiateDeck();
     }
+    
 
     private void InstantiateDeck()
     {
@@ -53,7 +51,7 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public void DrawHand(int amount = 5)
+    public void DrawHand(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
@@ -86,6 +84,14 @@ public class Deck : MonoBehaviour
             HandCards.Remove(card);
             _discardPile.Add(card);
             UpdateCardPositionsHand();
+        }
+    }
+
+    public void DiscardAllCards()
+    {
+        for (int i = HandCards.Count - 1; i >= 0; i--)
+        {
+            DiscardCard(HandCards[i]);
         }
     }
 

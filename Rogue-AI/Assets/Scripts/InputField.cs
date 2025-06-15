@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Android;
@@ -7,19 +9,32 @@ public class InputField : MonoBehaviour
 {
     [SerializeField] private TMP_Text promptText;
     
-    public event Action EndingTurnEvent;
+    public event Action OnEndingTurnEvent;
+    public event Action<List<PromptType>> OnSendPromptEvent;
+
     
     private string currentPrompt = "Prompt";
+    
+    private List<PromptType> _promptTypes = new();
 
 
     private void Start()
     {
+        // Find a prompt starter
+        //GetNewPrompt();
+        
         UpdateVisual();
+    }
+
+    private void GetNewPrompt()
+    {
+        // Returns start of new prompt for the player to adjust
     }
 
     public void UpdatePrompt(PromptType promptType)
     {
         currentPrompt = promptType + " " + promptText.text;
+        _promptTypes.Add(promptType);
         
         UpdateVisual();
     }
@@ -32,15 +47,17 @@ public class InputField : MonoBehaviour
     
     public void SendPrompt()
     {
-        //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
+        OnSendPromptEvent?.Invoke(_promptTypes);
         
+        currentPrompt = "Prompt";
+        UpdateVisual();
         
-        EndTurn();
+        _promptTypes.Clear();
     }
 
     public void EndTurn()
     {
         // Use event to call Combat manager
-        EndingTurnEvent?.Invoke();
+        OnEndingTurnEvent?.Invoke();
     }
 }

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SmallHealAction
   m_EditorClassIdentifier: 
   actionName: Small Heal
-  roundsUntilAction: 3
+  roundsUntilAction: 2
   healAmount: 20
