@@ -1,11 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class PromptSystem : MonoBehaviour
 {
 	public List<PromptNode> storyNodes = new List<PromptNode>();
+
+	public GameObject currenntlySelectedObject;
 
 	[SerializeField] public List<GameObject> nodes = new List<GameObject>();
 	[SerializeField] GameObject nodePrefab;
@@ -26,13 +30,14 @@ public class PromptSystem : MonoBehaviour
 	private Vector2 camPosTemp;
 
 	GameObject hoveredObject;
+	GameObject hoveredObjectForLine;
 
 	private GameObject currentNodeExtendor;
 
 	[SerializeField] LineRenderer lineRenderer;
 
 	bool onHover;
-
+	bool startHover;
 	private enum EditorState
 	{
 		Idle,
@@ -53,28 +58,43 @@ public class PromptSystem : MonoBehaviour
 
 	}
 
+	public bool IsPointerOverUI()
+	{
+		if (EventSystem.current == null)
+			return false;
+
+		return EventSystem.current.IsPointerOverGameObject();
+	}
 	public void GetClick(InputAction.CallbackContext context)
 	{
 
 		if (context.performed)
 		{
 			currentNodeHover = null;
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			if (Physics.Raycast(ray, out RaycastHit hit, 100, currentNodeOnPickupLayer))
+			
+			if (!IsPointerOverUI())
 			{
-				PickupNode();
-				currentState = EditorState.DraggingNode;
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if (Physics.Raycast(ray, out RaycastHit hit, 100, currentNodeOnPickupLayer))
+				{
+					PickupNode();
+					currenntlySelectedObject = hit.collider.transform.root.gameObject;
+
+					currentState = EditorState.DraggingNode;
+				}
+				else if (Physics.Raycast(ray, out RaycastHit extendorHit, 100, currentNodeExtendorLayer))
+				{
+					GetExtendor();
+					currentState = EditorState.ConnectingNodes;
+				}
+
+				else
+				{
+					AddNode();
+					currentState = EditorState.DraggingNode;
+				}
 			}
-			else if (Physics.Raycast(ray, out RaycastHit extendorHit, 100, currentNodeExtendorLayer))
-			{
-				GetExtendor();
-				currentState = EditorState.ConnectingNodes;
-			}
-			else
-			{
-				AddNode();
-				currentState = EditorState.DraggingNode;
-			}
+			
 		}
 
 		if (context.canceled)
@@ -86,7 +106,7 @@ public class PromptSystem : MonoBehaviour
 			}
 			else if (currentState == EditorState.ConnectingNodes)
 			{
-				ConnectNodes();
+				ConnectNodes(hoveredObjectForLine);
 				currentNodeExtendor = null;
 			}
 			currentState = EditorState.Idle;
@@ -140,6 +160,12 @@ public class PromptSystem : MonoBehaviour
 	private void ConnectingNodes()
 	{
 		if (currentNodeExtendor == null) return;
+		if(startHover == false)
+		{
+			hoveredObjectForLine = hoveredObject;
+			startHover = true;
+		}
+		
 		if (lineRenderer == null)
 		{
 			lineRenderer = new GameObject("ExtendorLine").AddComponent<LineRenderer>();
@@ -155,16 +181,21 @@ public class PromptSystem : MonoBehaviour
 		lineRenderer.SetPosition(1, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue() + new Vector2(0, 10f)));
 	}
 
-	private void ConnectNodes()
+	private void ConnectNodes(GameObject startObject)
 	{
 		if (onHover)
 		{
 			lineRenderer.SetPosition(1, hoveredObject.transform.position);
 			hoveredObject.GetComponent<ConnectNodes>().connectedLines.Add(lineRenderer);
+			hoveredObjectForLine.GetComponent<ConnectNodes>().connectorLines.Add(lineRenderer);
 			lineRenderer = null;
+			hoveredObjectForLine = null;
+			startHover = false;
+
 		}
 		else
 		{
+			Debug.LogError("No node hovered to connect to.");
 			Destroy(lineRenderer);
 		}
 	}
@@ -173,6 +204,7 @@ public class PromptSystem : MonoBehaviour
 	{
 		GameObject newNode = Instantiate(nodePrefab);
 		currentNodePickup = newNode;
+		currenntlySelectedObject = newNode;
 		nodes.Add(newNode);
 	}
 
@@ -237,7 +269,7 @@ public class PromptSystem : MonoBehaviour
 
 	private void OnHover()
 	{
-		
+		if (IsPointerOverUI()) return;
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Physics.Raycast(ray, out RaycastHit hit, 100, currentNodeOnHoverLayer))
 		{
@@ -258,7 +290,7 @@ public class PromptSystem : MonoBehaviour
 					child.gameObject.SetActive(true);
 				}
 
-				ConnectNodes connect = currentNodeHover.GetComponentInChildren<ConnectNodes>();
+				NodeConnector connect = currentNodeHover.GetComponentInChildren<NodeConnector>();
 				if (connect != null)
 				{
 					connect.gameObject.SetActive(true);

@@ -10,6 +10,9 @@ public class ConnectNodes : MonoBehaviour
 	public List<GameObject> connectedNodes = new List<GameObject>();
 	public List<LineRenderer> connectedLines = new List<LineRenderer>();
 
+	public bool isPrompt;
+	public string promptText;
+
 	private void Update()
 	{
 		UpdateLines();
@@ -21,9 +24,22 @@ public class ConnectNodes : MonoBehaviour
 		{
 			line.SetPosition(0, transform.position);
 		}
-		foreach(LineRenderer line in connectorLines)
+		foreach(LineRenderer line in connectedLines)
 		{
 			line.SetPosition(1, transform.position);
+		}
+	}
+
+	public void UpdatePromptText(string text)
+	{
+		if (isPrompt)
+		{
+			promptText = text;
+		}
+		else
+		{
+			promptText = "This is a connector node. It does not have a prompt.";
+			
 		}
 	}
 }
