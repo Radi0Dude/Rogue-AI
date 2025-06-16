@@ -58,6 +58,7 @@ public class NodeUI : MonoBehaviour
 			{
 				return;
 			}
+			StartCoroutine(SlideIn(.5f));
 			isOut = false;
 		}		
 	}
