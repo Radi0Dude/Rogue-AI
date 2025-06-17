@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BaseRestSiteRoom
   m_EditorClassIdentifier: 
   roomName: BaseRestRoom
-  roomIcon: {fileID: 0}
+  roomIcon: {fileID: 21300000, guid: 4fb10d78a49253246880a851928e2f11, type: 3}
   sceneNameToLoad: 
