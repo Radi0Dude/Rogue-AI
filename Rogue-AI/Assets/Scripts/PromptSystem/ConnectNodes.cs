@@ -4,19 +4,28 @@ using System;
 
 public class ConnectNodes : MonoBehaviour
 {
-	public List<GameObject> connectorNodes = new List<GameObject>();
+	public List<GameObject> connectedTo = new List<GameObject>();
 	public List<LineRenderer> connectorLines = new List<LineRenderer>();
 
-	public List<GameObject> connectedNodes = new List<GameObject>();
+	public List<GameObject> connectedFrom = new List<GameObject>();
 	public List<LineRenderer> connectedLines = new List<LineRenderer>();
 
 	public bool isPrompt;
 	public string promptText;
 
+	CardData thisCardData;
+
 	private void Update()
 	{
 		UpdateLines();
 	}
+
+	public void AssignCardData(CardData cardData)
+	{
+		thisCardData = cardData;
+	}
+
+
 
 	private void UpdateLines()
 	{
@@ -38,8 +47,7 @@ public class ConnectNodes : MonoBehaviour
 		}
 		else
 		{
-			promptText = "This is a connector node. It does not have a prompt.";
-			
+			promptText = "This is a Card Node";			
 		}
 	}
 }

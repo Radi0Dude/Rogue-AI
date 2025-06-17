@@ -187,7 +187,9 @@ public class VisualPromptSystem : MonoBehaviour
 		{
 			lineRenderer.SetPosition(1, hoveredObject.transform.position);
 			hoveredObject.GetComponent<ConnectNodes>().connectedLines.Add(lineRenderer);
+			hoveredObject.GetComponent<ConnectNodes>().connectedFrom.Add(hoveredObjectForLine);
 			hoveredObjectForLine.GetComponent<ConnectNodes>().connectorLines.Add(lineRenderer);
+			hoveredObjectForLine.GetComponent<ConnectNodes>().connectedTo.Add(hoveredObject);
 			lineRenderer = null;
 			hoveredObjectForLine = null;
 			startHover = false;
