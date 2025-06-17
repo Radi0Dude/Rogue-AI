@@ -14,9 +14,7 @@ public abstract class RoomData : ScriptableObject
 
     public string roomName;
     public Sprite roomIcon;
-    
-    [Header("Room Settings")]
-    public RoomData[] rooms;
+    public string sceneNameToLoad;
     
     
 }

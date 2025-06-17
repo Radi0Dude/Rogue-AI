@@ -5,4 +5,6 @@ using UnityEngine;
 public class RestSiteRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.RestSite;
+    
+    
 }

@@ -4,4 +4,6 @@ using UnityEngine;
 public class EventRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Event;
+    
+    
 }

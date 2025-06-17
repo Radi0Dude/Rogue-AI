@@ -4,4 +4,6 @@ using UnityEngine;
 public class TreasureRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Treasure;
+    
+    
 }
