@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "AIHealAction", menuName = "AI/Actions/AI Heal")]
 
-public class AIHealAction : AIAction
+public class AIHealAction : AIActionData
 {
     [Header("Amount of sanity lost")]
     public int healAmount;

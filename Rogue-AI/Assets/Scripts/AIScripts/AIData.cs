@@ -17,8 +17,8 @@ public class AIData : ScriptableObject
     
     public AITypes aiType;
     
-    public List<AIAction> aiActions;
+    public List<AIActionData> aiActions;
 
     [Header("Option for stronger Enemies")]
-    public AIAction endOfTurnAction;
+    public AIActionData endOfTurnAction;
 }

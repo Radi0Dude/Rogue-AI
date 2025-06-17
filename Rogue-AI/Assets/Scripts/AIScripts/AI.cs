@@ -20,7 +20,7 @@ public class AI : MonoBehaviour
     private int _countDown;
     
     private Player _player;
-    private AIAction _currentAction;
+    private AIActionData _currentAction;
 
     public void Initialize(Player player)
     {

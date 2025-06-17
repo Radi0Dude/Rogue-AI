@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AIAction : ScriptableObject
+public abstract class AIActionData : ScriptableObject
 {
     public string actionName;
     public int roundsUntilAction;
