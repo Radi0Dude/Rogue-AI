@@ -13,7 +13,7 @@ public class NodeUI : MonoBehaviour
 	RectTransform rectTransform;
 	bool isOut;
 
-	PromptSystem promptSystem;
+	VisualPromptSystem promptSystem;
 	ConnectNodes connectNodes;
 	bool isPrompt;
 	[SerializeField]
@@ -25,13 +25,16 @@ public class NodeUI : MonoBehaviour
 	string promptLabel = "Prompt";
 	string cardLabel = "Card";
 
+	GameObject getText;
+
 	bool corutineIsRunning;
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
 		startPosition = rectTransform.anchoredPosition;
-		promptSystem = FindFirstObjectByType<PromptSystem>();
+		promptSystem = FindFirstObjectByType<VisualPromptSystem>();
 		PromptButtonTag promptButtonTag = GetComponentInChildren<PromptButtonTag>();
+		getText = FindFirstObjectByType<TMP_InputField>().gameObject;
 		button = promptButtonTag.gameObject;
 	}
 	public void OnButtonClick()
@@ -118,6 +121,11 @@ public class NodeUI : MonoBehaviour
 	private void Update()
 	{
 		CheckSelectedObject();
+		if(connectNodes == null) return;
+		if (isPrompt != connectNodes.isPrompt)
+		{
+			IsPrompt();
+		}
 	}
 
 	void CheckSelectedObject()
@@ -153,6 +161,7 @@ public class NodeUI : MonoBehaviour
 	public void IsPrompt()
 	{
 		isPrompt = !isPrompt;
+		getText.SetActive(isPrompt);
 		connectNodes = promptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
 		connectNodes.isPrompt = isPrompt;
 		UpdateButton();
