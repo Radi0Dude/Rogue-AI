@@ -6,7 +6,7 @@ public class Sign : MonoBehaviour
 {
     [SerializeField] private List<Image> iconPos;
     
-    private List<RoomData> _rooms = new List<RoomData>();
+    private List<RoomData> _rooms = new();
     
     
     public void Init(List<RoomData> rooms)
@@ -26,6 +26,6 @@ public class Sign : MonoBehaviour
     // Called by OnPressed() button from unity
     public void ChoosePathWhenPressed()
     {
-        
+        // Should save selected rooms down path
     }
 }
