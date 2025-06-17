@@ -1,5 +1,7 @@
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class AI : MonoBehaviour
@@ -7,6 +9,10 @@ public class AI : MonoBehaviour
     public event Action OnAISane;
     
     [SerializeField] private AIData data;
+    
+    [Header("UI Elements")]
+    [SerializeField] private TMP_Text aiSanityText;
+    [SerializeField] private Image sanityBar;
     
     private float _maxSanity;
     private float _currentSanity;
@@ -21,6 +27,7 @@ public class AI : MonoBehaviour
         _currentSanity = data.startSanity;
         _player = player;
         GetNextAction();
+        UpdateUI();
     }
 
     private void GetNextAction()
@@ -48,11 +55,30 @@ public class AI : MonoBehaviour
     public void ChangeSanity(float value)
     {
         _currentSanity += value;
-
-        if (_currentSanity >= _maxSanity)
+        
+        UpdateUI();
+        if (_currentSanity <= 0.0f)
         {
+            _currentSanity = 0.0f;
+        }
+        else if (_currentSanity >= _maxSanity)
+        {
+            _currentSanity = _maxSanity;
             Debug.Log("AI was made sane");
             OnAISane?.Invoke();
         }
+    }
+
+    private void UpdateUI()
+    {
+        // Calculate Percentage
+        var percentageInDecimal = _currentSanity / _maxSanity;
+        var percentage = percentageInDecimal * 100f;
+
+        // Update SanityBar
+        sanityBar.fillAmount = percentageInDecimal;
+
+        // Update SanityTextPercentage
+        aiSanityText.text = percentage.ToString("0.0") + "%";
     }
 }
