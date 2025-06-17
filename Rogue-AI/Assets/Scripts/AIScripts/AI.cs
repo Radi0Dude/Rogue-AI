@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,7 +57,6 @@ public class AI : MonoBehaviour
     {
         _currentSanity += value;
         
-        UpdateUI();
         if (_currentSanity <= 0.0f)
         {
             _currentSanity = 0.0f;
@@ -67,6 +67,8 @@ public class AI : MonoBehaviour
             Debug.Log("AI was made sane");
             OnAISane?.Invoke();
         }
+        UpdateUI();
+
     }
 
     private void UpdateUI()
@@ -76,7 +78,7 @@ public class AI : MonoBehaviour
         var percentage = percentageInDecimal * 100f;
 
         // Update SanityBar
-        sanityBar.fillAmount = percentageInDecimal;
+        DOTween.To(()=> sanityBar.fillAmount, x=> sanityBar.fillAmount = x, percentageInDecimal, 1f);
 
         // Update SanityTextPercentage
         aiSanityText.text = percentage.ToString("0.0") + "%";
