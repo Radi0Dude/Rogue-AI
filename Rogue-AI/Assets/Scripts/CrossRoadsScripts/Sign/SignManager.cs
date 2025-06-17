@@ -6,7 +6,10 @@ using Random = UnityEngine.Random;
 public class SignManager : MonoBehaviour
 {
     [SerializeField] private List<Sign> signs;
+    [Tooltip("Data about what rooms can be encountered in this sign area")]
     [SerializeField] private SignData signData;
+    [Tooltip("The Room scriptable object for the next sign post")]
+    [SerializeField] private SignRoom signRoom;
     
     private int _numberOfSigns = 3;
 

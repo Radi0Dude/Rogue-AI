@@ -5,7 +5,8 @@ public enum RoomType
     Combat,
     Treasure,
     Event,
-    RestSite
+    RestSite,
+    Sign
 }
 
 public abstract class RoomData : ScriptableObject
