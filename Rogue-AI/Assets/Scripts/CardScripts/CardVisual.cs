@@ -24,7 +24,7 @@ public class CardVisual : MonoBehaviour
         }
         else
         {
-            Debug.LogError(cardDataData.name + " is missing a card symbol");
+            Debug.LogWarning(cardDataData.name + " is missing a card symbol");
         }
 
         if (cardDataData.cardImage != null)
@@ -33,7 +33,7 @@ public class CardVisual : MonoBehaviour
         }
         else
         {
-            Debug.LogError(cardDataData.name + " is missing a card image");
+            Debug.LogWarning(cardDataData.name + " is missing a card image");
         }
         
         cardDescription.text = cardDataData.cardDescription;

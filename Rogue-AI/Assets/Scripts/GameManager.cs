@@ -23,7 +23,7 @@ public static class GameManager
         LoadNextRoom();
     }
 
-    public static RoomData GetNextRoom()
+    public static RoomData GetRoom()
     {
         return _rooms[0];
     }

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: Base Combat Room
   roomIcon: {fileID: 21300000, guid: d31e0f15092fcfb47bd6e1a8defa5cbc, type: 3}
-  sceneNameToLoad: 
-  aiData: {fileID: 0}
+  sceneNameToLoad: 2_AICombatScene
+  aiData: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}

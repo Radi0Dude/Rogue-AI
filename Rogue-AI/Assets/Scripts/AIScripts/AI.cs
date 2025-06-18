@@ -9,7 +9,6 @@ public class AI : MonoBehaviour
 {
     public event Action OnAISane;
     
-    [SerializeField] private AIData data;
     
     [Header("UI Elements")]
     [SerializeField] private TMP_Text aiSanityText;
@@ -19,13 +18,25 @@ public class AI : MonoBehaviour
     private float _currentSanity;
     private int _countDown;
     
+    private AIData _data;
     private Player _player;
     private AIActionData _currentAction;
 
     public void Initialize(Player player)
     {
-        _maxSanity = data.maxSanity;
-        _currentSanity = data.startSanity;
+        if (GameManager.GetRoom() is CombatRoom room)
+        {
+            _data = room.aiData;
+        }
+        else
+        {
+            Debug.LogError("The current room in GameManager is not a CombatRoom");
+            return;
+        }
+        
+        
+        _maxSanity = _data.maxSanity;
+        _currentSanity = _data.startSanity;
         _player = player;
         GetNextAction();
         UpdateUI();
@@ -33,7 +44,7 @@ public class AI : MonoBehaviour
 
     private void GetNextAction()
     {
-        _currentAction = data.aiActions[Random.Range(0, data.aiActions.Count)];
+        _currentAction = _data.aiActions[Random.Range(0, _data.aiActions.Count)];
         _countDown = _currentAction.roundsUntilAction;
     }
     
@@ -41,9 +52,9 @@ public class AI : MonoBehaviour
     {
         _countDown--;
         
-        if (data.endOfTurnAction != null)
+        if (_data.endOfTurnAction != null)
         {
-            data.endOfTurnAction.PerformAction(this, _player);
+            _data.endOfTurnAction.PerformAction(this, _player);
         }
         
         if (_countDown <= 0)
