@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombatManager : MonoBehaviour
 {
     private InputField _inputField;
-
+    private CardReward _cardReward;
     private Player _player;
     private AI _ai;
 
@@ -17,40 +17,19 @@ public class CombatManager : MonoBehaviour
     private void BeginCombat()
     {
         _inputField = FindAnyObjectByType<InputField>();
+        _cardReward = FindAnyObjectByType<CardReward>();
         _player = FindAnyObjectByType<Player>();
         _ai = FindAnyObjectByType<AI>();
 
-        if (_inputField != null)
-        {
-            _inputField.OnEndingTurnEvent += EndTurn;
-            _inputField.OnSendPromptEvent += SendPrompt;
-        }
-        else
-        {
-            Debug.LogWarning("InputField not found.");
-        }
-
-        if (_player != null)
-        {
-            _player.OnPlayerDeath += EndCombat;
-        }
-        else
-        {
-            Debug.LogWarning("Player not found.");
-        }
-
-        if (_ai != null)
-        {
-            _ai.OnAISane += LoseCombat;
-            _ai.Initialize(_player);
-        }
-        else
-        {
-            Debug.LogWarning("AI not found.");
-        }
+   
+        _inputField.OnEndingTurnEvent += EndTurn;
+        _inputField.OnSendPromptEvent += SendPrompt;
+        _player.OnPlayerDeath += LoseCombat;
+        _ai.OnAISane += EndCombat;
+            
         
+        _ai.Initialize(_player);
         StartTurn();
-        
     }
 
  
@@ -65,8 +44,13 @@ public class CombatManager : MonoBehaviour
     private void SendPrompt(List<PromptType> prompts)
     {
         //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
-
         Debug.Log("Sending Prompt.");
+        int sumSanity = 0;
+        foreach (var prompt in prompts)
+        {
+            sumSanity += 10;
+        }
+        _ai.ChangeSanity(sumSanity);
         EndTurn();
     }
     
@@ -74,7 +58,10 @@ public class CombatManager : MonoBehaviour
     {
         Debug.Log("Ending Turn");
         _player.DiscardAllCards();
-        EnemyAdvancement();
+        if (!_ai.IsSane())
+        {
+            EnemyAdvancement();
+        }
     }
 
 
@@ -86,23 +73,33 @@ public class CombatManager : MonoBehaviour
     }
 
     
-    public void EndCombat()
+    private void EndCombat()
     {
-        // Sends the player to road select screen
+        // Reward is presented to the player
+        Debug.Log("Ending Combat");
+        _cardReward.DisplayCardReward();
+        // In UI Player can load next scene
         
+    }
+
+    public void LoadNextScene()
+    {
+        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
     
     private void LoseCombat()
     {
         // Game Over the player
+        
+        GameManager.GameOver();
     }
 
     private void OnDisable()
     {
         _inputField.OnEndingTurnEvent -= EndTurn;
         _inputField.OnSendPromptEvent -= SendPrompt;
-        _player.OnPlayerDeath -= EndCombat;
-        _ai.OnAISane -= LoseCombat;
+        _player.OnPlayerDeath -= LoseCombat;
+        _ai.OnAISane -= EndCombat;
     }
 
 }

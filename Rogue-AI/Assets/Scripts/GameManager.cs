@@ -11,9 +11,10 @@ public static class GameManager
     
     // Player Variables
     public static int PlayerMaxHealth = 100;
-
+    public static CardCollection PlayerCardCollection;
+    
     private static List<RoomData> _rooms = new ();
-
+    
     public static void AddRoomsToList(List<RoomData> addedRooms)
     {
         foreach (var newRoom in addedRooms)
@@ -35,11 +36,16 @@ public static class GameManager
     }
     
 
-    private static void RemoveRoomFromList(RoomData room)
+    public static void RemoveRoomFromListAndLoadNextScene()
     {
-        _rooms.Remove(room);
+        _rooms.RemoveAt(0);
+        LoadNextRoom();
     }
-    
-    
+
+
+    public static void GameOver()
+    {
+        Debug.Log("Game Over, You Lost The Game");
+    }
     
 }

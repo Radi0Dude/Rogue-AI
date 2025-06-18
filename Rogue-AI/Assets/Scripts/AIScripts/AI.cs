@@ -2,15 +2,18 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class AI : MonoBehaviour
 {
     public event Action OnAISane;
-    
-    
-    [Header("UI Elements")]
+
+
+    [FormerlySerializedAs("Canvas")]
+    [Header("UI Elements")] 
+    [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text aiSanityText;
     [SerializeField] private Image sanityBar;
     
@@ -18,7 +21,7 @@ public class AI : MonoBehaviour
     private float _currentSanity;
     private int _countDown;
     
-    private AIData _data;
+    [SerializeField] private AIData _data;
     private Player _player;
     private AIActionData _currentAction;
 
@@ -75,11 +78,17 @@ public class AI : MonoBehaviour
         else if (_currentSanity >= _maxSanity)
         {
             _currentSanity = _maxSanity;
+            canvas.enabled = false;
             Debug.Log("AI was made sane");
             OnAISane?.Invoke();
         }
         UpdateUI();
 
+    }
+
+    public bool IsSane()
+    {
+        return Mathf.Approximately(_currentSanity, _maxSanity);
     }
 
     private void UpdateUI()

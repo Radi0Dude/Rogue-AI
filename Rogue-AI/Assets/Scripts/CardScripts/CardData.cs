@@ -24,6 +24,7 @@ public class CardData : ScriptableObject
 {
     public CardType cardType;
     public PromptType promptType;
+    public AITypes effectiveAgainst;
 
     public string cardName;
     [TextArea]

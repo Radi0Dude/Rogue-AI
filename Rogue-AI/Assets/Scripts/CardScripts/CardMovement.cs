@@ -43,24 +43,23 @@ public class CardMovement : MonoBehaviour
 
     private void TryPlayCard()
     {
-        if (_card != null)
+        if (_card == null) return;
+        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100))
+            if (hit.transform.TryGetComponent(out PlayArea playArea))
             {
-                if (hit.transform.TryGetComponent(out PlayArea playArea))
-                {
-                    // Play Card
-                    deck.DiscardCard(_card);
-                    playArea.PlayCard(_card);
-                    // TODO: Send signal to prompt bar and perform actions
-                }
-                else
-                {
-                    // Return card to hand
-                    deck.UpdateCardPositionsHand();
-                }
+                // Play Card
+                deck.DiscardCard(_card);
+                playArea.PlayCard(_card);
+                // TODO: Send signal to prompt bar and perform actions
+            }
+            else
+            {
+                // Return card to hand
+                deck.UpdateCardPositionsHand();
             }
         }
     }

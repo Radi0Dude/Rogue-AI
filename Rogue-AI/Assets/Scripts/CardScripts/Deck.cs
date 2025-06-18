@@ -8,9 +8,10 @@ public class Deck : MonoBehaviour
     public static Deck Instance {get; private set;} //Singleton
 
     [SerializeField] private Hand hand;
+    [SerializeField] private Card cardPrefab;
     
     [SerializeField] private CardCollection playerDeck;
-    [SerializeField] private Card cardPrefab;
+
 
     private List<Card> _deckPile = new ();
     private List<Card> _discardPile = new ();
@@ -22,7 +23,16 @@ public class Deck : MonoBehaviour
         if (Instance == null)
             Instance = this;
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+
+        CardCollection deck = GameManager.PlayerCardCollection;
+        if (deck)
+        {
+            if (deck.CardsInCollection.Count > 0)
+            {
+                playerDeck = deck;
+            }
+        }
         
         InstantiateDeck();
     }

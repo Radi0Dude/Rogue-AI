@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6e5ccf6f67a6b847a6363e1dd71f86f, type: 3}
-  m_Name: PlayerCardCollection
+  m_Name: StartingPlayerCardCollection
   m_EditorClassIdentifier: 
   CardsInCollection:
   - {fileID: 11400000, guid: d7abddbe361044745a0402987f4b9bf2, type: 2}
