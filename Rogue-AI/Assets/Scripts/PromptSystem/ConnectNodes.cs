@@ -14,6 +14,7 @@ public class ConnectNodes : MonoBehaviour
 	public string promptText;
 
 	CardData thisCardData;
+	public string cardName;
 
 	private void Update()
 	{
