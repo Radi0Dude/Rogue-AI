@@ -26,7 +26,7 @@ public class SignManager : MonoBehaviour
             signs[i].enabled = true;
             
             // Create and Send list of rooms
-            signs[i].Init(crossRoadData.GetRandomRooms(_numberOfSigns));
+            signs[i].Init(crossRoadData.GetRandomRooms(_numberOfSigns), signRoom);
         }
     }
 }

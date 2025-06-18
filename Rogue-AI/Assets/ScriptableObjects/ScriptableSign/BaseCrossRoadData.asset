@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3681c190a9f191148ba9f1139f0cef8a, type: 3}
-  m_Name: BaseSignData
+  m_Name: BaseCrossRoadData
   m_EditorClassIdentifier: 
   rooms:
   - {fileID: 11400000, guid: 58bf7436c12e3264a9a330d422c71b66, type: 2}

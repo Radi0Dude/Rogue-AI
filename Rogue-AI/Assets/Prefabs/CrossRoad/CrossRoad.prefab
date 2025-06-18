@@ -132,7 +132,8 @@ MonoBehaviour:
   - {fileID: 5022254781765073775}
   - {fileID: 8617324033683139606}
   - {fileID: 3581293915045606595}
-  signData: {fileID: 11400000, guid: 4c19ca0a3c8b1924facc203a6f791b90, type: 2}
+  crossRoadData: {fileID: 11400000, guid: 4c19ca0a3c8b1924facc203a6f791b90, type: 2}
+  signRoom: {fileID: 11400000, guid: af4307ff9220c6d48aeb347ac865f14f, type: 2}
 --- !u!1 &4532125416601556804
 GameObject:
   m_ObjectHideFlags: 0

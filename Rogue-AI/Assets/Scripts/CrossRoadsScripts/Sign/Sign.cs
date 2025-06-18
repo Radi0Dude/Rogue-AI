@@ -9,10 +9,11 @@ public class Sign : MonoBehaviour
     private List<RoomData> _rooms = new();
     
     
-    public void Init(List<RoomData> rooms)
+    public void Init(List<RoomData> rooms, SignRoom signRoom)
     {
         _rooms = rooms;
         SetIcons();
+        _rooms.Add(signRoom);
     }
 
     private void SetIcons()

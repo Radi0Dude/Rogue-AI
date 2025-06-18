@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2dca71e9aaa4b66bd4356dc1fc01073, type: 3}
-  m_Name: FirstSignRoom
+  m_Name: TestSignRoom
   m_EditorClassIdentifier: 
   roomName: First Sign Room
   roomIcon: {fileID: 21300000, guid: ada3f29e6973f6d4ca61ea8adc98548f, type: 3}
-  sceneNameToLoad: 
+  sceneNameToLoad: 1_PathTestScene

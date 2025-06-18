@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class GameManager
@@ -19,19 +20,26 @@ public static class GameManager
         {
             _rooms.Add(newRoom);
         }
+        LoadNextRoom();
     }
 
+    public static RoomData GetNextRoom()
+    {
+        return _rooms[0];
+    }
+    
+    
     private static void LoadNextRoom()
     {
         SceneManager.LoadScene(_rooms[0].sceneNameToLoad);
     }
+    
 
-    public static void RemoveCompletedRoom()
+    private static void RemoveRoomFromList(RoomData room)
     {
-        _rooms.RemoveAt(0);
-
-        LoadNextRoom();
+        _rooms.Remove(room);
     }
+    
     
     
 }
