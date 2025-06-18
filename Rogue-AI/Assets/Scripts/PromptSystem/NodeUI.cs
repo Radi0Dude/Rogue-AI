@@ -13,6 +13,9 @@ public class NodeUI : MonoBehaviour
 	RectTransform rectTransform;
 	bool isOut;
 
+	[SerializeField]
+	GameObject SelectCardPrefab;
+
 	VisualPromptSystem promptSystem;
 	ConnectNodes connectNodes;
 	bool isPrompt;
