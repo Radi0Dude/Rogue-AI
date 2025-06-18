@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
@@ -16,12 +17,13 @@ public class NodeUI : MonoBehaviour
 	[SerializeField]
 	GameObject SelectCardPrefab;
 
-	VisualPromptSystem promptSystem;
+	PromptSystem promptSystem;
+	VisualPromptSystem visualPromptSystem;
 	ConnectNodes connectNodes;
 	bool isPrompt;
 	[SerializeField]
 	string nothingToEdit;
-	[SerializeField]		
+	[SerializeField]
 	TMP_Text nothingToEditText;
 
 	GameObject button;
@@ -29,13 +31,20 @@ public class NodeUI : MonoBehaviour
 	string cardLabel = "Card";
 
 	GameObject getText;
+	[SerializeField]
+	GameObject getSelectCards;
+	[SerializeField]
+	GameObject getSelectCardSpawnPoint;
 
 	bool corutineIsRunning;
+
+	List<CardData> cards = new List<CardData>();
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
 		startPosition = rectTransform.anchoredPosition;
-		promptSystem = FindFirstObjectByType<VisualPromptSystem>();
+		visualPromptSystem = FindFirstObjectByType<VisualPromptSystem>();
+		promptSystem = FindFirstObjectByType<PromptSystem>();
 		PromptButtonTag promptButtonTag = GetComponentInChildren<PromptButtonTag>();
 		getText = FindFirstObjectByType<TMP_InputField>().gameObject;
 		button = promptButtonTag.gameObject;
@@ -44,29 +53,29 @@ public class NodeUI : MonoBehaviour
 	{
 		if (!isOut)
 		{
-			if (promptSystem.currenntlySelectedObject == null)
+			if (visualPromptSystem.currenntlySelectedObject == null)
 			{
-				
+
 				StartCoroutine(NothingToEditCor(2f));
 				return;
 			}
-			if(corutineIsRunning)
+			if (corutineIsRunning)
 			{
 				return;
 			}
-			connectNodes = promptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
+			connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
 			StartCoroutine(SlideOut(.5f));
 			isOut = true;
 		}
 		else
 		{
-			if(corutineIsRunning)
+			if (corutineIsRunning)
 			{
 				return;
 			}
 			StartCoroutine(SlideIn(.5f));
 			isOut = false;
-		}		
+		}
 	}
 
 	IEnumerator NothingToEditCor(float duration)
@@ -76,7 +85,7 @@ public class NodeUI : MonoBehaviour
 		nothingToEditText.gameObject.SetActive(true);
 		float elapsedTime = 0f;
 
-		while(elapsedTime < duration)
+		while (elapsedTime < duration)
 		{
 			float t = elapsedTime / duration;
 			nothingToEditText.color = Color.Lerp(Color.white, Color.clear, t);
@@ -86,17 +95,17 @@ public class NodeUI : MonoBehaviour
 		nothingToEditText.gameObject.SetActive(false);
 		corutineIsRunning = false;
 	}
-	
+
 	IEnumerator SlideOut(float duration)
 	{
 		corutineIsRunning = true;
 		float elapsedTime = 0f;
-		
+
 		while (elapsedTime < duration)
 		{
 			float t = elapsedTime / duration;
 			float easedT = slideCurve.Evaluate(t);
-			
+
 			rectTransform.anchoredPosition = Vector2.LerpUnclamped(startPosition, targetPosition, easedT);
 			elapsedTime += Time.deltaTime;
 			yield return null;
@@ -117,14 +126,14 @@ public class NodeUI : MonoBehaviour
 			elapsedTime += Time.deltaTime;
 			yield return null;
 		}
-		rectTransform.anchoredPosition = startPosition; 
+		rectTransform.anchoredPosition = startPosition;
 		isOut = false;
 	}
 
 	private void Update()
 	{
 		CheckSelectedObject();
-		if(connectNodes == null) return;
+		if (connectNodes == null) return;
 		if (isPrompt != connectNodes.isPrompt)
 		{
 			IsPrompt();
@@ -133,20 +142,20 @@ public class NodeUI : MonoBehaviour
 
 	void CheckSelectedObject()
 	{
-		if (promptSystem.currenntlySelectedObject == null) return;
-		if(connectNodes == null) return;
-		if (connectNodes.gameObject != promptSystem.currenntlySelectedObject)
+		if (visualPromptSystem.currenntlySelectedObject == null) return;
+		if (connectNodes == null) return;
+		if (connectNodes.gameObject != visualPromptSystem.currenntlySelectedObject)
 		{
-			connectNodes = promptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
+			connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
 			isPrompt = connectNodes.isPrompt;
 			UpdateButton();
 		}
-		
+
 	}
 
 	public void UpdateText(TMP_InputField text)
 	{
-		connectNodes = promptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
+		connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
 		connectNodes.UpdatePromptText(text.text);
 	}
 
@@ -161,12 +170,27 @@ public class NodeUI : MonoBehaviour
 			button.GetComponentInChildren<TMP_Text>().text = cardLabel;
 		}
 	}
+
 	public void IsPrompt()
 	{
 		isPrompt = !isPrompt;
 		getText.SetActive(isPrompt);
-		connectNodes = promptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
-		connectNodes.isPrompt = isPrompt;
-		UpdateButton();
+		getSelectCards.SetActive(!isPrompt);
+		if (getSelectCards.activeSelf == true)
+		{
+			if (cards.Count != promptSystem.cards.Count)
+			{
+				cards = promptSystem.cards;
+				foreach (var card in cards)
+				{
+					GameObject selectCard = Instantiate(SelectCardPrefab, getSelectCardSpawnPoint.transform);
+					selectCard.transform.parent = getSelectCardSpawnPoint.transform;
+					selectCard.GetComponent<ChangeNameAndImage>().ChangeNameImage(card.cardName, card.cardImage);
+				}
+			}
+			connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
+			connectNodes.isPrompt = isPrompt;
+			UpdateButton();
+		}
 	}
 }

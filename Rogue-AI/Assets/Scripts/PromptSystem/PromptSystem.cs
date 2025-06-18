@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PromptSystem : MonoBehaviour
 {
-	[SerializeField] List<CardData> cards = new List<CardData>();
+	[SerializeField] public List<CardData> cards = new List<CardData>();
 
 	VisualPromptSystem visualPromptSystem;
 

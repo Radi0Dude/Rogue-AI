@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 7464791670538018571}
   - component: {fileID: 678092312397506505}
   - component: {fileID: 2953870494352334147}
+  - component: {fileID: 1164382141130225461}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -273,6 +274,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1164382141130225461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7255633735949480659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c0a01d0e52a09c49895d2287e71bdc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameText: {fileID: 2125056974842838898}
+  imageComponent: {fileID: 2844711887421867210}
 --- !u!1 &8421926685636842125
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +380,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 68.8
+  m_fontSize: 18
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
