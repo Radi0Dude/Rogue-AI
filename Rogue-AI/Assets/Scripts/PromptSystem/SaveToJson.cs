@@ -12,6 +12,11 @@ public class SaveToJson : MonoBehaviour
     {
         FindFirstNode();
 		
+		if(findFirstNode == null)
+		{
+			Debug.LogError("No starting node found. Please ensure there is a node with no connections.");
+		}
+
 		foreach (GameObject obj in findFirstNode.connectedTo)
 		{
 
