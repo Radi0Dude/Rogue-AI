@@ -13,7 +13,7 @@ public static class GameManager
 
     private static List<RoomData> _rooms = new ();
 
-    public static void AddToRoomList(List<RoomData> addedRooms)
+    public static void AddRoomsToList(List<RoomData> addedRooms)
     {
         foreach (var newRoom in addedRooms)
         {

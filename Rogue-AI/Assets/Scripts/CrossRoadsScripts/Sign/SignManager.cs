@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class SignManager : MonoBehaviour
 {
     [SerializeField] private List<Sign> signs;
     [Tooltip("Data about what rooms can be encountered in this sign area")]
-    [SerializeField] private SignData signData;
+    [SerializeField] private CrossRoadData crossRoadData;
     [Tooltip("The Room scriptable object for the next sign post")]
     [SerializeField] private SignRoom signRoom;
     
@@ -25,7 +26,7 @@ public class SignManager : MonoBehaviour
             signs[i].enabled = true;
             
             // Create and Send list of rooms
-            signs[i].Init(signData.GetRandomRooms(_numberOfSigns));
+            signs[i].Init(crossRoadData.GetRandomRooms(_numberOfSigns));
         }
     }
 }

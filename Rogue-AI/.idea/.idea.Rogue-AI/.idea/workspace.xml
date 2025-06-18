@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseCombatRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseCombatRoom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseEventRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseEventRoom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseRestSiteRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseRestSiteRoom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseTreasureRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/ScriptableRooms/BaseTreasureRoom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/FirstSignRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/FirstSignRoom.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/CrossRoad/Sign.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/CrossRoad/Sign.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AICombat_Scene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/AICombat_Scene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/PathTestScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Sign/Sign.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Sign/Sign.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +120,7 @@
       <workItem from="1749717750676" duration="14935000" />
       <workItem from="1749805748585" duration="8082000" />
       <workItem from="1749975879076" duration="316000" />
+      <workItem from="1750232467599" duration="899000" />
     </task>
     <servers />
   </component>

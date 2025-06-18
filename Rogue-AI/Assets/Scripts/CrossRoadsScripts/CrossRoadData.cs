@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu (fileName = "SignData", menuName = "CrossRoad/Sign")]
-public class SignData : ScriptableObject
+[CreateAssetMenu (fileName = "CrossRoadData", menuName = "CrossRoad/CrossRoad")]
+public class CrossRoadData : ScriptableObject
 {
     public List<RoomData> rooms;
 

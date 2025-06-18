@@ -27,5 +27,6 @@ public class Sign : MonoBehaviour
     public void ChoosePathWhenPressed()
     {
         // Should save selected rooms down path
+        GameManager.AddRoomsToList(_rooms);
     }
 }
