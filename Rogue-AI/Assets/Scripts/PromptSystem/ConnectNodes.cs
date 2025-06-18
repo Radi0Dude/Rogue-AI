@@ -4,17 +4,32 @@ using System;
 
 public class ConnectNodes : MonoBehaviour
 {
+	[Header("Connections")]
 	public List<GameObject> connectedTo = new List<GameObject>();
-	public List<LineRenderer> connectorLines = new List<LineRenderer>();
-
 	public List<GameObject> connectedFrom = new List<GameObject>();
+
+	[Header("Visual Lines")]
+	public List<LineRenderer> connectorLines = new List<LineRenderer>();
 	public List<LineRenderer> connectedLines = new List<LineRenderer>();
 
-	public bool isPrompt;
-	public string promptText;
+	[Header("Node Properties")]
+	public bool isPrompt = true;
+	[TextArea] public string promptText;
+	public string nodeName;
 
-	CardData thisCardData;
-	public string cardName;
+	[Header("Option Labels (match connections)")]
+	public List<string> optionTexts = new List<string>();
+
+	[SerializeField] CardData thisCardData;
+
+	private void OnValidate()
+	{
+		while (optionTexts.Count < connectedTo.Count)
+			optionTexts.Add("Option");
+
+		while (optionTexts.Count > connectedTo.Count)
+			optionTexts.RemoveAt(optionTexts.Count - 1);
+	}
 
 	private void Update()
 	{
@@ -26,29 +41,17 @@ public class ConnectNodes : MonoBehaviour
 		thisCardData = cardData;
 	}
 
-
-
 	private void UpdateLines()
 	{
-		foreach(LineRenderer line in connectorLines)
-		{
-			line.SetPosition(0, transform.position);
-		}
-		foreach(LineRenderer line in connectedLines)
-		{
-			line.SetPosition(1, transform.position);
-		}
+		foreach (LineRenderer line in connectorLines)
+			if (line) line.SetPosition(0, transform.position);
+
+		foreach (LineRenderer line in connectedLines)
+			if (line) line.SetPosition(1, transform.position);
 	}
 
 	public void UpdatePromptText(string text)
 	{
-		if (isPrompt)
-		{
-			promptText = text;
-		}
-		else
-		{
-			promptText = "This is a Card Node";			
-		}
+		promptText = isPrompt ? text : "This is a Card Node";
 	}
 }

@@ -1,24 +1,25 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using static SaveToJson;
+using System.IO;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class SaveToJson : MonoBehaviour
 {
-    ConnectNodes findFirstNode;
+	ConnectNodes findFirstNode;
 
-    
+	public void ToJson()
+	{
+		FindFirstNode();
 
-
-    public void ToJson()
-    {
-        FindFirstNode();
-		
-		if(findFirstNode == null)
+		if (findFirstNode == null)
 		{
 			Debug.LogError("No starting node found. Please ensure there is a node with no connections.");
 			return;
 		}
+
 		var nodeList = new List<PromptNodeData>();
 		var visitedNodes = new HashSet<ConnectNodes>();
 
@@ -26,6 +27,14 @@ public class SaveToJson : MonoBehaviour
 
 		string json = JsonUtility.ToJson(new PromptNodeDataList { nodes = nodeList }, true);
 
+		Debug.Log(json);
+
+		// Optionally, save the JSON to a file in the Editor
+#if UNITY_EDITOR
+		string path = EditorUtility.SaveFilePanel("Save Story JSON", "", "story.json", "json");
+		if (!string.IsNullOrEmpty(path))
+			File.WriteAllText(path, json);
+#endif
 	}
 
 	private void FindFirstNode()
@@ -33,7 +42,7 @@ public class SaveToJson : MonoBehaviour
 		ConnectNodes[] nodes = FindObjectsByType<ConnectNodes>(FindObjectsSortMode.None);
 		foreach (ConnectNodes node in nodes)
 		{
-			if (node.connectedFrom.Count == 0)
+			if (node.connectedFrom == null || node.connectedFrom.Count == 0)
 			{
 				findFirstNode = node;
 				break;
@@ -43,34 +52,40 @@ public class SaveToJson : MonoBehaviour
 
 	void Traverse(ConnectNodes node, List<PromptNodeData> nodeList, HashSet<ConnectNodes> visited)
 	{
-		if(visited.Contains(node))
+		if (visited.Contains(node))
 		{
 			return;
 		}
 		visited.Add(node);
+
 		var nodeData = new PromptNodeData
 		{
-			nodeId = node.gameObject.name,
+			nodeId = node.nodeName,
 			text = node.promptText,
 			options = new List<PromptOptionData>()
 		};
 
-		foreach (GameObject obj in node.connectedTo)
+		// Loop through each option and its connected node
+		for (int i = 0; i < node.connectedTo.Count; i++)
 		{
-			var targetNode = obj.GetComponent<ConnectNodes>();
+			var targetObj = node.connectedTo[i];
+			var targetNode = targetObj != null ? targetObj.GetComponent<ConnectNodes>() : null;
 			if (targetNode != null)
 			{
-				// Optionally grab option text from your node structure
-				string optionText = "Option"; // Replace with actual option text if you have it
+				string optionText = (node.optionTexts != null && i < node.optionTexts.Count)
+					? node.optionTexts[i]
+					: "Option";
+
 				nodeData.options.Add(new PromptOptionData
 				{
 					optionText = optionText,
-					nextNodeId = targetNode.cardName
+					nextNodeId = targetNode.nodeName
 				});
 
 				Traverse(targetNode, nodeList, visited);
 			}
 		}
+
 		nodeList.Add(nodeData);
 	}
 
@@ -80,14 +95,15 @@ public class SaveToJson : MonoBehaviour
 		public string optionText;
 		public string nextNodeId;
 	}
+
 	[System.Serializable]
 	public class PromptNodeData
 	{
 		public string nodeId;
 		public string text;
 		public List<PromptOptionData> options = new List<PromptOptionData>();
-
 	}
+
 	[System.Serializable]
 	public class PromptNodeDataList
 	{
