@@ -1,16 +1,38 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
+
+public enum CardPlayState
+{
+    Play,
+    Delete
+}
 
 public class CardMovement : MonoBehaviour
 {
-    [SerializeField] private Deck deck;
-    [SerializeField] private Hand hand;
+    private Deck _deck;
+    private Card _card;
+    private CardPlayState _cardPlayState;
     
     private bool _isMoving;
-    private Card _card;
-    
-    
+    private int _cardsToDelete;
+
+    [SerializeField] private Image deleteWarningPanel;
+
+    private void Awake()
+    {
+        _deck = FindAnyObjectByType<Deck>();
+        
+    }
+
+    private void Start()
+    {
+        _deck.OnDeletePlayed += ChangePlayStateToDelete;
+    }
+
     private void Update()
     {
         if (_isMoving)
@@ -25,11 +47,25 @@ public class CardMovement : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 100))
         {
-            if (hit.transform.TryGetComponent<Card>(out Card card))
+            if (hit.transform.TryGetComponent(out Card card))
             {
-                _isMoving = true;
+                switch (_cardPlayState)
+                {
+                    case CardPlayState.Play:
+                        _isMoving = true;
 
-                _card = card;
+                        _card = card;
+                        break;
+                    case CardPlayState.Delete:
+                        _deck.DeleteCard(card);
+
+                        _cardsToDelete--;
+                        if (_cardsToDelete == 0)
+                        {
+                            ChangePlayStateToPlay();
+                        }
+                        break;
+                }
             }
         }
     }
@@ -52,14 +88,14 @@ public class CardMovement : MonoBehaviour
             if (hit.transform.TryGetComponent(out PlayArea playArea))
             {
                 // Play Card
-                deck.DiscardCard(_card);
+                _deck.DiscardCard(_card);
                 playArea.PlayCard(_card);
                 // TODO: Send signal to prompt bar and perform actions
             }
             else
             {
                 // Return card to hand
-                deck.UpdateCardPositionsHand();
+                _deck.UpdateCardPositionsHand();
             }
         }
     }
@@ -76,5 +112,21 @@ public class CardMovement : MonoBehaviour
             TryPlayCard();
             _card = null;
         }
+    }
+
+    private void ChangePlayStateToDelete(int numb)
+    {
+        // Adds UI 
+        deleteWarningPanel.gameObject.SetActive(true);
+        
+        _cardPlayState = CardPlayState.Delete;
+        _cardsToDelete = numb;
+    }
+
+    private void ChangePlayStateToPlay()
+    {
+        deleteWarningPanel.gameObject.SetActive(false);
+        
+        _cardPlayState = CardPlayState.Play;
     }
 }

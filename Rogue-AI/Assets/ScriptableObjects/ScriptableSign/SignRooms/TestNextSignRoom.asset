@@ -15,5 +15,6 @@ MonoBehaviour:
   roomName: First Sign Room
   roomIcon: {fileID: 21300000, guid: ada3f29e6973f6d4ca61ea8adc98548f, type: 3}
   sceneNameToLoad: 1_PathTestScene
-  numberOfSigns: 1
-  placesToGo: 2
+  numberOfSigns: 3
+  placesToGo: 3
+  nextSignRoom: {fileID: 11400000}

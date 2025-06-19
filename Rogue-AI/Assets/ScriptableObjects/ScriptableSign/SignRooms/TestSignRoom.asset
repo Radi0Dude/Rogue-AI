@@ -17,3 +17,4 @@ MonoBehaviour:
   sceneNameToLoad: 1_PathTestScene
   numberOfSigns: 1
   placesToGo: 2
+  nextSignRoom: {fileID: 11400000, guid: 3eca63bacf3fb6c4ca0da176cdb3f4ed, type: 2}

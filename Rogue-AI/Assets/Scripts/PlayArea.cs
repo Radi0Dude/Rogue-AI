@@ -31,7 +31,7 @@ public class PlayArea : MonoBehaviour
             }
             else if (cardType == CardType.Delete)
             {
-                //Delete x card
+                _deck.PlayedDeleteCard(cardData.cardsToDelete);
             }
             else if (cardType == CardType.Virus)
             {
