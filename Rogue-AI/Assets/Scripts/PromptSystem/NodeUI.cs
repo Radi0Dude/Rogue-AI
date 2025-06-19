@@ -39,6 +39,7 @@ public class NodeUI : MonoBehaviour
 	bool corutineIsRunning;
 
 	List<CardData> cards = new List<CardData>();
+	GameObject currentlySelectedObject;
 	private void Awake()
 	{
 		rectTransform = GetComponent<RectTransform>();
@@ -134,7 +135,7 @@ public class NodeUI : MonoBehaviour
 	{
 		CheckSelectedObject();
 		if (connectNodes == null) return;
-		if (isPrompt != connectNodes.isPrompt)
+		if (currentlySelectedObject != visualPromptSystem.currenntlySelectedObject)
 		{
 			IsPrompt();
 		}
@@ -173,7 +174,16 @@ public class NodeUI : MonoBehaviour
 
 	public void IsPrompt()
 	{
-		isPrompt = !isPrompt;
+		if(currentlySelectedObject != visualPromptSystem.currenntlySelectedObject || currentlySelectedObject == null)
+		{
+			isPrompt = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>().isPrompt;
+		
+		}
+		else
+		{
+			isPrompt = !isPrompt;
+		}
+
 		getText.SetActive(isPrompt);
 		getSelectCards.SetActive(!isPrompt);
 		if (getSelectCards.activeSelf == true)
@@ -186,11 +196,15 @@ public class NodeUI : MonoBehaviour
 					GameObject selectCard = Instantiate(SelectCardPrefab, getSelectCardSpawnPoint.transform);
 					selectCard.transform.parent = getSelectCardSpawnPoint.transform;
 					selectCard.GetComponent<ChangeNameAndImage>().ChangeNameImage(card.cardName, card.cardImage);
+					selectCard.GetComponentInChildren<GetCard>().cardData = card;
+					selectCard.GetComponentInChildren<GetCard>().currentlySelected = visualPromptSystem.currenntlySelectedObject;
 				}
 			}
-			connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
-			connectNodes.isPrompt = isPrompt;
-			UpdateButton();
+			
 		}
+		connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
+		connectNodes.isPrompt = isPrompt;
+		UpdateButton();
+		currentlySelectedObject = visualPromptSystem.currenntlySelectedObject;
 	}
 }

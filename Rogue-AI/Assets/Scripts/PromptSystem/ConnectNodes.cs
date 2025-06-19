@@ -39,6 +39,7 @@ public class ConnectNodes : MonoBehaviour
 	public void AssignCardData(CardData cardData)
 	{
 		thisCardData = cardData;
+		nodeName = cardData.cardName;
 	}
 
 	private void UpdateLines()
