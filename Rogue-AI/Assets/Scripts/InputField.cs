@@ -13,6 +13,9 @@ public class InputField : MonoBehaviour
     public event Action<List<PromptType>> OnSendPromptEvent;
 
     
+    public event Action<PromptType> OnPlayCard;
+    
+    
     private string _currentPrompt = "Prompt";
     
     private List<PromptType> _promptTypes = new();
@@ -26,7 +29,7 @@ public class InputField : MonoBehaviour
         UpdateVisual();
     }
 
-    private void GetNewPrompt()
+    public void GetNewPrompt()
     {
         // Returns start of new prompt for the player to adjust
         // TODO: Connect to Tobias' prompt generator
@@ -35,6 +38,7 @@ public class InputField : MonoBehaviour
     public void UpdatePrompt(PromptType promptType)
     {
         // TODO: Lines of code that connects Tobias' prompt generator
+        OnPlayCard?.Invoke(promptType);
         
         _currentPrompt = promptType + " " + promptText.text;
         _promptTypes.Add(promptType);
