@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Flags]
@@ -24,10 +25,31 @@ public class CardData : ScriptableObject
 {
     public CardType cardType;
     public PromptType promptType;
+    public AITypes effectiveAgainst;
 
     public string cardName;
     [TextArea]
     public string cardDescription;
     public Sprite cardSymbol;
     public Sprite cardImage;
+
+    [Header("Only need to be filled for the respective card type\n E.g. cardsToDraw only matter if cardType Draw is selected")]
+    public int cardsToDraw = 1;
+    public int cardsToDelete = 1;
+    
+    public List<CardType> GetCardTypes()
+    {
+        List<CardType> result = new List<CardType>();
+
+        foreach (CardType type in Enum.GetValues(typeof(CardType)))
+        {
+            if (cardType.HasFlag(type))
+            {
+                result.Add(type);
+            }
+        }
+
+        return result;
+    }
+
 }

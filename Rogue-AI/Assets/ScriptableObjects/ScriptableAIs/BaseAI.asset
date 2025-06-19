@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BaseAI
   m_EditorClassIdentifier: 
   maxSanity: 100
-  startSanity: 10
+  startSanity: 90
   aiType: 0
   aiActions:
   - {fileID: 11400000, guid: 30966cf2c9a7d14429e9e012379b80cd, type: 2}

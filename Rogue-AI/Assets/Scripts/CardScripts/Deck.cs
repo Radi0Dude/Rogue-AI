@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,20 +11,36 @@ public class Deck : MonoBehaviour
 
     [SerializeField] private Hand hand;
     
-    [SerializeField] private CardCollection playerDeck;
     [SerializeField] private Card cardPrefab;
+    
+    [SerializeField] private CardCollection playerDeck;
+
+    public event Action<int> OnDeletePlayed;
+
 
     private List<Card> _deckPile = new ();
     private List<Card> _discardPile = new ();
 
-    [SerializeField] public List<Card> HandCards { get; private set; } = new();
+    [SerializeField] private List<Card> HandCards { get; set; } = new();
 
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+
+        hand = FindAnyObjectByType<Hand>();
+        
+        
+        CardCollection deck = GameManager.PlayerCardCollection;
+        if (deck)
+        {
+            if (deck.CardsInCollection.Count > 0)
+            {
+                playerDeck = deck;
+            }
+        }
         
         InstantiateDeck();
     }
@@ -85,6 +103,29 @@ public class Deck : MonoBehaviour
             _discardPile.Add(card);
             UpdateCardPositionsHand();
         }
+    }
+
+    public void DeleteCard(Card card)
+    {
+        if (HandCards.Contains(card))
+        {
+            card.gameObject.SetActive(false);
+            HandCards.Remove(card);
+            Destroy(card.gameObject);
+            UpdateCardPositionsHand();
+        }
+    }
+
+    public void PlayedDeleteCard(int numbToDelete)
+    {
+        if (HandCards.Count < numbToDelete)
+        {
+            numbToDelete = HandCards.Count;
+            if (numbToDelete > 0)
+                OnDeletePlayed?.Invoke(numbToDelete); 
+        }
+        else
+            OnDeletePlayed?.Invoke(numbToDelete);
     }
 
     public void DiscardAllCards()

@@ -8,9 +8,14 @@ public class Player : MonoBehaviour
     public event Action OnPlayerDeath;
     
     [SerializeField] private TMP_Text healthText;
-    [SerializeField] private Deck deck;
+    private Deck _deck;
     
     private static int _currentHealth = GameManager.PlayerMaxHealth;
+
+    private void Awake()
+    {
+        _deck = FindAnyObjectByType<Deck>();
+    }
 
     private void Start()
     {
@@ -19,7 +24,7 @@ public class Player : MonoBehaviour
 
     public void DrawHand()
     {
-        deck.DrawHand(GameManager.StartOfRoundDraw);
+        _deck.DrawHand(GameManager.StartOfRoundDraw);
     }
 
     public void ChangeHealth(int value)
@@ -41,6 +46,6 @@ public class Player : MonoBehaviour
 
     public void DiscardAllCards()
     {
-        deck.DiscardAllCards();
+        _deck.DiscardAllCards();
     }
 }
