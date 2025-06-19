@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace Editor
 {
+    /*
     [InitializeOnLoad]
     public class StartupSceneLoader
     {
@@ -27,5 +28,5 @@ namespace Editor
                 }
             }
         }
-    }
+    }*/
 }
