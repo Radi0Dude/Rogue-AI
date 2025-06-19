@@ -20,6 +20,7 @@ public class Sign : MonoBehaviour
     {
         for (int i = 0; i < _rooms.Count; i++)
         {
+            iconPos[i].gameObject.SetActive(true);
             iconPos[i].sprite = _rooms[i].roomIcon;
         }
     }

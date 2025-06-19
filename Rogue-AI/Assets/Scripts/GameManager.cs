@@ -15,18 +15,29 @@ public static class GameManager
     
     private static List<RoomData> _rooms = new ();
     
+    private static bool _isGameStarted = false;
+    
     public static void AddRoomsToList(List<RoomData> addedRooms)
     {
         foreach (var newRoom in addedRooms)
         {
             _rooms.Add(newRoom);
         }
-        LoadNextRoom();
+
+        if (_isGameStarted)
+        {
+            RemoveRoomFromListAndLoadNextScene();
+        }
+        else
+        {
+            LoadNextRoom();
+            _isGameStarted = true;
+        }
     }
 
     public static RoomData GetRoom()
     {
-        return _rooms[0];
+        return _rooms.Count == 0 ? null : _rooms[0];
     }
     
     
