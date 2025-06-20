@@ -3,6 +3,7 @@ using UnityEngine;
 using System.IO;
 using static SaveToJson;
 using System.Collections;
+using System.Linq;
 
 public class LoadUpPrompts : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class LoadUpPrompts : MonoBehaviour
 	string currentPrompt;
 	[SerializeField]
 	string[] currentOptionNames;
+	CardData currentCardPlayed;
+
+	Dictionary<string, PromptNodeData> nodeDict = new Dictionary<string, PromptNodeData>();
 
 	private void Awake()
 	{
@@ -58,6 +62,16 @@ public class LoadUpPrompts : MonoBehaviour
 		string file = files[randomStartingPrompt];
 		jsonContent = File.ReadAllText(file);
 		StartCoroutine(waitForJson());
+		BuildDict(JsonUtility.FromJson<PromptNodeDataList>(jsonContent));
+	}
+
+	public void BuildDict(PromptNodeDataList nodeDataList)
+	{
+		foreach (var n in nodeDataList.nodes)
+		{
+			nodeDict[n.nodeId] = n;
+			Debug.Log($"Node added: {n.nodeId} with text: {n.text}");
+		}
 	}
 
 	IEnumerator waitForJson()
@@ -86,9 +100,31 @@ public class LoadUpPrompts : MonoBehaviour
 		}
 	}
 
-	private void CardPlayed(PromptType promptType)
+	public void GetCurrentCard(CardData cardData)
+	{
+		currentCardPlayed = cardData;
+		if(nodeDict != null && nodeDict.TryGetValue(cardData.cardName, out PromptNodeData nodeData))
+		{
+			currentPrompt = nodeData.text;
+			currentOptionNames = new string[nodeData.options.Count];
+			for (int i = 0; i < nodeData.options.Count; i++)
+			{
+				currentOptionNames[i] = nodeData.options[i].nextNodeId;
+			}
+			Debug.Log($"Current Card: {cardData.cardName}, Prompt: {currentPrompt}");
+		}
+		else
+		{
+			Debug.LogError($"Card data for {cardData.cardName} not found in node dictionary.");
+		}
+	}
+	void UpdatePrompt()
 	{
 
+	}
+	private void CardPlayed(PromptType promptType)
+	{
+		
 	}
 
 }

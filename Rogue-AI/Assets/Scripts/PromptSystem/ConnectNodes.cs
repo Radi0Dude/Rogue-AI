@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System;
+using UnityEngine.PlayerLoop;
+using TMPro;
+using UnityEngine.UI;
 
 public class ConnectNodes : MonoBehaviour
 {
@@ -17,11 +20,24 @@ public class ConnectNodes : MonoBehaviour
 	[TextArea] public string promptText;
 	public string nodeName;
 
+	[SerializeField]
+	GameObject promptUI;
+	[SerializeField]
+	TMP_Text promptTextObject;
+	[SerializeField]
+	GameObject cardUI;
+	[SerializeField]
+	TMP_Text cardTextObject;
+
+	[SerializeField]
+	Image cardImage;
+
 	[Header("Option Labels (match connections)")]
 	public List<string> optionTexts = new List<string>();
 
 	[SerializeField] CardData thisCardData;
 
+	
 	private void OnValidate()
 	{
 		while (optionTexts.Count < connectedTo.Count)
@@ -34,6 +50,30 @@ public class ConnectNodes : MonoBehaviour
 	private void Update()
 	{
 		UpdateLines();
+		UpdateUi();
+		UpdateNodeText();
+	}
+
+	void UpdateNodeText()
+	{
+		promptTextObject.text = isPrompt ? promptText : "";
+		cardTextObject.text = isPrompt ? "" : thisCardData != null ? thisCardData.cardName : "No Card Data Assigned";
+		if(thisCardData != null && thisCardData.cardImage != null)
+		cardImage.sprite = thisCardData != null ? thisCardData.cardImage : null;
+	}
+
+	void UpdateUi()
+	{
+		if (isPrompt)
+		{
+			promptUI.SetActive(true);
+			cardUI.SetActive(false);
+		}
+		else
+		{
+			promptUI.SetActive(false);
+			cardUI.SetActive(true);
+		}
 	}
 
 	public void AssignCardData(CardData cardData)

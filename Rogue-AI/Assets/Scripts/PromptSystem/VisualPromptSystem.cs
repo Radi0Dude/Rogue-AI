@@ -36,6 +36,8 @@ public class VisualPromptSystem : MonoBehaviour
 
 	[SerializeField] LineRenderer lineRenderer;
 
+	float camMoveSpeed = 1f;
+
 	bool onHover;
 	bool startHover;
 	private enum EditorState
@@ -63,7 +65,22 @@ public class VisualPromptSystem : MonoBehaviour
 		if (EventSystem.current == null)
 			return false;
 
-		return EventSystem.current.IsPointerOverGameObject();
+		PointerEventData pointerEventData = new PointerEventData(EventSystem.current)
+		{
+			position = Input.mousePosition
+		};
+
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(pointerEventData, results);
+
+		foreach (RaycastResult result in results)
+		{
+			Canvas canvas = result.gameObject.GetComponentInParent<Canvas>();
+			if (canvas != null && canvas.renderMode != RenderMode.WorldSpace)
+				return true; 
+		}
+
+		return false; 
 	}
 	public void GetClick(InputAction.CallbackContext context)
 	{
@@ -246,13 +263,14 @@ public class VisualPromptSystem : MonoBehaviour
 	}
 	private void ScrollData()
 	{
-		if (Mouse.current != null)
+		if (Mouse.current != null && !IsPointerOverUI())
 		{
 			Vector2 scrollDelta = Mouse.current.scroll.ReadValue();
 			if (scrollDelta.y != 0)
 			{
 				mainCamera.orthographicSize -= scrollDelta.y;
 				mainCamera.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize, 2f, 20f);
+				camMoveSpeed = mainCamera.orthographicSize / 20f;
 			}
 		}
 	}
@@ -264,8 +282,8 @@ public class VisualPromptSystem : MonoBehaviour
 			Vector2 mouseDif = camPosTemp - Mouse.current.position.ReadValue();
 			camPosTemp = Mouse.current.position.ReadValue();
 
-			Vector3 newPos = new Vector3(-mouseDif.x, -mouseDif.y, 0);
-			mainCamera.transform.position += newPos * Time.deltaTime;
+			Vector3 newPos = new Vector3(mouseDif.x, mouseDif.y, 0);
+			mainCamera.transform.position += newPos * Time.deltaTime * camMoveSpeed;
 		}
 	}
 

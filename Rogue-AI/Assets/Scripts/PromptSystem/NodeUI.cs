@@ -158,6 +158,7 @@ public class NodeUI : MonoBehaviour
 	{
 		connectNodes = visualPromptSystem.currenntlySelectedObject.GetComponent<ConnectNodes>();
 		connectNodes.UpdatePromptText(text.text);
+		
 	}
 
 	void UpdateButton()

@@ -23,7 +23,7 @@ public class SaveToJson : MonoBehaviour
 		var nodeList = new List<PromptNodeData>();
 		var visitedNodes = new HashSet<ConnectNodes>();
 
-		Traverse(findFirstNode, nodeList, visitedNodes);
+		Traverse(findFirstNode, nodeList, visitedNodes, 0);
 
 		string json = JsonUtility.ToJson(new PromptNodeDataList { nodes = nodeList }, true);
 
@@ -50,7 +50,7 @@ public class SaveToJson : MonoBehaviour
 		}
 	}
 
-	void Traverse(ConnectNodes node, List<PromptNodeData> nodeList, HashSet<ConnectNodes> visited)
+	void Traverse(ConnectNodes node, List<PromptNodeData> nodeList, HashSet<ConnectNodes> visited, int id)
 	{
 		if (visited.Contains(node))
 		{
@@ -60,7 +60,8 @@ public class SaveToJson : MonoBehaviour
 
 		var nodeData = new PromptNodeData
 		{
-			nodeId = node.nodeName,
+			nodeId = node.nodeName + id.ToString(),
+			cardName = node.nodeName,
 			text = node.promptText,
 			options = new List<PromptOptionData>()
 		};
@@ -79,10 +80,11 @@ public class SaveToJson : MonoBehaviour
 				nodeData.options.Add(new PromptOptionData
 				{
 					optionText = optionText,
-					nextNodeId = targetNode.nodeName
+					nextNodeId = targetNode.nodeName,
+					
 				});
 
-				Traverse(targetNode, nodeList, visited);
+				Traverse(targetNode, nodeList, visited, i +1);
 			}
 		}
 
@@ -100,6 +102,7 @@ public class SaveToJson : MonoBehaviour
 	public class PromptNodeData
 	{
 		public string nodeId;
+		public string cardName;
 		public string text;
 		public List<PromptOptionData> options = new List<PromptOptionData>();
 	}
