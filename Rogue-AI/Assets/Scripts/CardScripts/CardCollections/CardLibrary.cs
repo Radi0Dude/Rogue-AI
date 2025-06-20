@@ -1,46 +1,89 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardLibrary : MonoBehaviour
 {
 
-    [SerializeField] private Card cardPrefab;
-    
+    [SerializeField] private GameObject uiCardPrefab;
+    [SerializeField] private MyGridLayoutGroup cardLibraryPanel;
+    [SerializeField] private Image openButton, closeButton, scrollView;
+
+    private RectTransform _rectTransform;
     private List<Card> _cards = new ();
-    private const int AmountToSpawn = 30;
 
     private void Start()
     {
         // Create Empty Blank cards for display
         InitiateCards();
+        _rectTransform = cardLibraryPanel.gameObject.GetComponent<RectTransform>();
     }
 
-    public void ViewCardsInList(List<CardData> cardsInCollection)
+
+    public void ViewCardsInList(List<CardData> cardsInCollection = null)
     {
+        OpenLibrary();
+        cardsInCollection ??= GameManager.PlayerCardCollection.CardsInCollection;
         for (int i = 0; i < cardsInCollection.Count; i++)
         {
-            _cards[i].gameObject.SetActive(true);
+            _cards[i].transform.parent.gameObject.SetActive(true);
             _cards[i].SetUp(cardsInCollection[i]);
-            // Fix position
         }
+
+        StartCoroutine(ChangeHeightOfLibrary());
     }
 
-    public void HideCards()
+    private IEnumerator ChangeHeightOfLibrary()
     {
-        foreach (var card in _cards)
-        {
-            card.gameObject.SetActive(false);
-        }
+        yield return new WaitForEndOfFrame();
+        
+        Vector2 size = _rectTransform.sizeDelta;
+        size.y = cardLibraryPanel.preferredHeight;
+        _rectTransform.sizeDelta = size;
+
     }
     
     private void InitiateCards()
     {
-        for (int i = 0; i < AmountToSpawn; i++)
+        var amountToSpawn = GameManager.PlayerCardCollection.CardsInCollection.Count;
+        for (int i = 0; i < amountToSpawn; i++)
         {
-            var cardInstance = Instantiate(cardPrefab);
-            _cards.Add(cardInstance);
-            cardInstance.gameObject.SetActive(false);
+            var uiInstance = Instantiate(uiCardPrefab, cardLibraryPanel.transform, false);
+            _cards.Add(uiInstance.GetComponentInChildren<Card>());
+            uiInstance.gameObject.SetActive(false);
         }
+        CloseLibrary();
+    }
+
+    public void ButtonPressed(bool shouldOpen)
+    {
+        if (shouldOpen)
+        {
+            ViewCardsInList();
+        }
+        else
+        {
+            CloseLibrary();
+        }
+    }
+    
+    private void CloseLibrary()
+    {
+        scrollView.gameObject.SetActive(false);
+        closeButton.gameObject.SetActive(false);
+        openButton.gameObject.SetActive(true);
+        foreach (var card in _cards)
+        {
+            card.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
+    private void OpenLibrary()
+    {
+        scrollView.gameObject.SetActive(true);
+        closeButton.gameObject.SetActive(true);
+        openButton.gameObject.SetActive(false);
     }
 }
