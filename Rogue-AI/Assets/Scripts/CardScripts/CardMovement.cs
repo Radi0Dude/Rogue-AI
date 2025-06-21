@@ -30,7 +30,7 @@ public class CardMovement : MonoBehaviour
 
     private void Start()
     {
-        _deck.OnDeletePlayed += ChangePlayStateToDelete;
+        if (_deck != null) { _deck.OnDeletePlayed += ChangePlayStateToDelete; }
     }
 
     private void Update()

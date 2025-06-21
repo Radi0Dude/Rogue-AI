@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text healthText;
     private Deck _deck;
     
-    private static int _currentHealth = GameManager.PlayerMaxHealth;
+    private static int _currentHealth = GameManager.PlayerMaxHealth/2;
 
     private void Awake()
     {
