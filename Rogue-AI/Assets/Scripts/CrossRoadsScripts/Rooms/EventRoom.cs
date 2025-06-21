@@ -4,6 +4,6 @@ using UnityEngine;
 public class EventRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Event;
-    
-    
+    public override string SceneNameToLoad => "2_AICombatScene";
+
 }

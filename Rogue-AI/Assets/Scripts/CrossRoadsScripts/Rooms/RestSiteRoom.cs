@@ -5,6 +5,6 @@ using UnityEngine;
 public class RestSiteRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.RestSite;
-    
-    
+    public override string SceneNameToLoad => "3_RestSiteScene";
+
 }

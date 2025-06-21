@@ -43,7 +43,7 @@ public static class GameManager
     
     private static void LoadNextRoom()
     {
-        SceneManager.LoadScene(_rooms[0].sceneNameToLoad);
+        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
     }
     
 

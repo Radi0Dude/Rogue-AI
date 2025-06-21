@@ -4,6 +4,7 @@ using UnityEngine;
 public class TreasureRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Treasure;
-    
+    public override string SceneNameToLoad => "2_AICombatScene";
+
     
 }

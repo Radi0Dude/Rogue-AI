@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Editor/StartupSceneLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Editor/StartupSceneLoader.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Cards/CardLibrary.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Cards/CardLibrary.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/RoomData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/RoomData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/CombatRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/CombatRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/EventRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/EventRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/RestSiteRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/RestSiteRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/SignRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/SignRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/TreasureRoom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CrossRoadsScripts/Rooms/TreasureRoom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/GameManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +125,7 @@
       <workItem from="1750232467599" duration="4009000" />
       <workItem from="1750320035236" duration="10206000" />
       <workItem from="1750403618695" duration="5989000" />
-      <workItem from="1750493447707" duration="5703000" />
+      <workItem from="1750493447707" duration="6732000" />
     </task>
     <servers />
   </component>
