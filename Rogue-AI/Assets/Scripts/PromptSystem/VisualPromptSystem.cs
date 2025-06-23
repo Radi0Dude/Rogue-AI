@@ -336,7 +336,47 @@ public class VisualPromptSystem : MonoBehaviour
 
 	public void RemoveNode()
 	{
-		// Placeholder for node deletion
+		ConnectNodes conNode = currenntlySelectedObject.GetComponent<ConnectNodes>();
+		foreach (GameObject obj in conNode.connectedTo)
+		{
+
+			ConnectNodes con = obj.GetComponent<ConnectNodes>();
+			con.connectedFrom.Remove(currenntlySelectedObject);
+			int i = 0;
+			foreach (LineRenderer line in con.connectorLines)
+			{
+				
+				if (line.gameObject == conNode.connectedLines[i].gameObject)
+				{
+					con.connectorLines.Remove(line);
+					Destroy(line.gameObject);
+					break;
+				}
+				i++;
+			}
+
+		}
+		foreach (GameObject obj in conNode.connectedFrom)
+		{
+			obj.GetComponent<ConnectNodes>().connectedTo.Remove(currenntlySelectedObject);
+			obj.GetComponent<ConnectNodes>().connectorLines.RemoveAll(line => line.gameObject == conNode.gameObject);
+		}
+		foreach (LineRenderer line in conNode.connectedLines)
+		{
+
+			Destroy(line.gameObject);
+			
+		}
+		foreach (LineRenderer line in conNode.connectorLines)
+		{
+			Destroy(line.gameObject);
+		}
+		nodes.Remove(currenntlySelectedObject);
+		conNode.connectedTo.Clear();
+		conNode.connectedFrom.Clear();
+		conNode.connectedLines.Clear();
+		conNode.connectorLines.Clear();
+		Destroy(currenntlySelectedObject);
 	}
 
 	public void GetScriptableObject()
