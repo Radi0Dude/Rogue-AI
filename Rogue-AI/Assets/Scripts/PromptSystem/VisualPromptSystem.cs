@@ -22,6 +22,8 @@ public class VisualPromptSystem : MonoBehaviour
 	[SerializeField, Layer] string nodeOnPickup;
 	int currentNodeOnPickupLayer;
 
+	PromptSystem promptSystem;
+
 	private GameObject currentNodePickup;
 
 	private GameObject currentNodeHover;
@@ -40,6 +42,10 @@ public class VisualPromptSystem : MonoBehaviour
 
 	bool onHover;
 	bool startHover;
+
+	Vector3 prevPos;
+
+	NodeUI nodeUI;
 	private enum EditorState
 	{
 		Idle,
@@ -57,7 +63,8 @@ public class VisualPromptSystem : MonoBehaviour
 		currentNodeExtendorLayer = 1 << LayerMask.NameToLayer(nodeExtendor);
 		currentNodeOnHoverLayer = 1 << LayerMask.NameToLayer(nodeOnHover);
 		currentNodeOnPickupLayer = 1 << LayerMask.NameToLayer(nodeOnPickup);
-
+		promptSystem = FindFirstObjectByType<PromptSystem>();
+		nodeUI = FindFirstObjectByType<NodeUI>();
 	}
 
 	public bool IsPointerOverUI()
@@ -107,7 +114,10 @@ public class VisualPromptSystem : MonoBehaviour
 
 				else
 				{
-					AddNode();
+					Vector3 mousPos = Input.mousePosition;
+					mousPos.z = 10f;
+					Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousPos);
+					AddNode(worldPos);
 					currentState = EditorState.DraggingNode;
 				}
 			}
@@ -123,8 +133,21 @@ public class VisualPromptSystem : MonoBehaviour
 			}
 			else if (currentState == EditorState.ConnectingNodes)
 			{
-				ConnectNodes(hoveredObjectForLine);
-				currentNodeExtendor = null;
+				if(hoveredObject == null)
+				{
+					Vector3 mousPos = Input.mousePosition;
+					mousPos.z = 10f;
+					Vector3 worldPos = mainCamera.ScreenToWorldPoint(mousPos);
+					AddNode(worldPos);
+					OnHover();
+					ConnectNodes(hoveredObjectForLine);
+				}
+				else
+				{
+					ConnectNodes(hoveredObjectForLine);
+					currentNodeExtendor = null;
+				}
+				
 			}
 			currentState = EditorState.Idle;
 
@@ -196,6 +219,7 @@ public class VisualPromptSystem : MonoBehaviour
 
 		lineRenderer.SetPosition(0, currentNodeExtendor.transform.position);
 		lineRenderer.SetPosition(1, mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue() + new Vector2(0, 10f)));
+		
 	}
 
 	private void ConnectNodes(GameObject startObject)
@@ -219,21 +243,70 @@ public class VisualPromptSystem : MonoBehaviour
 		}
 	}
 
-	public void AddNode()
+	public void AddNode(Vector3 posToSpawnAt)
 	{
-		GameObject newNode = Instantiate(nodePrefab);
+		GameObject newNode = Instantiate(nodePrefab, posToSpawnAt, Quaternion.identity);
+		hoveredObject = newNode;
+		ConnectNodes conNode = newNode.GetComponentInChildren<ConnectNodes>();
 		currentNodePickup = newNode;
 		currenntlySelectedObject = newNode;
 		nodes.Add(newNode);
+		
+		Debug.Log(nodeUI.cards.Count);
+		float radius = 3.5f;
+		float arcDegrees = 170f; 
+		float startAngle = -arcDegrees / 2f; 
+		float endAngle = arcDegrees / 2f;    
+		int cardCount = promptSystem.cards.Count;
+
+		for (int i = 0; i < cardCount; i++)
+		{
+			float t = (cardCount == 1) ? 0.5f : (float)i / (cardCount - 1);
+			float angle = Mathf.Lerp(startAngle, endAngle, t);
+			float angleRad = angle * Mathf.Deg2Rad;
+
+			Vector3 offset = new Vector3(
+				Mathf.Cos(angleRad) * radius,
+				Mathf.Sin(angleRad) * radius,
+				0f
+			);
+
+			Vector3 cardPos = newNode.transform.position + offset;
+
+			GameObject card = Instantiate(nodePrefab, cardPos, Quaternion.identity);
+
+			conNode.connectedTo.Add(card);
+			ConnectNodes con = card.GetComponentInChildren<ConnectNodes>();
+			con.isPrompt = false;
+			con.connectedFrom.Add(newNode);
+			conNode.connectedTo.Add(card);
+			con.connectedFrom.Add(newNode);
+
+			con.AssignCardData(promptSystem.cards[i]);
+
+			GameObject lineObj = new GameObject("ConnectionLine");
+			LineRenderer lr = lineObj.AddComponent<LineRenderer>();
+			lr.positionCount = 2;
+			lr.startWidth = 0.1f;
+			lr.endWidth = 0.1f;
+			lr.material = new Material(Shader.Find("Sprites/Default"));
+			lr.startColor = Color.black;
+			lr.endColor = Color.black;
+
+			lr.SetPosition(0, newNode.transform.position);
+			lr.SetPosition(1, card.transform.position);
+
+			conNode.connectorLines.Add(lr);
+			con.connectedLines.Add(lr);
+		}
 	}
 
 	public void MoveNode()
 	{
-		if (currentNodePickup == null) return;
-
 		Vector3 mousePosition = Input.mousePosition;
 		mousePosition.z = 10f;
 		currentNodePickup.transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
+		ConnectNodes currentNodeConnect = currentNodePickup.GetComponent<ConnectNodes>();
 	}
 
 	public void PickupNode()
@@ -354,7 +427,6 @@ public class VisualPromptSystem : MonoBehaviour
 				}
 				i++;
 			}
-
 		}
 		foreach (GameObject obj in conNode.connectedFrom)
 		{

@@ -38,7 +38,7 @@ public class NodeUI : MonoBehaviour
 
 	bool corutineIsRunning;
 
-	List<CardData> cards = new List<CardData>();
+	public List<CardData> cards = new List<CardData>();
 	GameObject currentlySelectedObject;
 	private void Awake()
 	{
