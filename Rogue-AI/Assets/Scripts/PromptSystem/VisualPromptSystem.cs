@@ -303,10 +303,12 @@ public class VisualPromptSystem : MonoBehaviour
 
 	public void MoveNode()
 	{
+		
 		Vector3 mousePosition = Input.mousePosition;
 		mousePosition.z = 10f;
 		currentNodePickup.transform.position = mainCamera.ScreenToWorldPoint(mousePosition);
 		ConnectNodes currentNodeConnect = currentNodePickup.GetComponent<ConnectNodes>();
+		
 	}
 
 	public void PickupNode()
@@ -321,7 +323,9 @@ public class VisualPromptSystem : MonoBehaviour
 
 	public void PlaceNode()
 	{
+		
 		currentNodePickup = null;
+
 	}
 
 	public void GetExtendor()
