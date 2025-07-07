@@ -6,5 +6,7 @@ public class TreasureRoom : RoomData
     public override RoomType RoomType  => RoomType.Treasure;
     public override string SceneNameToLoad => "2_AICombatScene";
 
-    
+    [Header("Treasure Room Settings")]
+    public RewardType RewardType { get; private set; }
+
 }

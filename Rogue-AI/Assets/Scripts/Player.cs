@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
             Debug.Log("Player Died");
             OnPlayerDeath?.Invoke();
         }
+        else if (_currentHealth > GameManager.PlayerMaxHealth)
+        {
+            _currentHealth = GameManager.PlayerMaxHealth;
+        }
     }
 
     private void UpdateHealthVisuals()

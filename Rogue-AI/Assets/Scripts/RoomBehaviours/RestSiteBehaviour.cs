@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-public class RestSiteOptions : MonoBehaviour
+public class RestSiteBehaviour : MonoBehaviour
 {
     private Player _player;
     private CardLibrary _cardLibrary;
@@ -11,7 +12,7 @@ public class RestSiteOptions : MonoBehaviour
     private bool _canRemoveCards = false;
     
     [SerializeField] private int healAmount = 25;
-    [SerializeField] private CanvasRenderer _canvasRenderer;
+    [SerializeField] private CanvasRenderer canvasRenderer;
 
     private void Awake()
     {
@@ -27,20 +28,20 @@ public class RestSiteOptions : MonoBehaviour
 
     public void ViewDeckButtonPressed()
     {
-        _canvasRenderer.gameObject.SetActive(false);
+        canvasRenderer.gameObject.SetActive(false);
     }
 
     public void RefactorButtonPressed()
     {
         _cardLibrary.ViewCardsInList();
         _canRemoveCards = true;
-        _canvasRenderer.gameObject.SetActive(false);
+        canvasRenderer.gameObject.SetActive(false);
     }
 
     private void ReturnToOptions()
     {
         _canRemoveCards = false;
-        _canvasRenderer.gameObject.SetActive(true);
+        canvasRenderer.gameObject.SetActive(true);
     }
 
     private void DeleteCard()
@@ -55,7 +56,7 @@ public class RestSiteOptions : MonoBehaviour
                 _cardLibrary.ButtonPressed(false);
                 
                 _canRemoveCards = false;
-                _canvasRenderer.gameObject.SetActive(true);
+                canvasRenderer.gameObject.SetActive(true);
 
                 AfterButtonPressed();
             }
