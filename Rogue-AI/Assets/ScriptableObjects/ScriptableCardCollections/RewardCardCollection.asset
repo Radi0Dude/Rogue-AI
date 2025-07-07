@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e5ccf6f67a6b847a6363e1dd71f86f, type: 3}
   m_Name: RewardCardCollection
   m_EditorClassIdentifier: 
-  CardsInCollection:
+  cardsInCollection:
   - {fileID: 11400000, guid: 7f32769801151854eba4a88ac2a1859a, type: 2}

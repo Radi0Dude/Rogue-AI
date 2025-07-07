@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardCollection", menuName = "Card/Card Collection")]
 public class CardCollectionData : ScriptableObject
 {
-    [SerializeField] private List<CardData> cardsInCollection;
+    [SerializeField] private List<CardData> cardsInCollection = new List<CardData>();
     
     public List<CardData> CardsInCollection => cardsInCollection;
 
@@ -12,15 +12,15 @@ public class CardCollectionData : ScriptableObject
     {
         foreach (var card in initialCollection)
         {
-            AddCardToCollection(card);
+            cardsInCollection.Add(card);
         }
     }
 
     public void RemoveCardFromCollection(CardData card)
     {
-        if (CardsInCollection.Contains(card))
+        if (cardsInCollection.Contains(card))
         {
-            CardsInCollection.Remove(card);
+            cardsInCollection.Remove(card);
         }
         else
         {
@@ -30,6 +30,6 @@ public class CardCollectionData : ScriptableObject
 
     public void AddCardToCollection(CardData card)
     {
-        CardsInCollection.Add(card);
+        cardsInCollection.Add(card);
     }
 }

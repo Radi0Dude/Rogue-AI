@@ -4,7 +4,7 @@ using UnityEngine;
 public class TreasureRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Treasure;
-    public override string SceneNameToLoad => "2_AICombatScene";
+    public override string SceneNameToLoad => "4_TreasureScene";
 
     [Header("Treasure Room Settings")]
     [SerializeField] private RewardType rewardType;

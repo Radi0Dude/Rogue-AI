@@ -9,8 +9,6 @@ public class CardVisual : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private Image cardSymbol;
-    [SerializeField] private Image cardImage;
-    [SerializeField] private TMP_Text cardDescription;
 
    
 
@@ -26,7 +24,5 @@ public class CardVisual : MonoBehaviour
         {
             Debug.LogWarning(cardDataData.name + " is missing a card symbol");
         }
-        
-        cardDescription.text = cardDataData.CardDescription;
     }
 }

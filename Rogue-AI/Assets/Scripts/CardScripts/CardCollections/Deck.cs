@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
 {
     public static Deck Instance {get; private set;} //Singleton
 
-    [SerializeField] private Hand hand;
+    [SerializeField] private SplineControllHand hand;
     
     [SerializeField] private Card cardPrefab;
     
@@ -30,7 +30,7 @@ public class Deck : MonoBehaviour
         else
             Destroy(gameObject);
 
-        hand = FindAnyObjectByType<Hand>();
+        hand = FindAnyObjectByType<SplineControllHand>();
         
         
         CardCollectionData deck = GameManager.PlayerCardCollection;

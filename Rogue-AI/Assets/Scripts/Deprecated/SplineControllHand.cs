@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Splines;
 
-public class Hand : MonoBehaviour
+public class SplineControllHand : MonoBehaviour
 {
     [SerializeField] private SplineContainer splineContainer;
     
