@@ -4,7 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AIDamageAction", menuName = "AI/Actions/AI Damage")]
 public class AIDamageAction : AIActionData
 {
-    public int damage;
+    [SerializeField] private int damage;
+    
     
     public override void PerformAction(AI ai, Player player)
     {

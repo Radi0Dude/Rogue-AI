@@ -7,7 +7,12 @@ public class SignRoom : RoomData
     public override string SceneNameToLoad => "1_PathTestScene";
 
     [Header("Sign Room Settings")]
-    public int numberOfSigns = 3;
-    public int placesToGo = 3;
-    public SignRoom nextSignRoom;
+    [SerializeField] private int numberOfSigns = 3;
+    [SerializeField] private int placesToGo = 3;
+    [SerializeField] private SignRoom nextSignRoom;
+
+    public int NumberOfSigns => numberOfSigns;
+    public int PlacesToGo => placesToGo;
+    public SignRoom NextSignRoom => nextSignRoom;
+
 }

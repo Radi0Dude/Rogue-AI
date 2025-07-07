@@ -29,7 +29,7 @@ public class AI : MonoBehaviour
     {
         if (GameManager.GetRoom() is CombatRoom room)
         {
-            _data = room.aiData;
+            _data = room.AIData;
         }
         else
         {
@@ -38,8 +38,8 @@ public class AI : MonoBehaviour
         }
         
         
-        _maxSanity = _data.maxSanity;
-        _currentSanity = _data.startSanity;
+        _maxSanity = _data.MaxSanity;
+        _currentSanity = _data.StartSanity;
         _player = player;
         GetNextAction();
         UpdateUI();
@@ -47,17 +47,17 @@ public class AI : MonoBehaviour
 
     private void GetNextAction()
     {
-        _currentAction = _data.aiActions[Random.Range(0, _data.aiActions.Count)];
-        _countDown = _currentAction.roundsUntilAction;
+        _currentAction = _data.AIActions[Random.Range(0, _data.AIActions.Count)];
+        _countDown = _currentAction.RoundsUntilAction;
     }
     
     public void ReduceCountDown()
     {
         _countDown--;
         
-        if (_data.endOfTurnAction != null)
+        if (_data.EndOfTurnAction != null)
         {
-            _data.endOfTurnAction.PerformAction(this, _player);
+            _data.EndOfTurnAction.PerformAction(this, _player);
         }
         
         if (_countDown <= 0)

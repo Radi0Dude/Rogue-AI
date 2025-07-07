@@ -11,7 +11,7 @@ public static class GameManager
     
     // Player Variables
     public static int PlayerMaxHealth = 100;
-    public static CardCollection PlayerCardCollection;
+    public static CardCollectionData PlayerCardCollection;
     
     private static List<RoomData> _rooms = new ();
     

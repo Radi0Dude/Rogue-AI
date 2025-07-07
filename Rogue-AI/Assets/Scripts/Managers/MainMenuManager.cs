@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] private CardCollection startingCardCollection;
+    [SerializeField] private CardCollectionData startingCardCollection;
     public void StartGame()
     {
-        CardCollection newCollection = ScriptableObject.CreateInstance<CardCollection>();
-        newCollection.CardsInCollection = new List<CardData>(startingCardCollection.CardsInCollection);
+        CardCollectionData newCollection = ScriptableObject.CreateInstance<CardCollectionData>();
+        newCollection.InitializeCollection(startingCardCollection.CardsInCollection);
         GameManager.PlayerCardCollection = newCollection;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

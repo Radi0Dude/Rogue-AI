@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu (fileName = "CrossRoadData", menuName = "CrossRoad/CrossRoad")]
 public class CrossRoadData : ScriptableObject
 {
-    public List<RoomData> rooms;
+    [SerializeField] private List<RoomData> rooms;
 
     public List<RoomData> GetRandomRooms(int amount)
     {

@@ -5,7 +5,9 @@ using UnityEngine;
 public class AIHealAction : AIActionData
 {
     [Header("Amount of sanity lost")]
-    public int healAmount;
+    [SerializeField] private int healAmount;
+    
+    
     public override void PerformAction(AI ai, Player player)
     {
         Debug.Log("AI Perform Heal action");

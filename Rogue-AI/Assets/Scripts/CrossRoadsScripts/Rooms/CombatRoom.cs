@@ -7,7 +7,9 @@ public class CombatRoom : RoomData
     public override string SceneNameToLoad => "2_AICombatScene";
     
     [Header("Combat Room Settings")]
-    public AIData aiData;
+    [SerializeField] private AIData aiData;
+    
+    public AIData AIData => aiData;
     
     
 }

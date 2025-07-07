@@ -12,13 +12,18 @@ public enum AITypes
 [CreateAssetMenu(fileName = "New AI Data", menuName = "AI/AI Data")]
 public class AIData : ScriptableObject
 {
-    public float maxSanity = 100.0f;
-    public float startSanity = 10.0f;
+    [SerializeField] private float maxSanity = 100.0f;
+    [SerializeField] private float startSanity = 10.0f;
+    [SerializeField] private AITypes aiType;
+    [SerializeField] private List<AIActionData> aiActions = new();
     
-    public AITypes aiType;
-    
-    public List<AIActionData> aiActions;
-
     [Header("Option for stronger Enemies")]
-    public AIActionData endOfTurnAction;
+    [SerializeField] private AIActionData endOfTurnAction;
+
+    public float MaxSanity => maxSanity;
+    public float StartSanity => startSanity;
+    public AITypes AIType => aiType;
+    public List<AIActionData> AIActions => aiActions;
+    public AIActionData EndOfTurnAction => endOfTurnAction;
+
 }

@@ -16,26 +16,17 @@ public class CardVisual : MonoBehaviour
 
     public void UpdateCardVisuals(CardData cardDataData)
     {
-        cardName.text = cardDataData.cardName;
+        cardName.text = cardDataData.CardName;
         
-        if (cardDataData.cardSymbol != null)
+        if (cardDataData.CardSymbol != null)
         {
-            cardSymbol.sprite = cardDataData.cardSymbol;
+            cardSymbol.sprite = cardDataData.CardSymbol;
         }
         else
         {
             Debug.LogWarning(cardDataData.name + " is missing a card symbol");
         }
-
-        if (cardDataData.cardImage != null)
-        {
-            cardImage.sprite = cardDataData.cardImage;
-        }
-        else
-        {
-            Debug.LogWarning(cardDataData.name + " is missing a card image");
-        }
         
-        cardDescription.text = cardDataData.cardDescription;
+        cardDescription.text = cardDataData.CardDescription;
     }
 }

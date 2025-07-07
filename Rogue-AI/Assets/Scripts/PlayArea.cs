@@ -23,15 +23,15 @@ public class PlayArea : MonoBehaviour
         {
             if (cardType == CardType.Prompt)
             {
-                _inputField.UpdatePrompt(cardData.promptType);
+                _inputField.UpdatePrompt(cardData.PromptType);
             }
             else if (cardType == CardType.Draw)
             {
-                _deck.DrawHand(cardData.cardsToDraw);
+                _deck.DrawHand(cardData.CardsToDraw);
             }
             else if (cardType == CardType.Delete)
             {
-                _deck.PlayedDeleteCard(cardData.cardsToDelete);
+                _deck.PlayedDeleteCard(cardData.CardsToDelete);
             }
             else if (cardType == CardType.Virus)
             {

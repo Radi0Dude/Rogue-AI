@@ -23,19 +23,30 @@ public enum PromptType
 [CreateAssetMenu(fileName = "CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
-    public CardType cardType;
-    public PromptType promptType;
-    public AITypes effectiveAgainst;
+    [SerializeField] private CardType cardType;
+    [SerializeField] private PromptType promptType;
+    [SerializeField] private AITypes effectiveAgainst;
 
-    public string cardName;
-    [TextArea]
-    public string cardDescription;
-    public Sprite cardSymbol;
-    public Sprite cardImage;
+    [SerializeField] private string cardName;
+    [SerializeField, TextArea] private string cardDescription;
+    [SerializeField] private Sprite cardSymbol;
+    [SerializeField] private Sprite cardImage;
 
-    [Header("Only need to be filled for the respective card type\n E.g. cardsToDraw only matter if cardType Draw is selected")]
-    public int cardsToDraw = 1;
-    public int cardsToDelete = 1;
+    [Header("Only need to be filled for the respective card type\nE.g. cardsToDraw only matters if cardType 'Draw' is selected")]
+    [SerializeField] private int cardsToDraw = 1;
+    [SerializeField] private int cardsToDelete = 1;
+
+    public PromptType PromptType => promptType;
+    public AITypes EffectiveAgainst => effectiveAgainst;
+
+    public string CardName => cardName;
+    public string CardDescription => cardDescription;
+    public Sprite CardSymbol => cardSymbol;
+    public Sprite CardImage => cardImage;
+
+    public int CardsToDraw => cardsToDraw;
+    public int CardsToDelete => cardsToDelete;
+
     
     public List<CardType> GetCardTypes()
     {

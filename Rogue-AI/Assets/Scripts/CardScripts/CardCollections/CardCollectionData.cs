@@ -2,9 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardCollection", menuName = "Card/Card Collection")]
-public class CardCollection : ScriptableObject
+public class CardCollectionData : ScriptableObject
 {
-    [SerializeField] public List<CardData> CardsInCollection;
+    [SerializeField] private List<CardData> cardsInCollection;
+    
+    public List<CardData> CardsInCollection => cardsInCollection;
+
+    public void InitializeCollection(List<CardData> initialCollection)
+    {
+        foreach (var card in initialCollection)
+        {
+            AddCardToCollection(card);
+        }
+    }
 
     public void RemoveCardFromCollection(CardData card)
     {

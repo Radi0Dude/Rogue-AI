@@ -13,7 +13,7 @@ public class Deck : MonoBehaviour
     
     [SerializeField] private Card cardPrefab;
     
-    [SerializeField] private CardCollection playerDeck;
+    [SerializeField] private CardCollectionData playerDeck;
 
     public event Action<int> OnDeletePlayed;
 
@@ -33,7 +33,7 @@ public class Deck : MonoBehaviour
         hand = FindAnyObjectByType<Hand>();
         
         
-        CardCollection deck = GameManager.PlayerCardCollection;
+        CardCollectionData deck = GameManager.PlayerCardCollection;
         if (deck)
         {
             if (deck.CardsInCollection.Count > 0)

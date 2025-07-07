@@ -6,7 +6,7 @@ public class CardReward : MonoBehaviour
 {
     [SerializeField] private List<Card> cards;
     
-    [SerializeField] private CardCollection rewardCollection;
+    [SerializeField] private CardCollectionData rewardCollection;
     
     private PlayArea playArea;
 

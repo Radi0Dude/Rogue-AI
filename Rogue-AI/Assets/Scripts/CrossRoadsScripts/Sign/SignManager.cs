@@ -19,9 +19,9 @@ public class SignManager : MonoBehaviour
     {
         if (GameManager.GetRoom() is SignRoom room)
         {
-            _numberOfSigns = room.numberOfSigns;
-            _placesToGo = room.placesToGo;
-            signRoom = room.nextSignRoom;
+            _numberOfSigns = room.NumberOfSigns;
+            _placesToGo = room.PlacesToGo;
+            signRoom = room.NextSignRoom;
         }
         
         InitiateSigns();

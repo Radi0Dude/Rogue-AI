@@ -14,8 +14,11 @@ public abstract class RoomData : ScriptableObject
     public abstract RoomType RoomType { get; }
     public abstract string SceneNameToLoad { get; }
 
-    public string roomName;
-    public Sprite roomIcon;
+    [SerializeField] private string roomName;
+    [SerializeField] private Sprite roomIcon;
+
+    public string RoomName => roomName;
+    public Sprite RoomIcon => roomIcon;
     
     
 }
