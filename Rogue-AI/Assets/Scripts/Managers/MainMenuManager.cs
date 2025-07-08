@@ -11,6 +11,8 @@ public class MainMenuManager : MonoBehaviour
         newCollection.InitializeCollection(startingCardCollection.CardsInCollection);
         GameManager.PlayerCardCollection = newCollection;
 
+        GameManager.CanPlayCard = false;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

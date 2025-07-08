@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 25
-  _canvasRenderer: {fileID: 85109450}
+  canvasRenderer: {fileID: 85109450}
 --- !u!4 &812041714
 Transform:
   m_ObjectHideFlags: 0

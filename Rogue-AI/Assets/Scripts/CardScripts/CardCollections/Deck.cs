@@ -7,14 +7,12 @@ using Random = UnityEngine.Random;
 
 public class Deck : MonoBehaviour
 {
-    public static Deck Instance {get; private set;} //Singleton
-
-    [SerializeField] private SplineControllHand hand;
     
     [SerializeField] private Card cardPrefab;
     
     [SerializeField] private CardCollectionData playerDeck;
-
+    [SerializeField] private Hand hand;
+    
     public event Action<int> OnDeletePlayed;
 
 
@@ -25,14 +23,6 @@ public class Deck : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-
-        hand = FindAnyObjectByType<SplineControllHand>();
-        
-        
         CardCollectionData deck = GameManager.PlayerCardCollection;
         if (deck)
         {
@@ -89,7 +79,7 @@ public class Deck : MonoBehaviour
                 _deckPile[0].transform.position = transform.position;
                 _deckPile[0].gameObject.SetActive(true);
                 _deckPile.RemoveAt(0);
-                UpdateCardPositionsHand();
+                UpdateCardPositions();
             }
         }
     }
@@ -101,7 +91,7 @@ public class Deck : MonoBehaviour
             card.gameObject.SetActive(false);
             HandCards.Remove(card);
             _discardPile.Add(card);
-            UpdateCardPositionsHand();
+            UpdateCardPositions();
         }
     }
 
@@ -112,7 +102,7 @@ public class Deck : MonoBehaviour
             card.gameObject.SetActive(false);
             HandCards.Remove(card);
             Destroy(card.gameObject);
-            UpdateCardPositionsHand();
+            UpdateCardPositions();
         }
     }
 
@@ -136,7 +126,7 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public void UpdateCardPositionsHand()
+    public void UpdateCardPositions()
     {
         hand.UpdateCardPositions(HandCards);
     }

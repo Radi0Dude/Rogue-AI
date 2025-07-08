@@ -130,7 +130,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1235951033535634374, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_Name
-      value: Base-Card Variant
+      value: Card Reward
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,19 +146,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.00000053644175
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -170,7 +170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4851659859463166994, guid: 819a70e988c989042872c70ce3335af7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

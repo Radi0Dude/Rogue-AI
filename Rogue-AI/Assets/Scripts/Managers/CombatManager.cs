@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
+    
     private InputField _inputField;
     private CardReward _cardReward;
     private Player _player;
@@ -31,12 +32,15 @@ public class CombatManager : MonoBehaviour
         _player.OnPlayerDeath += LoseCombat;
         _ai.OnAISane += EndCombat;
             
-        
+        GameManager.CanPlayCard = true;
         _ai.Initialize(_player);
+    }
+
+    private void Start()
+    {
         StartTurn();
     }
 
- 
 
     private void StartTurn()
     {
@@ -111,6 +115,7 @@ public class CombatManager : MonoBehaviour
     private void EndCombat()
     {
         // Reward is presented to the player
+        GameManager.CanPlayCard = false;
         Debug.Log("Ending Combat");
         _cardReward.DisplayCardReward();
         // In UI Player can load next scene
@@ -120,6 +125,7 @@ public class CombatManager : MonoBehaviour
     public void LoadNextScene()
     {
         GameManager.RemoveRoomFromListAndLoadNextScene();
+        
     }
     
     private void LoseCombat()

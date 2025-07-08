@@ -95,7 +95,7 @@ public class CardMovement : MonoBehaviour
             else
             {
                 // Return card to hand
-                _deck.UpdateCardPositionsHand();
+                _deck.UpdateCardPositions();
             }
         }
     }

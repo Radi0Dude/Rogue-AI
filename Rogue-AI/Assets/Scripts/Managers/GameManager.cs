@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 public static class GameManager
 {
     // Card/Hand related Variables
-    public const int MaxHandSize = 10;
-    public static int StartOfRoundDraw = 5;
+    public const int MaxHandSize = 6;
+    public static int StartOfRoundDraw = 4;
+    public static bool CanPlayCard = false;
     
     
     // Player Variables

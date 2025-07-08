@@ -8,16 +8,9 @@ public class CardReward : MonoBehaviour
     
     [SerializeField] private CardCollectionData rewardCollection;
     
-    private PlayArea playArea;
-
-    private void Start()
-    {
-        playArea = FindAnyObjectByType<PlayArea>();
-    }
-
+    
     public void DisplayCardReward()
     {
-        playArea.gameObject.SetActive(false);
         foreach (var card in cards)
         {
             card.gameObject.SetActive(true);
