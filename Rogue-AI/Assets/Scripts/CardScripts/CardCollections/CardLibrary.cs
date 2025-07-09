@@ -9,12 +9,15 @@ public class CardLibrary : MonoBehaviour
 
     [SerializeField] private GameObject uiCardPrefab;
     [SerializeField] private MyGridLayoutGroup cardLibraryPanel;
-    [SerializeField] private Image openButton, closeButton, scrollView;
+    [SerializeField] private GameObject openButton, closeButton, scrollView;
 
+    public event Action OnOpenButtonClicked;
+    public event Action OnCloseButtonClicked;
+    
     private RectTransform _rectTransform;
     private List<Card> _cards = new ();
 
-    private void Start()
+    private void Awake()
     {
         // Create Empty Blank cards for display
         InitiateCards();
@@ -71,9 +74,9 @@ public class CardLibrary : MonoBehaviour
     
     private void CloseLibrary()
     {
-        scrollView.gameObject.SetActive(false);
-        closeButton.gameObject.SetActive(false);
-        openButton.gameObject.SetActive(true);
+        scrollView.SetActive(false);
+        closeButton.SetActive(false);
+        openButton.SetActive(true);
         foreach (var card in _cards)
         {
             card.transform.parent.gameObject.SetActive(false);
@@ -82,8 +85,13 @@ public class CardLibrary : MonoBehaviour
 
     private void OpenLibrary()
     {
-        scrollView.gameObject.SetActive(true);
-        closeButton.gameObject.SetActive(true);
-        openButton.gameObject.SetActive(false);
+        scrollView.SetActive(true);
+        closeButton.SetActive(true);
+        openButton.SetActive(false);
+    }
+
+    public List<Card> GetCards()
+    {
+        return _cards;
     }
 }

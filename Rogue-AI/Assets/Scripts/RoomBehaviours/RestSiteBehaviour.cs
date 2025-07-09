@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -18,6 +19,15 @@ public class RestSiteBehaviour : MonoBehaviour
     {
         _player = FindAnyObjectByType<Player>();
         _cardLibrary = FindAnyObjectByType<CardLibrary>();
+    }
+
+    private void Start()
+    {
+        List<Card> cards = _cardLibrary.GetCards();
+        foreach (var card in cards)
+        {
+            card.OnRewardSelected += DeleteCard;
+        }
     }
 
     public void RestButtonPressed()
@@ -44,35 +54,17 @@ public class RestSiteBehaviour : MonoBehaviour
         canvasRenderer.gameObject.SetActive(true);
     }
 
-    private void DeleteCard()
+    private void DeleteCard(Card card)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, 100))
-        {
-            if (hit.transform.TryGetComponent(out Card card))
-            {
-                GameManager.PlayerCardCollection.RemoveCardFromCollection(card.GetData());
-                _cardLibrary.ButtonPressed(false);
-                
-                _canRemoveCards = false;
-                canvasRenderer.gameObject.SetActive(true);
+        if (!_canRemoveCards) return;
+        
+        GameManager.PlayerCardCollection.RemoveCardFromCollection(card.GetData());
+        _cardLibrary.ButtonPressed(false);
+        
+        _canRemoveCards = false;
+        canvasRenderer.gameObject.SetActive(true);
 
-                AfterButtonPressed();
-            }
-            else
-            {
-                print(hit.transform.name);
-            }
-        }
-    }
-
-    public void GetClick(InputAction.CallbackContext context)
-    {
-        if (context.performed && _canRemoveCards)
-        {
-            DeleteCard();
-        }
+        AfterButtonPressed();
     }
 
     public void CancelDeletionButtonPressed()
