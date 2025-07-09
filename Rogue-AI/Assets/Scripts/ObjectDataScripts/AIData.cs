@@ -9,7 +9,7 @@ public enum AITypes
     Programming,
 }
 
-[CreateAssetMenu(fileName = "New AI Data", menuName = "AI/AI Data")]
+[CreateAssetMenu(fileName = "AI", menuName = "AI/AI Data")]
 public class AIData : ScriptableObject
 {
     [SerializeField] private string aiName = "UnNamed";

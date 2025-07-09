@@ -21,6 +21,10 @@ namespace ObjectDataScripts.Editor
             // ↑↑ add before ↑↑
             base.OnInspectorGUI();
             // ↓↓ add after ↓↓
+            if (data.AIActions.Count == 0)
+            {
+                EditorGUILayout.HelpBox("Cauition AI does not have any actions", MessageType.Error);
+            }
         }
 
         
