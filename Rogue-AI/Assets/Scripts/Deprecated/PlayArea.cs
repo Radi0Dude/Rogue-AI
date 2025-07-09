@@ -1,45 +1,47 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayArea : MonoBehaviour
+namespace Deprecated
 {
-    private InputField _inputField;
-    private Deck _deck;
-
-    private void Awake()
+    public class PlayArea : MonoBehaviour
     {
-        _inputField = FindAnyObjectByType<InputField>();
-        _deck = FindAnyObjectByType<Deck>();
-    }
+        private InputField _inputField;
+        private Deck _deck;
 
-    public void PlayCard(Card card)
-    {
-        var cardData = card.GetData();
-
-        List<CardType> cardTypes = cardData.GetCardTypes();
-
-        foreach (CardType cardType in cardTypes)
+        private void Awake()
         {
-            if (cardType == CardType.Prompt)
+            _inputField = FindAnyObjectByType<InputField>();
+            _deck = FindAnyObjectByType<Deck>();
+        }
+
+        public void PlayCard(Card card)
+        {
+            var cardData = card.GetData();
+
+            List<CardType> cardTypes = cardData.GetCardTypes();
+
+            foreach (CardType cardType in cardTypes)
             {
-                _inputField.UpdatePrompt(cardData.PromptType);
-            }
-            else if (cardType == CardType.Draw)
-            {
-                _deck.DrawHand(cardData.CardsToDraw);
-            }
-            else if (cardType == CardType.Delete)
-            {
-                _deck.PlayedDeleteCard(cardData.CardsToDelete);
-            }
-            else if (cardType == CardType.Virus)
-            {
-                // Use up space
-            }
-            else
-            {
-                Debug.LogError(cardType + " has not been given an action");
+                if (cardType == CardType.Prompt)
+                {
+                    _inputField.UpdatePrompt(cardData.PromptType);
+                }
+                else if (cardType == CardType.Draw)
+                {
+                    _deck.DrawHand(cardData.CardsToDraw);
+                }
+                else if (cardType == CardType.Delete)
+                {
+                    _deck.PlayedDeleteCard(cardData.CardsToDelete);
+                }
+                else if (cardType == CardType.Virus)
+                {
+                    // Use up space
+                }
+                else
+                {
+                    Debug.LogError(cardType + " has not been given an action");
+                }
             }
         }
     }

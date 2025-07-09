@@ -2,11 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum CardPlayState
+{
+    Play,
+    Delete
+}
+
 public static class GameManager
 {
     // Card/Hand related Variables
     public const int MaxHandSize = 6;
     public static int StartOfRoundDraw = 4;
+    public static CardPlayState CurrentPlayState;
     public static bool CanPlayCard = false;
     
     

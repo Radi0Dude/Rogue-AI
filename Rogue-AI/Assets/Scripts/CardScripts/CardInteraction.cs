@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
 
-public class CardInteractionManager : MonoBehaviour
+public class CardInteraction : MonoBehaviour
 {
     private string _tooltipText = null;
 
-    public event Action OnCardPressed; 
+    public event Action OnCardPressed;
+    public event Action OnRewardSelected;
 
     public void Init(CardData data)
     {
@@ -30,5 +31,6 @@ public class CardInteractionManager : MonoBehaviour
     private void OnMouseDown()
     {
         OnCardPressed?.Invoke();
+        OnRewardSelected?.Invoke();
     }
 }

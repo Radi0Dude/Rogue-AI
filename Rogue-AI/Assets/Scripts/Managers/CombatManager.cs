@@ -51,9 +51,17 @@ public class CombatManager : MonoBehaviour
     
     public void PlayCard(Card card)
     {
+        if (GameManager.CurrentPlayState == CardPlayState.Delete)
+        {
+            _deck.DeleteCard(card);
+            return;
+        }
+        
         var cardData = card.GetData();
 
         List<CardType> cardTypes = cardData.GetCardTypes();
+
+        _deck.DiscardCard(card);
 
         foreach (CardType cardType in cardTypes)
         {
@@ -92,6 +100,8 @@ public class CombatManager : MonoBehaviour
         _ai.ChangeSanity(sumSanity);
         EndTurn();
     }
+    
+    
     
     private void EndTurn()
     {

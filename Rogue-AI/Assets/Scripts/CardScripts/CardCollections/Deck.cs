@@ -1,23 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class Deck : MonoBehaviour
 {
-    
-    [SerializeField] private Card cardPrefab;
-    
+    [Header("Scriptable Objects")]
     [SerializeField] private CardCollectionData playerDeck;
+
+    [Header("UI Elements")]
+    [SerializeField] private Image deleteWarningPanel;
+
+    [Header("Scripts")]
+    [SerializeField] private Card cardPrefab;
     [SerializeField] private Hand hand;
-    
-    public event Action<int> OnDeletePlayed;
+    [SerializeField] private DiscardPile discardPile;
 
 
-    private List<Card> _deckPile = new ();
-    private List<Card> _discardPile = new ();
+
+    private int _cardsToDelete;
+    private List<Card> _deckPileList = new ();
+    private List<Card> _discardPileList = new ();
 
     [SerializeField] private List<Card> HandCards { get; set; } = new();
 
@@ -40,22 +45,25 @@ public class Deck : MonoBehaviour
     {
         for (int i = 0; i < playerDeck.CardsInCollection.Count; i++)
         {
-            Card card = Instantiate(cardPrefab, transform.position + new Vector3(i,0,0), quaternion.identity); //Add Transform and shit later
+            Card card = Instantiate(cardPrefab, transform.position + new Vector3(i, 0.0f, 0.0f), quaternion.identity); //Add Transform and shit later
             card.SetUp(playerDeck.CardsInCollection[i]);
-            _deckPile.Add(card); // All cards starts in the deck
+            card.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
+            _deckPileList.Add(card); // All cards starts in the deck
             card.gameObject.SetActive(false); // Will later be activated when needed
         }
         
+        GameManager.CurrentPlayState = CardPlayState.Play;
+
         ShuffleDeck();
     }
 
     // Fisher-Yates Shuffle Algorithm
     private void ShuffleDeck()
     {
-        for (int i = _deckPile.Count - 1; i > 0; i--)
+        for (int i = _deckPileList.Count - 1; i > 0; i--)
         {
             int j = Random.Range(0, i + 1);
-            (_deckPile[i], _deckPile[j]) = (_deckPile[j], _deckPile[i]);
+            (_deckPileList[i], _deckPileList[j]) = (_deckPileList[j], _deckPileList[i]);
         }
     }
 
@@ -66,19 +74,19 @@ public class Deck : MonoBehaviour
             if (HandCards.Count > GameManager.MaxHandSize)
             { continue; }
             // Check if shuffle is necessary
-            if (_deckPile.Count <= 0)
+            if (_deckPileList.Count <= 0)
             {
-                 _deckPile.AddRange(_discardPile);
-                _discardPile.Clear();
+                 _deckPileList.AddRange(_discardPileList);
+                _discardPileList.Clear();
                 ShuffleDeck();
             }
             // Draw card
-            if (_deckPile.Count > 0)
+            if (_deckPileList.Count > 0)
             {
-                HandCards.Add(_deckPile[0]);
-                _deckPile[0].transform.position = transform.position;
-                _deckPile[0].gameObject.SetActive(true);
-                _deckPile.RemoveAt(0);
+                HandCards.Add(_deckPileList[0]);
+                _deckPileList[0].transform.position = transform.position;
+                _deckPileList[0].gameObject.SetActive(true);
+                _deckPileList.RemoveAt(0);
                 UpdateCardPositions();
             }
         }
@@ -88,10 +96,10 @@ public class Deck : MonoBehaviour
     {
         if (HandCards.Contains(card))
         {
-            card.gameObject.SetActive(false);
             HandCards.Remove(card);
-            _discardPile.Add(card);
+            _discardPileList.Add(card);
             UpdateCardPositions();
+            discardPile.DiscardCard(card);
         }
     }
 
@@ -103,7 +111,28 @@ public class Deck : MonoBehaviour
             HandCards.Remove(card);
             Destroy(card.gameObject);
             UpdateCardPositions();
+            _cardsToDelete--;
+            if (_cardsToDelete <= 0)
+            {
+                ChangePlayStateToPlay();
+            }
         }
+    }
+    
+    private void ChangePlayStateToDelete(int numb)
+    {
+        // Adds UI 
+        deleteWarningPanel.gameObject.SetActive(true);
+        
+        GameManager.CurrentPlayState = CardPlayState.Delete;
+        _cardsToDelete = numb;
+    }
+
+    private void ChangePlayStateToPlay()
+    {
+        deleteWarningPanel.gameObject.SetActive(false);
+        
+        GameManager.CurrentPlayState = CardPlayState.Play;
     }
 
     public void PlayedDeleteCard(int numbToDelete)
@@ -112,10 +141,10 @@ public class Deck : MonoBehaviour
         {
             numbToDelete = HandCards.Count;
             if (numbToDelete > 0)
-                OnDeletePlayed?.Invoke(numbToDelete); 
+                ChangePlayStateToDelete(numbToDelete);
         }
         else
-            OnDeletePlayed?.Invoke(numbToDelete);
+            ChangePlayStateToDelete(numbToDelete);
     }
 
     public void DiscardAllCards()

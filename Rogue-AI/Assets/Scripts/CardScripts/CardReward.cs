@@ -18,6 +18,8 @@ public class CardReward : MonoBehaviour
             CardData cardData = rewardCollection.CardsInCollection[Random.Range(0, rewardCollection.CardsInCollection.Count)];
             
             card.SetUp(cardData);
+
+            card.OnRewardSelected += SelectReward;
         }
     }
 

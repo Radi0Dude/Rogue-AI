@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardVisual: {fileID: 8683528191210187323}
-  cardInteractionManager: {fileID: 8942731695958524171}
+  cardInteraction: {fileID: 8942731695958524171}
 --- !u!114 &8683528191210187323
 MonoBehaviour:
   m_ObjectHideFlags: 0
