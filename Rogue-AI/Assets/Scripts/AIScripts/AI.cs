@@ -9,19 +9,18 @@ using Random = UnityEngine.Random;
 public class AI : MonoBehaviour
 {
     public event Action OnAISane;
-
-
-    [FormerlySerializedAs("Canvas")]
+    
     [Header("UI Elements")] 
     [SerializeField] private Canvas canvas;
     [SerializeField] private TMP_Text aiSanityText;
     [SerializeField] private Image sanityBar;
+    [SerializeField] private AIData data;
+
     
     private float _maxSanity;
     private float _currentSanity;
     private int _countDown;
     
-    [SerializeField] private AIData _data;
     private Player _player;
     private AIActionData _currentAction;
 
@@ -29,7 +28,7 @@ public class AI : MonoBehaviour
     {
         if (GameManager.GetRoom() is CombatRoom room)
         {
-            _data = room.AIData;
+            data = room.AIData;
         }
         else
         {
@@ -38,8 +37,8 @@ public class AI : MonoBehaviour
         }
         
         
-        _maxSanity = _data.MaxSanity;
-        _currentSanity = _data.StartSanity;
+        _maxSanity = data.MaxSanity;
+        _currentSanity = data.StartSanity;
         _player = player;
         GetNextAction();
         UpdateUI();
@@ -47,7 +46,7 @@ public class AI : MonoBehaviour
 
     private void GetNextAction()
     {
-        _currentAction = _data.AIActions[Random.Range(0, _data.AIActions.Count)];
+        _currentAction = data.AIActions[Random.Range(0, data.AIActions.Count)];
         _countDown = _currentAction.RoundsUntilAction;
     }
     
@@ -55,9 +54,9 @@ public class AI : MonoBehaviour
     {
         _countDown--;
         
-        if (_data.EndOfTurnAction != null)
+        if (data.EndOfTurnAction != null)
         {
-            _data.EndOfTurnAction.PerformAction(this, _player);
+            data.EndOfTurnAction.PerformAction(this, _player);
         }
         
         if (_countDown <= 0)

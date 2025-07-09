@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class RestSiteBehaviour : MonoBehaviour
+public class RestSiteManager : MonoBehaviour
 {
     private Player _player;
     private CardLibrary _cardLibrary;

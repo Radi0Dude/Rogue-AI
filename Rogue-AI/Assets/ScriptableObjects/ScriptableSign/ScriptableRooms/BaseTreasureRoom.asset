@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: Base Treasure Room
   roomIcon: {fileID: 21300000, guid: dfa7573a6acf9e143a09725f05116e1a, type: 3}
-  sceneNameToLoad: 
+  rewardType: 0
+  rewardSprite: {fileID: 21300000, guid: dfa7573a6acf9e143a09725f05116e1a, type: 3}
+  rewardName: New Card
+  rewardDescription: This is the strongest card in the realms

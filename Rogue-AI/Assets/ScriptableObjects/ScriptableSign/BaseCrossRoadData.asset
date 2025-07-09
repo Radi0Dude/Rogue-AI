@@ -13,5 +13,4 @@ MonoBehaviour:
   m_Name: BaseCrossRoadData
   m_EditorClassIdentifier: 
   rooms:
-  - {fileID: 11400000, guid: 58bf7436c12e3264a9a330d422c71b66, type: 2}
-  - {fileID: 11400000, guid: 2dd633291432c2f4ab739dafed661c90, type: 2}
+  - {fileID: 11400000, guid: 7b35aac7dbe93dc4e869ca3b3be90315, type: 2}

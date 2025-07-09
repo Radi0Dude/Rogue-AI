@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 6944166254478073062}
   - component: {fileID: 7725584416581108986}
   m_Layer: 6
-  m_Name: CardLibraryCanvas
+  m_Name: LibraryCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +231,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &6944166254478073062
 MonoBehaviour:
@@ -1000,7 +1000,7 @@ GameObject:
   - component: {fileID: 6463737400436841743}
   - component: {fileID: 1128179806230104058}
   m_Layer: 6
-  m_Name: CardLibrary
+  m_Name: Library
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

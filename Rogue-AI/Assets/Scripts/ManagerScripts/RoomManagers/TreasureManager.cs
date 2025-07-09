@@ -1,5 +1,6 @@
-using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum RewardType
 {
@@ -7,8 +8,12 @@ public enum RewardType
     Delete,
     PowerUp,
 }
-public class TreasureBehaviour : MonoBehaviour
+public class TreasureManager : MonoBehaviour
 {
+    [SerializeField] private GameObject treasurePanel;
+    [SerializeField] private Image treasureIcon;
+    [SerializeField] private TextMeshProUGUI treasureTitle, treasureDescription;
+    
     private TreasureRoom _data;
     private RewardType _rewardType;
     // Display Reward from Room Data
@@ -17,19 +22,22 @@ public class TreasureBehaviour : MonoBehaviour
         if (GameManager.GetRoom() is TreasureRoom room)
         {
             _data = room;
-            _rewardType = room.RewardType;
+            _rewardType = _data.RewardType;
         }
         else
         {
             Debug.LogError("The current room in GameManager is not a TreasureRoom");
             return;
         }
-        
+
+        treasureIcon.sprite = _data.RewardSprite;
+        treasureTitle.text = "----" + _data.RewardName + "----";
+        treasureDescription.text = _data.RewardDescription;
 
     }
     
     // Receive Reward When Pressed
-    private void OnButtonPressedReceiveReward()
+    public void OnButtonPressedReceiveReward()
     {
         // Figure out what type of action are necessary based on reward type
         switch (_rewardType)
@@ -42,5 +50,15 @@ public class TreasureBehaviour : MonoBehaviour
                 break;
         }
         
+    }
+
+    public void OnOpenLibrary()
+    {
+        treasurePanel.SetActive(false);
+    }
+
+    public void OnCloseLibrary()
+    {
+        treasurePanel.SetActive(true);
     }
 }

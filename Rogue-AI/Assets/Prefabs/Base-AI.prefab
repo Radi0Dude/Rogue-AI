@@ -49,7 +49,7 @@ MonoBehaviour:
   canvas: {fileID: 1904126230083963040}
   aiSanityText: {fileID: 7383404587513456663}
   sanityBar: {fileID: 6744282461072705271}
-  _data: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}
+  data: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}
 --- !u!1 &1402784592071327877
 GameObject:
   m_ObjectHideFlags: 0
