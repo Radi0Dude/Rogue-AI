@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc062028b70d5c46818a7758e4a766d, type: 3}
   m_Name: BaseAI
   m_EditorClassIdentifier: 
+  aiName: The First
   maxSanity: 100
   startSanity: 90
   aiType: 0

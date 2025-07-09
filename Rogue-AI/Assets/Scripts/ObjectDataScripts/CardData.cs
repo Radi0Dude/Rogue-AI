@@ -30,7 +30,6 @@ public class CardData : ScriptableObject
     [SerializeField] private string cardName;
     [SerializeField, TextArea] private string cardDescription;
     [SerializeField] private Sprite cardSymbol;
-    [SerializeField] private Sprite cardImage;
 
     [Header("Only need to be filled for the respective card type\nE.g. cardsToDraw only matters if cardType 'Draw' is selected")]
     [SerializeField] private int cardsToDraw = 1;
@@ -42,7 +41,6 @@ public class CardData : ScriptableObject
     public string CardName => cardName;
     public string CardDescription => cardDescription;
     public Sprite CardSymbol => cardSymbol;
-    public Sprite CardImage => cardImage;
 
     public int CardsToDraw => cardsToDraw;
     public int CardsToDelete => cardsToDelete;

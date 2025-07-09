@@ -12,6 +12,7 @@ public enum AITypes
 [CreateAssetMenu(fileName = "New AI Data", menuName = "AI/AI Data")]
 public class AIData : ScriptableObject
 {
+    [SerializeField] private string aiName = "UnNamed";
     [SerializeField] private float maxSanity = 100.0f;
     [SerializeField] private float startSanity = 10.0f;
     [SerializeField] private AITypes aiType;
@@ -20,6 +21,7 @@ public class AIData : ScriptableObject
     [Header("Option for stronger Enemies")]
     [SerializeField] private AIActionData endOfTurnAction;
 
+    public string AIName => aiName;
     public float MaxSanity => maxSanity;
     public float StartSanity => startSanity;
     public AITypes AIType => aiType;

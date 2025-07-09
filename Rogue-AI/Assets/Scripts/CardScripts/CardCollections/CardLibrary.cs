@@ -10,9 +10,6 @@ public class CardLibrary : MonoBehaviour
     [SerializeField] private GameObject uiCardPrefab;
     [SerializeField] private MyGridLayoutGroup cardLibraryPanel;
     [SerializeField] private GameObject openButton, closeButton, scrollView;
-
-    public event Action OnOpenButtonClicked;
-    public event Action OnCloseButtonClicked;
     
     private RectTransform _rectTransform;
     private List<Card> _cards = new ();

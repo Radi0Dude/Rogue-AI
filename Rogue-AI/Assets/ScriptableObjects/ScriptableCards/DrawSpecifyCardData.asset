@@ -18,4 +18,5 @@ MonoBehaviour:
   cardName: Specify and Expand
   cardDescription: Will specify and draw a card
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardsToDraw: 1
+  cardsToDelete: 1
