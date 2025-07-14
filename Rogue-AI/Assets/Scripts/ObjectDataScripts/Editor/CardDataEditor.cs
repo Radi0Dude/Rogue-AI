@@ -19,7 +19,7 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardsToDelete;
         
         
-        private bool _canPrompt, _canDraw, _canDelete;
+        private bool _selectedPromptype, _selectedEffective, _canPrompt, _canDraw, _canDelete;
         
 
 
@@ -37,7 +37,7 @@ namespace ObjectDataScripts.Editor
 
         public override void OnInspectorGUI()
         {
-            CardTypeValueChanged((CardType)_cardType.intValue);
+            HandleEnumValueChanged((CardType)_cardType.intValue);
 
             serializedObject.UpdateIfRequiredOrScript();
             
@@ -63,20 +63,22 @@ namespace ObjectDataScripts.Editor
             }
             // Options to be visible depending on card types
             EditorGUI.indentLevel++;
+            EditorGUILayout.LabelField("Specifications", EditorStyles.boldLabel);
+            EditorGUIUtility.labelWidth = 200;
             if (_canPrompt)
             {
                 EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
-                if (_promptType.intValue == 0)
+                if (_selectedPromptype)
                 {
                     EditorGUILayout.HelpBox("Cauition, no type selected", MessageType.Warning);
                 }
-                EditorGUILayout.PropertyField(_effectiveAgainst, new GUIContent("Effective Against Type"));
-                if (_effectiveAgainst.intValue == 0)
+                EditorGUILayout.PropertyField(_effectiveAgainst, new GUIContent("Effective Against"));
+                if (_selectedEffective)
                 {
                     EditorGUILayout.HelpBox("Cauition, no effectiveness selected", MessageType.Warning);
                 }
             }
-
+            
             if (_canDraw)
             {
                 EditorGUILayout.PropertyField(_cardsToDraw, new GUIContent("Cards to Draw"));
@@ -94,6 +96,7 @@ namespace ObjectDataScripts.Editor
                     EditorGUILayout.HelpBox("Cauition, value should be higher than 0", MessageType.Warning);
                 }
             }
+
             EditorGUI.indentLevel--;
             
             EditorGUILayout.Space(20);
@@ -118,15 +121,18 @@ namespace ObjectDataScripts.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void CardTypeValueChanged(CardType cardTypeValue)
+        private void HandleEnumValueChanged(CardType cardTypeValue)
         {
             _canPrompt = (cardTypeValue & CardType.Prompt) != 0;
             
             _canDraw = (cardTypeValue & CardType.Draw) != 0;
 
             _canDelete = (cardTypeValue & CardType.Delete) != 0;
-            
-            
+
+            _selectedPromptype = _promptType.intValue == 0;
+
+            _selectedEffective = _effectiveAgainst.intValue == 0;
+
         }
     }
 }
