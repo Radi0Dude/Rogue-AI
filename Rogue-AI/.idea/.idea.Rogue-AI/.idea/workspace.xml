@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/CardDataEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/CardDataEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/AIActionDrawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/AIActionDrawer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/AIDataEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/AIDataEditor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +19,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Editor/StartupSceneLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Editor/WindowDisplay.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AIScripts/AI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CardScripts/Card.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/CardScripts/CardCollections/Hand.cs" root0="FORCE_HIGHLIGHTING" />
@@ -125,7 +127,7 @@
       <workItem from="1751872343971" duration="12657000" />
       <workItem from="1751957861946" duration="4622000" />
       <workItem from="1752050663278" duration="19605000" />
-      <workItem from="1752480523191" duration="10993000" />
+      <workItem from="1752480523191" duration="16208000" />
     </task>
     <servers />
   </component>
