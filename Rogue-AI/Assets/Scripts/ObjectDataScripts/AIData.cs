@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Flags]
 public enum AITypes
 {
-    Grammar,
-    Research,
-    Summarization,
-    Programming,
+    Grammar = 1 << 0,
+    Research = 1 << 1,
+    Summarization = 1 << 2,
+    Programming = 1 << 3,
 }
 
 [CreateAssetMenu(fileName = "AI", menuName = "AI/AI Data")]

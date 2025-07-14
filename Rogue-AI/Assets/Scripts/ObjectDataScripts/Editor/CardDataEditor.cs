@@ -1,5 +1,7 @@
 using System;
 using UnityEditor;
+using UnityEditor.Rendering;
+using UnityEngine;
 
 namespace ObjectDataScripts.Editor
 {
@@ -7,44 +9,124 @@ namespace ObjectDataScripts.Editor
     public class CardDataEditor : UnityEditor.Editor
     {
         
-        private SerializedProperty cardType;
-        private SerializedProperty promptType;
-        private SerializedProperty effectiveAgainst;
-        private SerializedProperty cardName;
-        private SerializedProperty cardDescription;
-        private SerializedProperty cardSymbol;
-        private SerializedProperty cardsToDraw;
-        private SerializedProperty cardsToDelete;
+        private SerializedProperty _cardType;
+        private SerializedProperty _promptType;
+        private SerializedProperty _effectiveAgainst;
+        private SerializedProperty _cardName;
+        private SerializedProperty _cardDescription;
+        private SerializedProperty _cardSymbol;
+        private SerializedProperty _cardsToDraw;
+        private SerializedProperty _cardsToDelete;
         
+        
+        private bool _canPrompt, _canDraw, _canDelete;
         
 
 
         private void OnEnable()
         {
-            cardType = serializedObject.FindProperty("cardType");
-            promptType = serializedObject.FindProperty("promptType");
-            effectiveAgainst = serializedObject.FindProperty("effectiveAgainst");
-            cardName = serializedObject.FindProperty("cardName");
-            cardDescription = serializedObject.FindProperty("cardDescription");
-            cardSymbol = serializedObject.FindProperty("cardSymbol");
-            cardsToDraw = serializedObject.FindProperty("cardsToDraw");
-            cardsToDelete = serializedObject.FindProperty("cardsToDelete");
+            _cardType = serializedObject.FindProperty("cardType");
+            _promptType = serializedObject.FindProperty("promptType");
+            _effectiveAgainst = serializedObject.FindProperty("effectiveAgainst");
+            _cardName = serializedObject.FindProperty("cardName");
+            _cardDescription = serializedObject.FindProperty("cardDescription");
+            _cardSymbol = serializedObject.FindProperty("cardSymbol");
+            _cardsToDraw = serializedObject.FindProperty("cardsToDraw");
+            _cardsToDelete = serializedObject.FindProperty("cardsToDelete");
         }
 
         public override void OnInspectorGUI()
         {
-            CardData data = (CardData)target;
-            
-            EditorGUILayout.LabelField(data.CardName.ToUpper(), EditorStyles.boldLabel);
-            EditorGUILayout.Space(10);
-            // ↑↑ add before ↑↑
-            base.OnInspectorGUI();
-            // ↓↓ add after ↓↓
+            CardTypeValueChanged((CardType)_cardType.intValue);
 
-            if (!data.CardSymbol)
+            serializedObject.UpdateIfRequiredOrScript();
+            
+            EditorGUILayout.LabelField(_cardName.stringValue.ToUpper(), EditorStyles.boldLabel);
+            
+            EditorGUILayout.Space(10);
+            
+            // ↑↑ add above base inspector ↑↑
+            //base.OnInspectorGUI();
+            // Custom GUI
+            EditorGUILayout.LabelField("General Stats", EditorStyles.boldLabel);
+            
+            EditorGUILayout.PropertyField(_cardName, new GUIContent("Card Name"));
+            if (_cardName.stringValue.Length <= 0)
             {
-                EditorGUILayout.HelpBox("Cauition missing symbol", MessageType.Warning);
+                EditorGUILayout.HelpBox("Cauition, Should be given a name", MessageType.Warning);
             }
+            EditorGUILayout.PropertyField(_cardType, new GUIContent("Card Type"));
+           
+            if (!_canPrompt && !_canDraw && !_canDelete)
+            {
+                EditorGUILayout.HelpBox("No Card Type is selected and card won't work", MessageType.Error);
+            }
+            // Options to be visible depending on card types
+            EditorGUI.indentLevel++;
+            if (_canPrompt)
+            {
+                EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
+                if (_promptType.intValue == 0)
+                {
+                    EditorGUILayout.HelpBox("Cauition, no type selected", MessageType.Warning);
+                }
+                EditorGUILayout.PropertyField(_effectiveAgainst, new GUIContent("Effective Against Type"));
+                if (_effectiveAgainst.intValue == 0)
+                {
+                    EditorGUILayout.HelpBox("Cauition, no effectiveness selected", MessageType.Warning);
+                }
+            }
+
+            if (_canDraw)
+            {
+                EditorGUILayout.PropertyField(_cardsToDraw, new GUIContent("Cards to Draw"));
+                if (_cardsToDraw.intValue <= 0)
+                {
+                    EditorGUILayout.HelpBox("Cauition, value should be higher than 0", MessageType.Warning);
+                }
+            }
+
+            if (_canDelete)
+            {
+                EditorGUILayout.PropertyField(_cardsToDelete, new GUIContent("Cards to Delete"));
+                if (_cardsToDelete.intValue <= 0)
+                {
+                    EditorGUILayout.HelpBox("Cauition, value should be higher than 0", MessageType.Warning);
+                }
+            }
+            EditorGUI.indentLevel--;
+            
+            EditorGUILayout.Space(20);
+            
+            EditorGUILayout.PropertyField(_cardDescription, new GUIContent("Tooltip Description"));
+            if (_cardDescription.stringValue.Length == 0)
+            {
+                EditorGUILayout.HelpBox("Cauition, should be a description", MessageType.Warning);
+            }
+            
+            EditorGUILayout.PropertyField(_cardSymbol, new GUIContent("Card Symbol"));
+            if (!_cardSymbol.objectReferenceValue)
+            {
+                EditorGUILayout.HelpBox("Cauition, missing symbol", MessageType.Warning);
+            }
+            
+            
+            // ↓↓ add bellow base inspector ↓↓
+
+            
+            
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        private void CardTypeValueChanged(CardType cardTypeValue)
+        {
+            _canPrompt = (cardTypeValue & CardType.Prompt) != 0;
+            
+            _canDraw = (cardTypeValue & CardType.Draw) != 0;
+
+            _canDelete = (cardTypeValue & CardType.Delete) != 0;
+            
+            
         }
     }
 }
