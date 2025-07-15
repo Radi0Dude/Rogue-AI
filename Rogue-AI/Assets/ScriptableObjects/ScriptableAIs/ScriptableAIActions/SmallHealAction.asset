@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Small Heal
   roundsUntilAction: 2
+  barColor: {r: 0.38656995, g: 0.6886792, b: 0.38871256, a: 1}
   healAmount: 20
