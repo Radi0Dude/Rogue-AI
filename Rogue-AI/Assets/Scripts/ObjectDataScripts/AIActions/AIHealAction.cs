@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AIHealAction", menuName = "AI/Actions/AI Heal")]
+[CreateAssetMenu(fileName = "HealAction", menuName = "AI/Actions/AI Heal")]
 
 public class AIHealAction : AIActionData
 {

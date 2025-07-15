@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,7 +13,6 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _aiType;
         private SerializedProperty _aiActions;
         private SerializedProperty _endOfTurnAction;
-
         private void OnEnable()
         {
 
@@ -47,6 +46,13 @@ namespace ObjectDataScripts.Editor
             EditorGUILayout.PropertyField(_maxSanity, new GUIContent("Max Sanity"));
             EditorGUILayout.PropertyField(_startSanity, new GUIContent("Start Sanity"));
             EditorGUILayout.PropertyField(_aiType, new GUIContent("AI Type"));
+            
+            EditorGUILayout.Space(10);
+            EditorGUILayout.LabelField("Action Part",EditorStyles.boldLabel);
+            EditorGUILayout.Space(10);
+            
+            ActionProbabilityBar();
+            
             EditorGUILayout.PropertyField(_aiActions, new GUIContent("AI Actions"));
             if (_aiActions.arraySize == 0)
             {
@@ -69,6 +75,63 @@ namespace ObjectDataScripts.Editor
 
         }
 
+        private void ActionProbabilityBar()
+        {
+            // Dict: nameOfAction, NumberOfTimesUsed
+            Dictionary<AIActionData, int> dict = new ();
+            int amountOfValues = 0;
+            
+            // Fill Dict with Actions from AI
+            for (int i = 0; i < _aiActions.arraySize; i++)
+            {
+                AIActionData action = (AIActionData)_aiActions.GetArrayElementAtIndex(i).objectReferenceValue;
+
+                if (!dict.TryAdd(action, 1))
+                {
+                    dict[action]++;
+                }
+
+                amountOfValues++;
+            }
+            
+
+            // Get full width of inspector
+            Rect fullRect = GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth, 40f);
+            
+
+            float xPos = fullRect.x;
+            float yPos = fullRect.y;
+            float height = fullRect.height;
+            float width = fullRect.width;
+
+            float xUsed = 0.0f;
+
+            // Create Rects based on dict size
+            foreach (var dictData in dict)
+            {
+                // Create rect with length and corner pos based on dictData's Value
+                float part = ((float)dictData.Value/amountOfValues);
+                
+                Rect rect = new Rect(xPos + (xUsed * width), yPos, width * part, height);
+                Color color = dictData.Key.BarColor;
+                string rectText = dictData.Key.ActionName + " " + Mathf.Round(part * 100) + "%";
+                
+                EditorGUI.DrawRect(rect, color);
+                EditorGUI.LabelField(rect, rectText, GetCenteredStyle());
+                
+                xUsed += part;
+            }
+        }
         
+        private GUIStyle GetCenteredStyle()
+        {
+            var centeredStyle = new GUIStyle(EditorStyles.label);
+            centeredStyle.alignment = TextAnchor.MiddleCenter;
+            centeredStyle.normal.textColor = Color.white;
+            centeredStyle.wordWrap = true;
+            centeredStyle.fontStyle = FontStyle.Bold;
+            
+            return centeredStyle;
+        }
     }
 }

@@ -23,6 +23,7 @@ public class AIData : ScriptableObject
     [Header("Option for stronger Enemies")]
     [SerializeField] private AIActionData endOfTurnAction;
 
+
     public string AIName => aiName;
     public float MaxSanity => maxSanity;
     public float StartSanity => startSanity;
