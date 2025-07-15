@@ -11,12 +11,12 @@ namespace CustomBuiltInScripts.Editor
             // get a reference to the attribute
             SeparatorAttribute separatorAttribute = attribute as SeparatorAttribute;
             // define the line to draw
-            Rect seperatorRect = new Rect(position.xMin,
+            Rect separatorRect = new Rect(position.xMin,
                 position.yMin + separatorAttribute.Spacing,
                 position.width,
                 separatorAttribute.Height);
             // draw the line
-            EditorGUI.DrawRect(seperatorRect, Color.white);
+            EditorGUI.DrawRect(separatorRect, Color.white);
         }
 
         // Need to change height to create space

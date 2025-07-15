@@ -1,8 +1,8 @@
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
-[CustomPropertyDrawer(typeof(AIActionData), true)]
-public class AIActionDrawer : PropertyDrawer
+[CustomPropertyDrawer(typeof(CardData), true)]
+public class CardDrawer : PropertyDrawer
 {
     // How to draw to the Inspector window
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)

@@ -115,8 +115,13 @@ namespace ObjectDataScripts.Editor
             
             
             // ↓↓ add bellow base inspector ↓↓
-
+            EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Script References", EditorStyles.boldLabel);
             
+            GUI.enabled = false;
+            EditorGUILayout.ObjectField("Script", MonoScript.FromScriptableObject((CardData)target), typeof(CardData), false);
+            EditorGUILayout.ObjectField("Scriptable Object", ((CardData)target), typeof(CardData), false);
+            GUI.enabled = true;
             
             serializedObject.ApplyModifiedProperties();
         }

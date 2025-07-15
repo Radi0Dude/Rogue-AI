@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AIDamageAction", menuName = "AI/Actions/AI Damage")]
 public class AIDamageAction : AIActionData
 {
+    [Header("Damage Action Specifics")]
     [SerializeField] private int damage;
     
     

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AIHealAction : AIActionData
 {
-    [Header("Amount of sanity lost")]
+    [Header("Heal Action Specifics")]
     [SerializeField] private int healAmount;
     
     

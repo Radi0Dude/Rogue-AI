@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
   m_Name: EditorTestCardData
   m_EditorClassIdentifier: 
-  cardType: 0
+  cardType: -1
   promptType: 0
   effectiveAgainst: 0
-  cardName: Editor Test
+  cardName: Editor Tester
   cardDescription: 
   cardSymbol: {fileID: 0}
   cardsToDraw: 1

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class AIActionData : ScriptableObject
 {
+    [Header("Base Data")]
     [SerializeField] private string actionName;
     [SerializeField] private int roundsUntilAction;
 
