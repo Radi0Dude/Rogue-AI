@@ -14,8 +14,7 @@ public class TreasureManager : MonoBehaviour
     [SerializeField] private Image treasureIcon;
     [SerializeField] private TextMeshProUGUI treasureTitle, treasureDescription;
     
-    [Header("Using RestSiteManager.cs to delete card")]
-    [SerializeField] private RestSiteManager restSiteManager;
+    [SerializeField] private CardLibrary cardLibrary;
     
     private TreasureRoom _data;
     private RewardType _rewardType;
@@ -50,7 +49,7 @@ public class TreasureManager : MonoBehaviour
                 GameManager.RemoveRoomFromListAndLoadNextScene();
                 break;
             case RewardType.Delete:
-                restSiteManager.RefactorButtonPressed(_data.NumberToDelete);
+                cardLibrary.StartDeleteCards(_data.NumberToDelete, false);
                 break;
             case RewardType.PowerUp:
                 break;

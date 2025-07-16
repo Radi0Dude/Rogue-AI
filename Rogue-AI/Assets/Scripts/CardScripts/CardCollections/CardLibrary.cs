@@ -9,10 +9,14 @@ public class CardLibrary : MonoBehaviour
 
     [SerializeField] private GameObject uiCardPrefab;
     [SerializeField] private MyGridLayoutGroup cardLibraryPanel;
-    [SerializeField] private GameObject openButton, closeButton, scrollView;
-    
+    [SerializeField] private GameObject openButton, closeButton, scrollView, canvasToHide;
+
     private RectTransform _rectTransform;
     private List<Card> _cards = new ();
+    
+    // Delete card variables
+    private bool _canRemoveCards = false;
+    private int _cardsToRemove = 0;
 
     private void Awake()
     {
@@ -21,11 +25,65 @@ public class CardLibrary : MonoBehaviour
         _rectTransform = cardLibraryPanel.gameObject.GetComponent<RectTransform>();
     }
 
-
-    public void ViewCardsInList(List<CardData> cardsInCollection = null)
+    private void Start()
     {
-        OpenLibrary();
-        cardsInCollection ??= GameManager.PlayerCardCollection.CardsInCollection;
+        foreach (var card in _cards)
+        {
+            card.OnRewardSelected += DeleteCard;
+        }
+    }
+    
+    private void InitiateCards()
+    {
+        var amountToSpawn = GameManager.PlayerCardCollection.CardsInCollection.Count;
+        for (int i = 0; i < amountToSpawn; i++)
+        {
+            var uiInstance = Instantiate(uiCardPrefab, cardLibraryPanel.transform, false);
+            _cards.Add(uiInstance.GetComponentInChildren<Card>());
+            uiInstance.gameObject.SetActive(false);
+        }
+        CloseLibrary();
+    }
+
+    public void LibraryToggle(bool shouldOpen)
+    {
+        if (shouldOpen)
+        {
+            OpenLibrary();
+        }
+        else
+        {
+            CloseLibrary();
+        }
+    }
+    
+    private void CloseLibrary()
+    {
+        if (canvasToHide != null)
+            canvasToHide.SetActive(true);
+        
+        scrollView.SetActive(false);
+        closeButton.SetActive(false);
+        openButton.SetActive(true);
+        _canRemoveCards = false;
+        
+        foreach (var card in _cards)
+        {
+            card.transform.parent.gameObject.SetActive(false);
+        }
+    }
+
+   
+    private void OpenLibrary(bool showCloseButton = true)
+    {
+        if (canvasToHide != null)
+            canvasToHide.SetActive(false);
+        
+        scrollView.SetActive(true);
+        closeButton.SetActive(showCloseButton);
+        openButton.SetActive(false);
+        
+        var cardsInCollection = GameManager.PlayerCardCollection.CardsInCollection;
         for (int i = 0; i < cardsInCollection.Count; i++)
         {
             _cards[i].transform.parent.gameObject.SetActive(true);
@@ -45,50 +103,35 @@ public class CardLibrary : MonoBehaviour
 
     }
     
-    private void InitiateCards()
+    public void StartDeleteCards(int count, bool showCloseButton = true)
     {
-        var amountToSpawn = GameManager.PlayerCardCollection.CardsInCollection.Count;
-        for (int i = 0; i < amountToSpawn; i++)
-        {
-            var uiInstance = Instantiate(uiCardPrefab, cardLibraryPanel.transform, false);
-            _cards.Add(uiInstance.GetComponentInChildren<Card>());
-            uiInstance.gameObject.SetActive(false);
-        }
-        CloseLibrary();
-    }
-
-    public void ButtonPressed(bool shouldOpen)
-    {
-        if (shouldOpen)
-        {
-            ViewCardsInList();
-        }
-        else
-        {
-            CloseLibrary();
-        }
+        OpenLibrary(showCloseButton);
+        _canRemoveCards = true;
+        _cardsToRemove = count;
     }
     
-    private void CloseLibrary()
+    private void DeleteCard(Card card)
     {
-        scrollView.SetActive(false);
-        closeButton.SetActive(false);
-        openButton.SetActive(true);
-        foreach (var card in _cards)
+        if (!_canRemoveCards) return;
+        
+        GameManager.PlayerCardCollection.RemoveCardFromCollection(card.GetData());
+        HideCloseButton();
+        
+        _cardsToRemove--;
+
+        if (_cardsToRemove >= 0)
         {
-            card.transform.parent.gameObject.SetActive(false);
+            LoadNextScene();
         }
     }
 
-    private void OpenLibrary()
+    private void HideCloseButton()
     {
-        scrollView.SetActive(true);
-        closeButton.SetActive(true);
-        openButton.SetActive(false);
+        closeButton.SetActive(false);
     }
-
-    public List<Card> GetCards()
+    
+    private void LoadNextScene()
     {
-        return _cards;
+        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 }

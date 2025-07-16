@@ -14,4 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: Base Event Room
   roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
-  sceneNameToLoad: 
+  optionDescriptions:
+  - eventDescription: 
+    eventEffectTooltip: 
+    eventResults: 
+  - eventDescription: 
+    eventEffectTooltip: 
+    eventResults: 
+  currentHealthChange: 0
+  maxHealthChange: 0
+  drawAmountChange: 0
+  cardToAdd: {fileID: 0}
+  numberOfCardsToDelete: 0

@@ -10,7 +10,12 @@ public class MainMenuManager : MonoBehaviour
         CardCollectionData newCollection = ScriptableObject.CreateInstance<CardCollectionData>();
         newCollection.InitializeCollection(startingCardCollection.CardsInCollection);
         GameManager.PlayerCardCollection = newCollection;
-
+        
+        // Reset all player Stats
+        GameManager.PlayerMaxHealth = 100;
+        GameManager.PlayerHealth = GameManager.PlayerMaxHealth;
+        GameManager.StartOfRoundDraw = 4;
+        
         GameManager.CanPlayCard = false;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);

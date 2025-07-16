@@ -5,12 +5,11 @@ using UnityEngine.PlayerLoop;
 
 public class Player : MonoBehaviour
 {
-    public event Action OnPlayerDeath;
+    //public event Action OnPlayerDeath;
     
     [SerializeField] private TMP_Text healthText;
     private Deck _deck;
     
-    private static int _currentHealth = GameManager.PlayerMaxHealth/2;
 
     private void Awake()
     {
@@ -29,22 +28,14 @@ public class Player : MonoBehaviour
 
     public void ChangeHealth(int value)
     {
-        _currentHealth += value;
+        GameManager.ChangePlayerHealth(value);
+        
         UpdateHealthVisuals();
-        if (_currentHealth <= 0)
-        {
-            Debug.Log("Player Died");
-            OnPlayerDeath?.Invoke();
-        }
-        else if (_currentHealth > GameManager.PlayerMaxHealth)
-        {
-            _currentHealth = GameManager.PlayerMaxHealth;
-        }
     }
 
     private void UpdateHealthVisuals()
     {
-        healthText.text = _currentHealth+"/"+GameManager.PlayerMaxHealth;
+        healthText.text = GameManager.PlayerHealth+"/"+GameManager.PlayerMaxHealth;
     }
 
 

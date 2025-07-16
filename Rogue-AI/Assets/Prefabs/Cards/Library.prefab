@@ -159,7 +159,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128179806230104058}
         m_TargetAssemblyTypeName: CardLibrary, Assembly-CSharp
-        m_MethodName: ButtonPressed
+        m_MethodName: LibraryToggle
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -775,7 +775,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128179806230104058}
         m_TargetAssemblyTypeName: CardLibrary, Assembly-CSharp
-        m_MethodName: ButtonPressed
+        m_MethodName: LibraryToggle
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1040,6 +1040,7 @@ MonoBehaviour:
   openButton: {fileID: 4991379755509991827}
   closeButton: {fileID: 1394786846016549663}
   scrollView: {fileID: 2061951568377843561}
+  canvasToHide: {fileID: 0}
 --- !u!1 &8945102004450409971
 GameObject:
   m_ObjectHideFlags: 0

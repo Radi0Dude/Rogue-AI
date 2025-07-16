@@ -19,6 +19,7 @@ public static class GameManager
     
     // Player Variables
     public static int PlayerMaxHealth = 100;
+    public static int PlayerHealth = PlayerMaxHealth;
     public static CardCollectionData PlayerCardCollection;
     
     private static List<RoomData> _rooms = new ();
@@ -41,6 +42,30 @@ public static class GameManager
             LoadNextRoom();
             _isGameStarted = true;
         }
+    }
+
+    public static void ChangePlayerHealth(int changeValue)
+    {
+        PlayerHealth += changeValue;
+        if (PlayerHealth <= 0)
+        {
+            Debug.Log("Player Died");
+            GameOver();
+        }
+        else if (PlayerHealth > PlayerMaxHealth)
+        {
+            PlayerHealth = PlayerMaxHealth;
+        }
+    }
+
+    public static void ChangeMaxHealth(int changeValue)
+    {
+        PlayerMaxHealth += changeValue;
+        // If max health increases also heal the player, if it decreases do not decrease health,
+        // but check if current health exceeds mac health
+        if (changeValue < 0) 
+            changeValue = 0; 
+        ChangePlayerHealth(changeValue);
     }
 
     public static RoomData GetRoom()

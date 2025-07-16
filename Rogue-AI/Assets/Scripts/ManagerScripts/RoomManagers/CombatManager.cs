@@ -29,7 +29,6 @@ public class CombatManager : MonoBehaviour
    
         _inputField.OnEndingTurnEvent += EndTurn;
         _inputField.OnSendPromptEvent += SendPrompt;
-        _player.OnPlayerDeath += LoseCombat;
         _ai.OnAISane += EndCombat;
             
         GameManager.CanPlayCard = true;
@@ -149,7 +148,6 @@ public class CombatManager : MonoBehaviour
     {
         _inputField.OnEndingTurnEvent -= EndTurn;
         _inputField.OnSendPromptEvent -= SendPrompt;
-        _player.OnPlayerDeath -= LoseCombat;
         _ai.OnAISane -= EndCombat;
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public enum EventResults
 {
     ChangeHealth,
@@ -16,9 +15,21 @@ public class EventRoom : RoomData
     public override RoomType RoomType  => RoomType.Event;
     public override string SceneNameToLoad => "5_EventScene";
 
+    [Header("Event Room Variables")]
+    [SerializeField] private EventStruct[] optionDescriptions;
 
-    [SerializeField] private int numberOfOptions;
-    [SerializeField] private string[] optionDescriptions;
+    [SerializeField] private int currentHealthChange;
+    [SerializeField] private int maxHealthChange;
+    [SerializeField] private int drawAmountChange;
+    [SerializeField] private CardData cardToAdd;
+    [SerializeField] private int numberOfCardsToDelete;
     
+    public EventStruct[] OptionDescriptions => optionDescriptions;
+    public int CurrentHealthChange => currentHealthChange;
+    public int MaxHealthChange => maxHealthChange;
+    public int DrawAmountChange => drawAmountChange;
+    public CardData CardToAdd => cardToAdd;
+    public int NumberOfCardsToDelete => numberOfCardsToDelete;
     
+
 }
