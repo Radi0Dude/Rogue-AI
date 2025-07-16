@@ -43,13 +43,14 @@ public class TreasureManager : MonoBehaviour
         switch (_rewardType)
         {
             case RewardType.Card:
+                GameManager.PlayerCardCollection.AddCardToCollection(_data.RewardCard.GetData());
                 break;
             case RewardType.Delete:
                 break;
             case RewardType.PowerUp:
                 break;
         }
-        
+        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 
     public void OnOpenLibrary()

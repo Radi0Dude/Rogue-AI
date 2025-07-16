@@ -7,8 +7,7 @@ public enum AITypes
 {
     Grammar = 1 << 0,
     Research = 1 << 1,
-    Summarization = 1 << 2,
-    Programming = 1 << 3,
+    Programming = 1 << 2,
 }
 
 [CreateAssetMenu(fileName = "AI", menuName = "AI/AI Data")]
