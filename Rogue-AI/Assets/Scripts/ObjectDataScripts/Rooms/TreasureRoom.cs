@@ -11,12 +11,14 @@ public class TreasureRoom : RoomData
     [SerializeField] private string rewardName;
     [SerializeField] private string rewardDescription;
 
-    [SerializeField] private Card rewardCard;
+    [SerializeField] private CardData rewardCard;
+    [SerializeField] private int numberToDelete  = 1;
     
     public RewardType RewardType => rewardType;
     public Sprite RewardSprite => rewardSprite;
     public string RewardName => rewardName;
     public string RewardDescription => rewardDescription;
-    public Card RewardCard => rewardCard;
+    public CardData RewardCard => rewardCard;
+    public int NumberToDelete => numberToDelete;
 
 }

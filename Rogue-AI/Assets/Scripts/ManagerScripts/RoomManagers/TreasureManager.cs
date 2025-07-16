@@ -14,6 +14,9 @@ public class TreasureManager : MonoBehaviour
     [SerializeField] private Image treasureIcon;
     [SerializeField] private TextMeshProUGUI treasureTitle, treasureDescription;
     
+    [Header("Using RestSiteManager.cs to delete card")]
+    [SerializeField] private RestSiteManager restSiteManager;
+    
     private TreasureRoom _data;
     private RewardType _rewardType;
     // Display Reward from Room Data
@@ -43,14 +46,15 @@ public class TreasureManager : MonoBehaviour
         switch (_rewardType)
         {
             case RewardType.Card:
-                GameManager.PlayerCardCollection.AddCardToCollection(_data.RewardCard.GetData());
+                GameManager.PlayerCardCollection.AddCardToCollection(_data.RewardCard);
+                GameManager.RemoveRoomFromListAndLoadNextScene();
                 break;
             case RewardType.Delete:
+                restSiteManager.RefactorButtonPressed(_data.NumberToDelete);
                 break;
             case RewardType.PowerUp:
                 break;
         }
-        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 
     public void OnOpenLibrary()
@@ -61,5 +65,10 @@ public class TreasureManager : MonoBehaviour
     public void OnCloseLibrary()
     {
         treasurePanel.SetActive(true);
+    }
+
+    public void SkipRoom()
+    {
+        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 }

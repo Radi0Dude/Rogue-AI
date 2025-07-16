@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 public class RestSiteManager : MonoBehaviour
 {
@@ -11,6 +7,7 @@ public class RestSiteManager : MonoBehaviour
     private CardLibrary _cardLibrary;
     
     private bool _canRemoveCards = false;
+    private int _cardsToRemove = 0;
     
     [SerializeField] private int healAmount = 25;
     [SerializeField] private CanvasRenderer canvasRenderer;
@@ -41,10 +38,11 @@ public class RestSiteManager : MonoBehaviour
         canvasRenderer.gameObject.SetActive(false);
     }
 
-    public void RefactorButtonPressed()
+    public void RefactorButtonPressed(int numbToDelete = 1)
     {
         _cardLibrary.ViewCardsInList();
         _canRemoveCards = true;
+        _cardsToRemove = numbToDelete;
         canvasRenderer.gameObject.SetActive(false);
     }
 
@@ -61,10 +59,12 @@ public class RestSiteManager : MonoBehaviour
         GameManager.PlayerCardCollection.RemoveCardFromCollection(card.GetData());
         _cardLibrary.ButtonPressed(false);
         
-        _canRemoveCards = false;
-        canvasRenderer.gameObject.SetActive(true);
+        _cardsToRemove--;
 
-        AfterButtonPressed();
+        if (_cardsToRemove >= 0)
+        {
+            AfterButtonPressed();
+        }
     }
 
     public void CancelDeletionButtonPressed()

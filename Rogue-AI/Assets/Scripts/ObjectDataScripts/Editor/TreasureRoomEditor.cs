@@ -15,6 +15,7 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _rewardDescription;
         
         private SerializedProperty _rewardCard;
+        private SerializedProperty _numberToDelete;
 
         private bool _isCard, _isDelete, _isPowerUp;
 
@@ -26,7 +27,9 @@ namespace ObjectDataScripts.Editor
             _rewardSprite = serializedObject.FindProperty("rewardSprite");
             _rewardName = serializedObject.FindProperty("rewardName");
             _rewardDescription = serializedObject.FindProperty("rewardDescription");
+            
             _rewardCard = serializedObject.FindProperty("rewardCard");
+            _numberToDelete = serializedObject.FindProperty("numberToDelete");
         }
 
         public override void OnInspectorGUI()
@@ -50,7 +53,12 @@ namespace ObjectDataScripts.Editor
 
             if (_isCard)
             {
-                EditorGUILayout.PropertyField(_rewardCard, new GUIContent("Reward Card"));
+                EditorGUILayout.ObjectField(_rewardCard, typeof(CardData), new GUIContent("Reward Card"));
+            }
+
+            if (_isDelete)
+            {
+                EditorGUILayout.PropertyField(_numberToDelete, new GUIContent("Number To Delete"));
             }
             
             EditorGUI.indentLevel--;
