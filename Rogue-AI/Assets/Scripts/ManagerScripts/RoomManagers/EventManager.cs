@@ -33,12 +33,10 @@ public class EventManager : MonoBehaviour
     }
     
     // When selected complete results
-    private void EventChoiceSelected(EventResults[] eventResults)
+    private void EventChoiceSelected(EventStruct eventStruct)
     {
-        foreach (var result in eventResults)
-        {
-            HandleEventResult(result);
-        }
+        
+        HandleEventResult(eventStruct);
 
         if (_canLoad)
         {
@@ -46,29 +44,37 @@ public class EventManager : MonoBehaviour
         }
     }    
     
-    private void HandleEventResult(EventResults result)
+    private void HandleEventResult(EventStruct thisEventStruct)
     {
-        switch (result)
+        EventResults result = thisEventStruct.eventResults;
+        
+        if (result.HasFlag(EventResults.ChangeHealth))
         {
-            case EventResults.ChangeHealth:
-                GameManager.ChangePlayerHealth(_data.CurrentHealthChange);
-                break;
-            case EventResults.ChangeMaxHealth:
-                GameManager.ChangeMaxHealth(_data.MaxHealthChange);
-                break;
-            case EventResults.ChangeDrawAmount:
-                GameManager.StartOfRoundDraw += _data.DrawAmountChange;
-                break;
-            case EventResults.AddCard:
-                GameManager.PlayerCardCollection.AddCardToCollection(_data.CardToAdd);
-                break;
-            case EventResults.RemoveCard:
-                cardLibrary.StartDeleteCards(_data.NumberOfCardsToDelete, false);
-                _canLoad = false;    
-                break;
+            GameManager.ChangePlayerHealth(thisEventStruct.currentHealthChange);
         }
+
+        if (result.HasFlag(EventResults.ChangeMaxHealth))
+        {
+            GameManager.ChangeMaxHealth(thisEventStruct.maxHealthChange);
+        }
+
+        if (result.HasFlag(EventResults.ChangeDrawAmount))
+        {
+            GameManager.StartOfRoundDraw += thisEventStruct.drawAmountChange;
+        }
+
+        if (result.HasFlag(EventResults.AddCard))
+        {
+            GameManager.PlayerCardCollection.AddCardToCollection(thisEventStruct.cardToAdd);
+        }
+
+        if (result.HasFlag(EventResults.RemoveCard))
+        {
+            cardLibrary.StartDeleteCards(thisEventStruct.numberOfCardsToDelete, false);
+            _canLoad = false;
+        }
+
     }
-    
     
     // When worked through all results load next scene
     private void LoadNextScene()

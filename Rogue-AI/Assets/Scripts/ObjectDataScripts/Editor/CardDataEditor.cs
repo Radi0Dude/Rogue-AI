@@ -19,7 +19,7 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardsToDelete;
         
         
-        private bool _selectedPromptype, _selectedEffective, _canPrompt, _canDraw, _canDelete;
+        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete;
         
 
 
@@ -68,7 +68,7 @@ namespace ObjectDataScripts.Editor
             if (_canPrompt)
             {
                 EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
-                if (_selectedPromptype)
+                if (_selectedPromptType)
                 {
                     EditorGUILayout.HelpBox("Cauition, no type selected", MessageType.Warning);
                 }
@@ -134,7 +134,7 @@ namespace ObjectDataScripts.Editor
 
             _canDelete = (cardTypeValue & CardType.Delete) != 0;
 
-            _selectedPromptype = _promptType.intValue == 0;
+            _selectedPromptType = _promptType.intValue == 0;
 
             _selectedEffective = _effectiveAgainst.intValue == 0;
 

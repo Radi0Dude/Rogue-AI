@@ -6,8 +6,13 @@ using UnityEngine;
 [Serializable]
 public struct EventStruct
 {
-    [TextArea] public string eventDescription;
-    [TextArea] public string eventEffectTooltip;
-    public EventResults[] eventResults;
+    public string eventDescription;
+    public string eventEffectTooltip;
+    public EventResults eventResults;
     
+    public int currentHealthChange;
+    public int maxHealthChange;
+    public int drawAmountChange;
+    public int numberOfCardsToDelete;
+    public CardData cardToAdd;
 }

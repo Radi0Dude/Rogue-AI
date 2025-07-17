@@ -1,11 +1,14 @@
+using System;
 using UnityEngine;
+
+[Flags]
 public enum EventResults
 {
-    ChangeHealth,
-    ChangeMaxHealth,
-    ChangeDrawAmount,
-    AddCard,
-    RemoveCard,
+    ChangeHealth = 1 << 0,
+    ChangeMaxHealth = 1 << 1,
+    ChangeDrawAmount = 1 << 2,
+    AddCard = 1 << 3,
+    RemoveCard = 1 << 4,
     
 }
 
@@ -16,22 +19,12 @@ public class EventRoom : RoomData
     public override string SceneNameToLoad => "5_EventScene";
 
     [Header("Event Room Variables")]
-    [SerializeField] private string eventRoomName;
     [SerializeField] private string eventDescription;
     [SerializeField] private EventStruct[] optionDescriptions;
 
-    [SerializeField] private int currentHealthChange;
-    [SerializeField] private int maxHealthChange;
-    [SerializeField] private int drawAmountChange;
-    [SerializeField] private CardData cardToAdd;
-    [SerializeField] private int numberOfCardsToDelete;
     
+    
+    public string EventDescription => eventDescription;
     public EventStruct[] OptionDescriptions => optionDescriptions;
-    public int CurrentHealthChange => currentHealthChange;
-    public int MaxHealthChange => maxHealthChange;
-    public int DrawAmountChange => drawAmountChange;
-    public CardData CardToAdd => cardToAdd;
-    public int NumberOfCardsToDelete => numberOfCardsToDelete;
-    
 
 }

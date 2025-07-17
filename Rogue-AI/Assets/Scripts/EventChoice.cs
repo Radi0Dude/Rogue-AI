@@ -7,21 +7,19 @@ public class EventChoice : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI choiceDescription;
     
-    public event Action<EventResults[]>  OnChoiceSelected;
-    
-    private EventResults[] _eventResults;
-    private string _tooltipText;
+    public event Action<EventStruct>  OnChoiceSelected;
+
+    private EventStruct _eventStruct;
 
     public void Init(EventStruct eventInfo)
     {
         choiceDescription.text = eventInfo.eventDescription;
-        _eventResults = eventInfo.eventResults;
-        _tooltipText = eventInfo.eventEffectTooltip;
+        _eventStruct = eventInfo;
     }
     
     
     public void ChoiceButtonPressed()
     {
-        OnChoiceSelected?.Invoke(_eventResults);    
+        OnChoiceSelected?.Invoke(_eventStruct);    
     }
 }
