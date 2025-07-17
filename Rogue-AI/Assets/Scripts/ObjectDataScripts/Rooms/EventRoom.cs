@@ -16,6 +16,8 @@ public class EventRoom : RoomData
     public override string SceneNameToLoad => "5_EventScene";
 
     [Header("Event Room Variables")]
+    [SerializeField] private string eventRoomName;
+    [SerializeField] private string eventDescription;
     [SerializeField] private EventStruct[] optionDescriptions;
 
     [SerializeField] private int currentHealthChange;
