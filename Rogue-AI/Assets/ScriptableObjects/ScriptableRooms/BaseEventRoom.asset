@@ -14,29 +14,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: Base Event Room
   roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
-  eventDescription: This AI is willing to help restore your health
+  eventDescription: This AI is willing to help restore your health and offer you
+    10 points
   optionDescriptions:
-  - eventDescription: 
-    eventEffectTooltip: 
+  - eventDescription: Kindly receive
+    eventEffectTooltip: Regain 10 Health
     eventResults: 1
     currentHealthChange: 10
     maxHealthChange: 0
     drawAmountChange: 0
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 0}
-  - eventDescription: 
-    eventEffectTooltip: 
+  - eventDescription: I need more
+    eventEffectTooltip: Regain 25 Health and receive Bias
     eventResults: 9
     currentHealthChange: 25
     maxHealthChange: 0
     drawAmountChange: 0
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
-  - eventDescription: 
-    eventEffectTooltip: 
+  - eventDescription: I'm very healthy and would rather have an upgrade
+    eventEffectTooltip: Gain 15 Max Health and receive Misinformation
     eventResults: 10
     currentHealthChange: 25
     maxHealthChange: 15
     drawAmountChange: 0
     numberOfCardsToDelete: 0
-    cardToAdd: {fileID: 0}
+    cardToAdd: {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}

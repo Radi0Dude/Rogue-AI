@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class EventChoice : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI choiceDescription;
+    [SerializeField] private TextMeshProUGUI eventChoiceText;
+    [SerializeField] private TooltipText evenChoiceTooltip;
     
     public event Action<EventStruct>  OnChoiceSelected;
 
@@ -13,7 +14,8 @@ public class EventChoice : MonoBehaviour
 
     public void Init(EventStruct eventInfo)
     {
-        choiceDescription.text = eventInfo.eventDescription;
+        eventChoiceText.text = eventInfo.eventDescription;
+        evenChoiceTooltip.SetTooltipText(eventInfo.eventEffectTooltip);
         _eventStruct = eventInfo;
     }
     

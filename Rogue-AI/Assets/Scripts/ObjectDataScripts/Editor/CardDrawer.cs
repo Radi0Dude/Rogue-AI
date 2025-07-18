@@ -10,7 +10,7 @@ public class CardDrawer : PropertyDrawer
         // Draw the object reference field (i.e., the picker for the ScriptableObject)
         Rect referenceRect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
         EditorGUI.BeginProperty(referenceRect, label, property);
-        property.objectReferenceValue = EditorGUI.ObjectField(referenceRect, label, property.objectReferenceValue, typeof(AIActionData), false);
+        property.objectReferenceValue = EditorGUI.ObjectField(referenceRect, label, property.objectReferenceValue, typeof(CardData), false);
         EditorGUI.EndProperty();
 
         // If no object is assigned, stop here
