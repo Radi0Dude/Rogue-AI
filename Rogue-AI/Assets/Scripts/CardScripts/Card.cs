@@ -7,31 +7,27 @@ public class Card : MonoBehaviour
     [Header("Attached Scripts")]
     [SerializeField] private CardVisual cardVisual;
     [SerializeField] private CardInteraction cardInteraction;
+    [SerializeField] private TooltipText cardTooltip;
  
     public event Action<Card> OnRewardSelected;
+    public event Action<Card> OnCardPlayed;
     
     private CardData cardData;
-    private CombatManager _combatManager;
-    
-    
-
-    
     
     public void SetUp(CardData data)
     {
         cardData = data;
         cardVisual.UpdateCardVisuals(data);
-        cardInteraction.Init(data);
+        cardTooltip.SetTooltipText(data.CardDescription);
         cardInteraction.OnCardPressed += CardPressed;
         cardInteraction.OnRewardSelected += RewardSelected;
-        _combatManager = FindAnyObjectByType<CombatManager>();
     }
     
     private void CardPressed()
     {
         if (GameManager.CanPlayCard)
         {
-            _combatManager.PlayCard(this);
+            OnCardPlayed?.Invoke(this);
         }
     }
     
@@ -39,7 +35,6 @@ public class Card : MonoBehaviour
     {
         OnRewardSelected?.Invoke(this);
     }
-
 
     public CardData GetData()
     {

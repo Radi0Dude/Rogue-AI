@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
   m_Name: BasicFormat
   m_EditorClassIdentifier: 
-  cardType: -1
+  cardType: 1
   promptType: 2
   effectiveAgainst: -1
   cardName: Basic Format

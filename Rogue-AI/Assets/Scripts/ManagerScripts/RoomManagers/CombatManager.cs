@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CombatManager : MonoBehaviour
 {
-    
-    private InputField _inputField;
-    private CardReward _cardReward;
-    private Player _player;
-    private AI _ai;
-    private Deck _deck;
+    [Header("Scripts from Scene")]
+    [SerializeField] private InputField inputField;
+    [SerializeField] private CardReward cardReward;
+    [SerializeField] private Player player;
+    [SerializeField] private AI ai;
+    [SerializeField] private Deck deck;
 
 
     private void Awake()
@@ -19,20 +20,13 @@ public class CombatManager : MonoBehaviour
 
     private void BeginCombat()
     {
-        _inputField = FindAnyObjectByType<InputField>();
-        _cardReward = FindAnyObjectByType<CardReward>();
-        _player = FindAnyObjectByType<Player>();
-        _ai = FindAnyObjectByType<AI>();
-        _deck = FindAnyObjectByType<Deck>();
-
-
-   
-        _inputField.OnEndingTurnEvent += EndTurn;
-        _inputField.OnSendPromptEvent += SendPrompt;
-        _ai.OnAISane += EndCombat;
+        inputField.OnEndingTurnEvent += EndTurn;
+        inputField.OnSendPromptEvent += SendPrompt;
+        ai.OnAISane += EndCombat;
+        deck.OnCardPlayed += PlayCard;
             
         GameManager.CanPlayCard = true;
-        _ai.Initialize(_player);
+        ai.Initialize(player);
     }
 
     private void Start()
@@ -45,14 +39,15 @@ public class CombatManager : MonoBehaviour
     {
         // If there are no prompt present, give a new prompt
         // Player draws card
-        _player.DrawHand();
+        player.DrawHand();
     }
     
     public void PlayCard(Card card)
     {
         if (GameManager.CurrentPlayState == CardPlayState.Delete)
         {
-            _deck.DeleteCard(card);
+            Debug.LogWarning("Deleting card");
+            deck.DeleteCard(card);
             return;
         }
         
@@ -60,21 +55,22 @@ public class CombatManager : MonoBehaviour
 
         List<CardType> cardTypes = cardData.GetCardTypes();
 
-        _deck.DiscardCard(card);
+        deck.DiscardCard(card);
+        Debug.LogWarning("Playing card");
 
         foreach (CardType cardType in cardTypes)
         {
             if (cardType == CardType.Prompt)
             {
-                _inputField.UpdatePrompt(cardData.PromptType);
+                inputField.UpdatePrompt(cardData.PromptType);
             }
             else if (cardType == CardType.Draw)
             {
-                _deck.DrawHand(cardData.CardsToDraw);
+                deck.DrawHand(cardData.CardsToDraw);
             }
             else if (cardType == CardType.Delete)
             {
-                _deck.PlayedDeleteCard(cardData.CardsToDelete);
+                deck.PlayedDeleteCard(cardData.CardsToDelete);
             }
             else if (cardType == CardType.Virus)
             {
@@ -96,7 +92,7 @@ public class CombatManager : MonoBehaviour
         {
             sumSanity += 10;
         }
-        _ai.ChangeSanity(sumSanity);
+        ai.ChangeSanity(sumSanity);
         EndTurn();
     }
     
@@ -105,8 +101,8 @@ public class CombatManager : MonoBehaviour
     private void EndTurn()
     {
         Debug.Log("Ending Turn");
-        _player.DiscardAllCards();
-        if (!_ai.IsSane())
+        player.DiscardAllCards();
+        if (!ai.IsSane())
         {
             EnemyAdvancement();
         }
@@ -116,7 +112,7 @@ public class CombatManager : MonoBehaviour
 
     private void EnemyAdvancement()
     {
-        _ai.ReduceCountDown();
+        ai.ReduceCountDown();
         StartTurn();
     }
 
@@ -126,7 +122,7 @@ public class CombatManager : MonoBehaviour
         // Reward is presented to the player
         GameManager.CanPlayCard = false;
         Debug.Log("Ending Combat");
-        _cardReward.DisplayCardReward();
+        cardReward.DisplayCardReward();
         // In UI Player can load next scene
         
     }
@@ -146,9 +142,9 @@ public class CombatManager : MonoBehaviour
 
     private void OnDisable()
     {
-        _inputField.OnEndingTurnEvent -= EndTurn;
-        _inputField.OnSendPromptEvent -= SendPrompt;
-        _ai.OnAISane -= EndCombat;
+        inputField.OnEndingTurnEvent -= EndTurn;
+        inputField.OnSendPromptEvent -= SendPrompt;
+        ai.OnAISane -= EndCombat;
     }
 
 }

@@ -19,6 +19,8 @@ public class Deck : MonoBehaviour
     [SerializeField] private DiscardPile discardPile;
 
 
+    public event Action<Card> OnCardPlayed;
+
 
     private int _cardsToDelete;
     private List<Card> _deckPileList = new ();
@@ -47,6 +49,7 @@ public class Deck : MonoBehaviour
         {
             Card card = Instantiate(cardPrefab, transform.position + new Vector3(i, 0.0f, 0.0f), quaternion.identity); //Add Transform and shit later
             card.SetUp(playerDeck.CardsInCollection[i]);
+            card.OnCardPlayed += CardPlayed;
             card.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
             _deckPileList.Add(card); // All cards starts in the deck
             card.gameObject.SetActive(false); // Will later be activated when needed
@@ -57,6 +60,11 @@ public class Deck : MonoBehaviour
         ShuffleDeck();
     }
 
+    private void CardPlayed(Card card)
+    {
+        OnCardPlayed?.Invoke(card);
+    }
+    
     // Fisher-Yates Shuffle Algorithm
     private void ShuffleDeck()
     {

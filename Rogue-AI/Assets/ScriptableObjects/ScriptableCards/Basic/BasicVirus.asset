@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 8
   promptType: 0
+  effectiveAgainst: 0
   cardName: Basic Virus
   cardDescription: Description of BasicVirus
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardsToDraw: 1
+  cardsToDelete: 1

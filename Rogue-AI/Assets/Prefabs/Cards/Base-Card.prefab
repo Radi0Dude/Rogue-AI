@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 8051989537993218962}
   - component: {fileID: 8683528191210187323}
   - component: {fileID: 8942731695958524171}
+  - component: {fileID: 836249323031501645}
   - component: {fileID: 7624372140258214711}
   m_Layer: 0
   m_Name: Base-Card
@@ -316,6 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardVisual: {fileID: 8683528191210187323}
   cardInteraction: {fileID: 8942731695958524171}
+  cardTooltip: {fileID: 836249323031501645}
 --- !u!114 &8683528191210187323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,6 +342,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef2da898d92a9a64caa5d7fbaa28a9bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &836249323031501645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235951033535634374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5886a1c8fab55ba43ab0501a6bc8cff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!65 &7624372140258214711

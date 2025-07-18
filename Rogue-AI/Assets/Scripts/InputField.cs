@@ -8,7 +8,7 @@ using UnityEngine.Android;
 public class InputField : MonoBehaviour
 {
     [SerializeField] private TMP_Text promptText;
-    
+    [SerializeField] TooltipText sendInTooltipText;
     public event Action OnEndingTurnEvent;
     public event Action<List<PromptType>> OnSendPromptEvent;
 
@@ -27,6 +27,7 @@ public class InputField : MonoBehaviour
         //GetNewPrompt();
         
         UpdateVisual();
+        sendInTooltipText.SetTooltipText("Send prompt to AI and end your turn");
     }
 
     public void GetNewPrompt()

@@ -3,9 +3,13 @@ using TMPro;
 
 public class TooltipManager : MonoBehaviour
 {
-    public static TooltipManager Instance;
-    
+    [SerializeField] private RectTransform rectTransform;
     [SerializeField] private TextMeshProUGUI tooltipText;
+    
+    public static TooltipManager Instance;
+
+    private bool _isFacingRight;
+    
 
     private void Awake()
     {
@@ -22,14 +26,31 @@ public class TooltipManager : MonoBehaviour
     private void Start()
     {
         Cursor.visible = true;
+        ChangeTooltipDirection(true);
         gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        transform.position = Input.mousePosition;
+        var mousePos = Input.mousePosition;
+        
+        transform.position = mousePos;
+        
+        ChangeTooltipDirection(mousePos.x < Screen.width * 14f / 25f);
     }
 
+    private readonly Vector2 _leftTooltip = new Vector2(1,0);
+    private readonly Vector2 _rightTooltip = new Vector2(0,0);
+    private void ChangeTooltipDirection(bool pointingRight)
+    { 
+        if (pointingRight == _isFacingRight) return;
+        Vector2 direction = pointingRight ? _rightTooltip : _leftTooltip;
+
+        _isFacingRight = pointingRight;
+        
+        rectTransform.pivot = direction;
+    }
+    
     public void SetAndShowTooltip(string tooltip)
     {
         gameObject.SetActive(true);

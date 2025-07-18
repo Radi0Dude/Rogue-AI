@@ -14,6 +14,8 @@ public class TreasureManager : MonoBehaviour
     [SerializeField] private Image treasureIcon;
     [SerializeField] private TextMeshProUGUI treasureTitle, treasureDescription;
     
+    [Header("Scripts")]
+    [SerializeField] private Card treasureCard;
     [SerializeField] private CardLibrary cardLibrary;
     
     private TreasureRoom _data;
@@ -25,6 +27,11 @@ public class TreasureManager : MonoBehaviour
         {
             _data = room;
             _rewardType = _data.RewardType;
+            if (_rewardType == RewardType.Card)
+            {
+                treasureCard.gameObject.SetActive(true);
+                treasureCard.SetUp(_data.RewardCard);
+            }
         }
         else
         {

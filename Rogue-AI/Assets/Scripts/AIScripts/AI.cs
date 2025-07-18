@@ -11,9 +11,9 @@ public class AI : MonoBehaviour
     
     [Header("UI Elements")] 
     [SerializeField] private Canvas canvas;
-    [SerializeField] private TMP_Text aiSanityText;
     [SerializeField] private Image sanityBar;
     [SerializeField] private AIData data;
+    [SerializeField] private TooltipText sanityBarTooltip;
 
     
     private float _maxSanity;
@@ -99,7 +99,7 @@ public class AI : MonoBehaviour
         DOTween.To(()=> sanityBar.fillAmount, x=> sanityBar.fillAmount = x, percentageInDecimal, 1f);
 
         // Update SanityTextPercentage
-        if (aiSanityText != null) 
-            aiSanityText.text = percentage.ToString("0.0") + "%";
+        if (sanityBarTooltip != null) 
+            sanityBarTooltip.SetTooltipText(percentage.ToString("0.0") + "%");
     }
 }
