@@ -2,7 +2,6 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -100,6 +99,7 @@ public class AI : MonoBehaviour
         DOTween.To(()=> sanityBar.fillAmount, x=> sanityBar.fillAmount = x, percentageInDecimal, 1f);
 
         // Update SanityTextPercentage
-        aiSanityText.text = percentage.ToString("0.0") + "%";
+        if (aiSanityText != null) 
+            aiSanityText.text = percentage.ToString("0.0") + "%";
     }
 }

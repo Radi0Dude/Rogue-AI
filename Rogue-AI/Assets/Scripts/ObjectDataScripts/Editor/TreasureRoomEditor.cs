@@ -76,6 +76,12 @@ namespace ObjectDataScripts.Editor
             );
             
 
+            EditorGUILayout.Space(20);
+            EditorGUILayout.LabelField("Script References", EditorStyles.boldLabel);
+            GUI.enabled = false;
+            EditorGUILayout.ObjectField("Script", MonoScript.FromScriptableObject((TreasureRoom)target), typeof(TreasureRoom), false);
+            EditorGUILayout.ObjectField("Scriptable Object", ((TreasureRoom)target), typeof(TreasureRoom), false);
+            GUI.enabled = true;
             
             serializedObject.ApplyModifiedProperties();
         }

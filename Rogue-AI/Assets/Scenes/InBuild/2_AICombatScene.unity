@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base-AI
       objectReference: {fileID: 0}
+    - target: {fileID: 7180273359934083123, guid: bd4264e2dcd450643b75fa1a30231c46, type: 3}
+      propertyPath: aiSanityText
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -447,11 +451,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6433216334937894174, guid: f6e99106a8d2ee0428c08ac3822152f7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.761
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 6433216334937894174, guid: f6e99106a8d2ee0428c08ac3822152f7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.676
+      value: 0.509
       objectReference: {fileID: 0}
     - target: {fileID: 6433216334937894174, guid: f6e99106a8d2ee0428c08ac3822152f7, type: 3}
       propertyPath: m_LocalRotation.w

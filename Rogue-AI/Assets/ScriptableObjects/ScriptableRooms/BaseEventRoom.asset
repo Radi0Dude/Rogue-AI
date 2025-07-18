@@ -14,15 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomName: Base Event Room
   roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
+  eventDescription: This AI is willing to help restore your health
   optionDescriptions:
   - eventDescription: 
     eventEffectTooltip: 
-    eventResults: 
+    eventResults: 1
+    currentHealthChange: 10
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 0}
   - eventDescription: 
     eventEffectTooltip: 
-    eventResults: 
-  currentHealthChange: 0
-  maxHealthChange: 0
-  drawAmountChange: 0
-  cardToAdd: {fileID: 0}
-  numberOfCardsToDelete: 0
+    eventResults: 9
+    currentHealthChange: 25
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
+  - eventDescription: 
+    eventEffectTooltip: 
+    eventResults: 10
+    currentHealthChange: 25
+    maxHealthChange: 15
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 0}

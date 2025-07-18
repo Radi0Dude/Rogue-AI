@@ -41,20 +41,14 @@ public class EventRoomEditor : UnityEditor.Editor
         EditorGUILayout.PropertyField(_eventDescription, new GUIContent("Event Description"));
         EditorGUILayout.PropertyField(_optionDescriptions, new GUIContent("Option Descriptions"));
         
+        EditorGUILayout.Space(20);
+        EditorGUILayout.LabelField("Script References", EditorStyles.boldLabel);
+        GUI.enabled = false;
+        EditorGUILayout.ObjectField("Script", MonoScript.FromScriptableObject((EventRoom)target), typeof(EventRoom), false);
+        EditorGUILayout.ObjectField("Scriptable Object", ((EventRoom)target), typeof(EventRoom), false);
+        GUI.enabled = true;
         
         serializedObject.ApplyModifiedProperties();
     }
-    /*
-        _currentHealthChange = serializedObject.FindProperty("currentHealthChange");
-        _maxHealthChange = serializedObject.FindProperty("maxHealthChange");
-        _drawAmountChange = serializedObject.FindProperty("drawAmountChange");
-        _cardToAdd = serializedObject.FindProperty("cardToAdd");
-        _numberOfCardsToDelete = serializedObject.FindProperty("numberOfCardsToDelete");
-        EditorGUILayout.PropertyField(_currentHealthChange, new GUIContent("Current Health Change"));
-        EditorGUILayout.PropertyField(_maxHealthChange, new GUIContent("Max Health Change"));
-        EditorGUILayout.PropertyField(_drawAmountChange, new GUIContent("Draw Amount Change"));
-        EditorGUILayout.PropertyField(_cardToAdd, new GUIContent("Card To Add"));
-        EditorGUILayout.PropertyField(_numberOfCardsToDelete, new GUIContent("Number of Cards to Delete"));
-     */
 
 }

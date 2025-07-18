@@ -16,9 +16,9 @@ public class Hand : MonoBehaviour
         {
             var pos = cardSlots[i].position;
             var localEuler = cardSlots[i].localEulerAngles;
+            if (handCards[i] == null) continue;
             handCards[i].transform.DOMove(pos, 0.25f);
             handCards[i].transform.DOLocalRotate(localEuler, 0.5f);
-
         }
     }
 }
