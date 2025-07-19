@@ -9,11 +9,13 @@ public class AI : MonoBehaviour
 {
     public event Action OnAISane;
     
+    [SerializeField] private AIData data;
+
     [Header("UI Elements")] 
     [SerializeField] private Canvas canvas;
     [SerializeField] private Image sanityBar;
-    [SerializeField] private AIData data;
     [SerializeField] private TooltipText sanityBarTooltip;
+
 
     
     private float _maxSanity;
@@ -100,6 +102,6 @@ public class AI : MonoBehaviour
 
         // Update SanityTextPercentage
         if (sanityBarTooltip != null) 
-            sanityBarTooltip.SetTooltipText(percentage.ToString("0.0") + "%");
+            sanityBarTooltip.SetTooltipText("Sanity level: " + percentage.ToString("0.0") + "%");
     }
 }
