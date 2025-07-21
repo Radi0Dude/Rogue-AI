@@ -17,9 +17,12 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardSymbol;
         private SerializedProperty _cardsToDraw;
         private SerializedProperty _cardsToDelete;
+
+        private SerializedProperty _isPlayable;
+        private SerializedProperty _isPlayedEndOfTurn;
         
         
-        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete;
+        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canStatus;
         
 
 
@@ -33,6 +36,8 @@ namespace ObjectDataScripts.Editor
             _cardSymbol = serializedObject.FindProperty("cardSymbol");
             _cardsToDraw = serializedObject.FindProperty("cardsToDraw");
             _cardsToDelete = serializedObject.FindProperty("cardsToDelete");
+            _isPlayable = serializedObject.FindProperty("isPlayable");
+            _isPlayedEndOfTurn = serializedObject.FindProperty("isPlayedEndOfTurn");
         }
 
         public override void OnInspectorGUI()
@@ -57,7 +62,7 @@ namespace ObjectDataScripts.Editor
             }
             EditorGUILayout.PropertyField(_cardType, new GUIContent("Card Type"));
            
-            if (!_canPrompt && !_canDraw && !_canDelete)
+            if ((!_canPrompt && !_canDraw && !_canDelete && !_canStatus))
             {
                 EditorGUILayout.HelpBox("No Card Type is selected and card won't work", MessageType.Error);
             }
@@ -97,6 +102,13 @@ namespace ObjectDataScripts.Editor
                 }
             }
 
+            if (_canStatus)
+            {
+                EditorGUILayout.PropertyField(_isPlayable, new GUIContent("Is Playable"));
+                EditorGUILayout.PropertyField(_isPlayedEndOfTurn, new GUIContent("Will be Played End of Turn"));
+
+            }
+
             EditorGUI.indentLevel--;
             
             EditorGUILayout.Space(20);
@@ -133,6 +145,8 @@ namespace ObjectDataScripts.Editor
             _canDraw = (cardTypeValue & CardType.Draw) != 0;
 
             _canDelete = (cardTypeValue & CardType.Delete) != 0;
+            
+            _canStatus = (cardTypeValue & CardType.Status) != 0;
 
             _selectedPromptType = _promptType.intValue == 0;
 

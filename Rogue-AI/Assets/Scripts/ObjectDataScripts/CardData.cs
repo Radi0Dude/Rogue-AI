@@ -8,7 +8,7 @@ public enum CardType
     Prompt = 1 << 0,
     Draw = 1 << 1,
     Delete = 1 << 2,
-    Virus = 1 << 3,
+    Status = 1 << 3,
 }
 
 [Flags]
@@ -33,17 +33,23 @@ public class CardData : ScriptableObject
 
     [SerializeField] private int cardsToDraw = 1;
     [SerializeField] private int cardsToDelete = 1;
-
-    public PromptType PromptType => promptType;
-    public AITypes EffectiveAgainst => effectiveAgainst;
+    [SerializeField] private bool isPlayable;
+    [SerializeField] private bool isPlayedEndOfTurn;    
 
     public string CardName => cardName;
     public string CardDescription => cardDescription;
     public Sprite CardSymbol => cardSymbol;
-
+    
+    // Prompt var
+    public PromptType PromptType => promptType;
+    public AITypes EffectiveAgainst => effectiveAgainst;
+    // Draw var
     public int CardsToDraw => cardsToDraw;
+    // Delete var
     public int CardsToDelete => cardsToDelete;
-
+    // Status var
+    public bool IsPlayable => isPlayable;
+    public bool IsPlayedEndOfTurn => isPlayedEndOfTurn;
     
     public List<CardType> GetCardTypes()
     {

@@ -34,7 +34,7 @@ namespace Deprecated
                 {
                     _deck.PlayedDeleteCard(cardData.CardsToDelete);
                 }
-                else if (cardType == CardType.Virus)
+                else if (cardType == CardType.Status)
                 {
                     // Use up space
                 }

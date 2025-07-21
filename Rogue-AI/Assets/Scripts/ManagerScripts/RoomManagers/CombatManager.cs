@@ -42,7 +42,7 @@ public class CombatManager : MonoBehaviour
         player.DrawHand();
     }
     
-    public void PlayCard(Card card)
+    private void PlayCard(Card card)
     {
         if (GameManager.CurrentPlayState == CardPlayState.Delete)
         {
@@ -55,8 +55,7 @@ public class CombatManager : MonoBehaviour
 
         List<CardType> cardTypes = cardData.GetCardTypes();
 
-        deck.DiscardCard(card);
-        Debug.LogWarning("Playing card");
+        
 
         foreach (CardType cardType in cardTypes)
         {
@@ -72,15 +71,20 @@ public class CombatManager : MonoBehaviour
             {
                 deck.PlayedDeleteCard(cardData.CardsToDelete);
             }
-            else if (cardType == CardType.Virus)
+            else if (cardType == CardType.Status)
             {
-                // Use up space
+                if (!cardData.IsPlayable)
+                {
+                    return;
+                }
             }
             else
             {
                 Debug.LogError(cardType + " has not been given an action");
             }
         }
+        deck.DiscardCard(card);
+        Debug.LogWarning("Playing card");
     }
     
     private void SendPrompt(List<PromptType> prompts)
