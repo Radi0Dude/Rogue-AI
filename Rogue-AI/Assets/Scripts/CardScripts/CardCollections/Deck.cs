@@ -100,6 +100,20 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void DiscardRandomCards(int amount)
+    {
+        if (amount > HandCards.Count)
+        {
+            amount = HandCards.Count;
+        }
+
+        for (int i = 0; i < amount; i++)
+        {
+            Card card= HandCards[Random.Range(0, HandCards.Count)];
+            DiscardCard(card);
+        }
+    }
+
     public void DiscardCard(Card card)
     {
         if (HandCards.Contains(card))

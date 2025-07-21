@@ -18,11 +18,12 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardSymbol;
         private SerializedProperty _cardsToDraw;
         private SerializedProperty _cardsToDelete;
+        private SerializedProperty _cardsToDiscard;
         private SerializedProperty _isPlayable;
         private SerializedProperty _isPlayedEndOfTurn;
         
         
-        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canStatus;
+        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canDiscard, _canStatus;
         
 
 
@@ -37,6 +38,7 @@ namespace ObjectDataScripts.Editor
             _cardSymbol = serializedObject.FindProperty("cardSymbol");
             _cardsToDraw = serializedObject.FindProperty("cardsToDraw");
             _cardsToDelete = serializedObject.FindProperty("cardsToDelete");
+            _cardsToDiscard = serializedObject.FindProperty("cardsToDiscard");
             _isPlayable = serializedObject.FindProperty("isPlayable");
             _isPlayedEndOfTurn = serializedObject.FindProperty("isPlayedEndOfTurn");
         }
@@ -89,19 +91,17 @@ namespace ObjectDataScripts.Editor
             if (_canDraw)
             {
                 EditorGUILayout.PropertyField(_cardsToDraw, new GUIContent("Cards to Draw"));
-                if (_cardsToDraw.intValue <= 0)
-                {
-                    EditorGUILayout.HelpBox("Cauition, value should be higher than 0", MessageType.Warning);
-                }
             }
 
             if (_canDelete)
             {
                 EditorGUILayout.PropertyField(_cardsToDelete, new GUIContent("Cards to Delete"));
-                if (_cardsToDelete.intValue <= 0)
-                {
-                    EditorGUILayout.HelpBox("Cauition, value should be higher than 0", MessageType.Warning);
-                }
+            }
+
+            if (_canDiscard)
+            {
+                EditorGUILayout.PropertyField(_cardsToDiscard, new GUIContent("Cards to Discard"));
+
             }
 
             if (_canStatus)

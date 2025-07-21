@@ -8,7 +8,8 @@ public enum CardType
     Prompt = 1 << 0,
     Draw = 1 << 1,
     Delete = 1 << 2,
-    Status = 1 << 3,
+    Discard = 1 << 3,
+    Status = 1 << 4,
 }
 
 [Flags]
@@ -45,6 +46,7 @@ public class CardData : ScriptableObject
 
     [SerializeField] private int cardsToDraw = 1;
     [SerializeField] private int cardsToDelete = 1;
+    [SerializeField] private int cardsToDiscard = 1;
     [SerializeField] private bool isPlayable;
     [SerializeField] private bool isPlayedEndOfTurn;    
 
@@ -60,6 +62,7 @@ public class CardData : ScriptableObject
     public int CardsToDraw => cardsToDraw;
     // Delete var
     public int CardsToDelete => cardsToDelete;
+    public int CardsToDiscard => cardsToDiscard;
     // Status var
     public bool IsPlayable => isPlayable;
     public bool IsPlayedEndOfTurn => isPlayedEndOfTurn;

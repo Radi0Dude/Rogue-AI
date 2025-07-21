@@ -71,6 +71,10 @@ public class CombatManager : MonoBehaviour
             {
                 deck.PlayedDeleteCard(cardData.CardsToDelete);
             }
+            else if (cardType == CardType.Discard)
+            {
+                deck.DiscardRandomCards(cardData.CardsToDiscard);
+            }
             else if (cardType == CardType.Status)
             {
                 if (!cardData.IsPlayable)
