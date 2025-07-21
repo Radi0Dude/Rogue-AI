@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Iterate
+  m_Name: Status EoT Delete
   m_EditorClassIdentifier: 
-  cardType: 1
-  promptType: 8
-  cardName: Basic Iterate
-  cardDescription: Description of BasicIterate
+  cardType: 20
+  promptType: 0
+  effectiveAgainst: 0
+  cardRarity: 0
+  cardName: Status
+  cardDescription: Delete a Random card from deck at the end of turn (not this)
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardsToDraw: 1
+  cardsToDelete: 1
+  cardsToDiscard: 1
+  isPlayable: 0
+  isPlayedEndOfTurn: 1

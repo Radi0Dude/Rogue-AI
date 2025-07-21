@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: StartingPlayerCardCollection
   m_EditorClassIdentifier: 
   cardsInCollection:
-  - {fileID: 11400000, guid: d7abddbe361044745a0402987f4b9bf2, type: 2}
   - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
   - {fileID: 11400000, guid: d7abddbe361044745a0402987f4b9bf2, type: 2}
   - {fileID: 11400000, guid: 578348c722d435543931634222553c09, type: 2}
-  - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
   - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
   - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
+  - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
   - {fileID: 11400000, guid: f585f9a63afd29442a8dee7ec84a56e1, type: 2}
-  - {fileID: 11400000, guid: ba34a511b3e10e34884258aaea9aac77, type: 2}
+  - {fileID: 11400000, guid: b42668cbef0abf7408391dfb1b65ec92, type: 2}
+  - {fileID: 11400000, guid: b42668cbef0abf7408391dfb1b65ec92, type: 2}
   - {fileID: 11400000, guid: ba34a511b3e10e34884258aaea9aac77, type: 2}

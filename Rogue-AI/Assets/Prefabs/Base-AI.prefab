@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cbcadcd3373834e82a2f480de008e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}
   canvas: {fileID: 1904126230083963040}
   sanityBar: {fileID: 6744282461072705271}
-  data: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}
   sanityBarTooltip: {fileID: 3139680343071495790}
 --- !u!1 &1402784592071327877
 GameObject:
@@ -730,5 +730,5 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 61.560028}
-  m_SizeDelta: {x: -63.439934, y: -1067.04}
+  m_SizeDelta: {x: -64.19998, y: -1067.04}
   m_Pivot: {x: 0.5, y: 0.5}

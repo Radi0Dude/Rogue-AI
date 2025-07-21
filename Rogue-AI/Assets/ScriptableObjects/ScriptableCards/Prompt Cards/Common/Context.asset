@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Draw
+  m_Name: Context
   m_EditorClassIdentifier: 
-  cardType: 2
-  promptType: 0
-  cardName: Basic Draw
-  cardDescription: Description of BasicDraw
+  cardType: 1
+  promptType: 16
+  effectiveAgainst: 0
+  cardRarity: 2
+  cardName: Give Background
+  cardDescription: Supply the AI with important facts or situational info.
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardsToDraw: 1
+  cardsToDelete: 1
+  cardsToDiscard: 1
+  isPlayable: 0
+  isPlayedEndOfTurn: 0

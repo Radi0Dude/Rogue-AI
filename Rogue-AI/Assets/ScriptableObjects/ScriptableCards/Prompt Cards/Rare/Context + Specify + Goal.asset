@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Status
+  m_Name: Context + Specify + Goal
   m_EditorClassIdentifier: 
-  cardType: 8
-  promptType: 0
+  cardType: 1
+  promptType: 145
   effectiveAgainst: 0
-  cardName: Status
-  cardDescription: Description of BasicVirus
+  cardRarity: 4
+  cardName: Laser-Focused Briefing
+  cardDescription: "Pinpoint what matters, why, and what\u2019s expected."
   cardSymbol: {fileID: 0}
   cardsToDraw: 1
   cardsToDelete: 1
+  cardsToDiscard: 1
   isPlayable: 0
   isPlayedEndOfTurn: 0

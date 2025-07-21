@@ -10,13 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: DrawSpecifyCardData
+  m_Name: Format
   m_EditorClassIdentifier: 
-  cardType: 3
-  promptType: 1
+  cardType: 1
+  promptType: 4
   effectiveAgainst: 0
-  cardName: Specify and Expand
-  cardDescription: Will specify and draw a card
+  cardRarity: 2
+  cardName: "Structure Answer\t"
+  cardDescription: Guide how the AI should organize its response.
   cardSymbol: {fileID: 0}
   cardsToDraw: 1
   cardsToDelete: 1
+  cardsToDiscard: 1
+  isPlayable: 0
+  isPlayedEndOfTurn: 0

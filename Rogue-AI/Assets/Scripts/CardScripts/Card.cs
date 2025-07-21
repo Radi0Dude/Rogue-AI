@@ -21,6 +21,7 @@ public class Card : MonoBehaviour
         cardTooltip.SetTooltipText(data.CardDescription);
         cardInteraction.OnCardPressed += CardPressed;
         cardInteraction.OnRewardSelected += RewardSelected;
+        // TODO: Use card Rarity to change model colour 
     }
     
     private void CardPressed()

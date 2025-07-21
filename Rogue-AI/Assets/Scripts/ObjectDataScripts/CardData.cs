@@ -19,16 +19,19 @@ public enum PromptType
     Persona = 1 << 1,
     Format = 1 << 2,
     Iterate = 1 << 3,
+    Context = 1 << 4,
+    Constraints = 1 << 5,
+    Steps = 1 << 6,
+    Goal = 1 << 7,
 }
 
 public enum CardRarity
 {
     None = 0,
-    Common = 1,
-    Uncommon = 2,
+    Starting = 1,
+    Common = 2,
     Rare = 4,
-    Epic = 8,
-    Legendary = 16,
+    Legendary = 8,
     
 }
 

@@ -10,11 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Specify
+  m_Name: Goal + Iterate
   m_EditorClassIdentifier: 
   cardType: 1
-  promptType: 1
-  cardName: Basic Specify
-  cardDescription: Description of BasicSpecify
+  promptType: 136
+  effectiveAgainst: 0
+  cardRarity: 4
+  cardName: Goal-Oriented Iteration
+  cardDescription: Improve toward a specific outcome with each attempt.
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
+  cardsToDraw: 1
+  cardsToDelete: 1
+  cardsToDiscard: 1
+  isPlayable: 0
+  isPlayedEndOfTurn: 0

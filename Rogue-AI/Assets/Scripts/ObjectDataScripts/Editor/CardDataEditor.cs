@@ -77,15 +77,9 @@ namespace ObjectDataScripts.Editor
             if (_canPrompt)
             {
                 EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
-                if (_selectedPromptType)
-                {
-                    EditorGUILayout.HelpBox("Cauition, no type selected", MessageType.Warning);
-                }
+                
                 EditorGUILayout.PropertyField(_effectiveAgainst, new GUIContent("Effective Against"));
-                if (_selectedEffective)
-                {
-                    EditorGUILayout.HelpBox("Cauition, no effectiveness selected", MessageType.Warning);
-                }
+                
             }
             
             if (_canDraw)
@@ -116,16 +110,10 @@ namespace ObjectDataScripts.Editor
             EditorGUILayout.Space(20);
             
             EditorGUILayout.PropertyField(_cardDescription, new GUIContent("Tooltip Description"));
-            if (_cardDescription.stringValue.Length == 0)
-            {
-                EditorGUILayout.HelpBox("Cauition, should be a description", MessageType.Warning);
-            }
+            
             
             EditorGUILayout.PropertyField(_cardSymbol, new GUIContent("Card Symbol"));
-            if (!_cardSymbol.objectReferenceValue)
-            {
-                EditorGUILayout.HelpBox("Cauition, missing symbol", MessageType.Warning);
-            }
+            
             
             
             // ↓↓ add bellow base inspector ↓↓

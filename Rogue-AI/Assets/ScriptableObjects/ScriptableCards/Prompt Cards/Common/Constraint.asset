@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Delete
+  m_Name: Constraint
   m_EditorClassIdentifier: 
-  cardType: 4
-  promptType: 0
+  cardType: 1
+  promptType: 32
   effectiveAgainst: 0
-  cardName: Basic Delete
-  cardDescription: Select 1 card to delete from your hand.
+  cardRarity: 2
+  cardName: Define Limits
+  cardDescription: Set clear boundaries on what the AI should and shouldn't do.
   cardSymbol: {fileID: 0}
-  cardImage: {fileID: 0}
   cardsToDraw: 1
   cardsToDelete: 1
+  cardsToDiscard: 1
+  isPlayable: 0
+  isPlayedEndOfTurn: 0
