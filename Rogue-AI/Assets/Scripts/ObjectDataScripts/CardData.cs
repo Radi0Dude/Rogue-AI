@@ -20,12 +20,24 @@ public enum PromptType
     Iterate = 1 << 3,
 }
 
+public enum CardRarity
+{
+    None = 0,
+    Common = 1,
+    Uncommon = 2,
+    Rare = 4,
+    Epic = 8,
+    Legendary = 16,
+    
+}
+
 [CreateAssetMenu(fileName = "CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
     [SerializeField] private CardType cardType;
     [SerializeField] private PromptType promptType;
     [SerializeField] private AITypes effectiveAgainst;
+    [SerializeField] private CardRarity cardRarity;
 
     [SerializeField] private string cardName;
     [SerializeField, TextArea] private string cardDescription;
@@ -39,6 +51,7 @@ public class CardData : ScriptableObject
     public string CardName => cardName;
     public string CardDescription => cardDescription;
     public Sprite CardSymbol => cardSymbol;
+    public CardRarity Rarity => cardRarity;
     
     // Prompt var
     public PromptType PromptType => promptType;

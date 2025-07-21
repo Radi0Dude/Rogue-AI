@@ -10,6 +10,7 @@ namespace ObjectDataScripts.Editor
     {
         
         private SerializedProperty _cardType;
+        private SerializedProperty _cardRarity;
         private SerializedProperty _promptType;
         private SerializedProperty _effectiveAgainst;
         private SerializedProperty _cardName;
@@ -17,7 +18,6 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardSymbol;
         private SerializedProperty _cardsToDraw;
         private SerializedProperty _cardsToDelete;
-
         private SerializedProperty _isPlayable;
         private SerializedProperty _isPlayedEndOfTurn;
         
@@ -30,6 +30,7 @@ namespace ObjectDataScripts.Editor
         {
             _cardType = serializedObject.FindProperty("cardType");
             _promptType = serializedObject.FindProperty("promptType");
+            _cardRarity = serializedObject.FindProperty("cardRarity");
             _effectiveAgainst = serializedObject.FindProperty("effectiveAgainst");
             _cardName = serializedObject.FindProperty("cardName");
             _cardDescription = serializedObject.FindProperty("cardDescription");
@@ -61,6 +62,7 @@ namespace ObjectDataScripts.Editor
                 EditorGUILayout.HelpBox("Cauition, Should be given a name", MessageType.Warning);
             }
             EditorGUILayout.PropertyField(_cardType, new GUIContent("Card Type"));
+            EditorGUILayout.PropertyField(_cardRarity, new GUIContent("Card Rarity"));
            
             if ((!_canPrompt && !_canDraw && !_canDelete && !_canStatus))
             {
