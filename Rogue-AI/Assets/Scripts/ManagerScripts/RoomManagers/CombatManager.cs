@@ -123,7 +123,6 @@ public class CombatManager : MonoBehaviour
         ai.ReduceCountDown();
         StartTurn();
     }
-
     
     private void EndCombat()
     {
@@ -132,7 +131,6 @@ public class CombatManager : MonoBehaviour
         Debug.Log("Ending Combat");
         cardReward.DisplayCardReward();
         // In UI Player can load next scene
-        
     }
 
     public void LoadNextScene()

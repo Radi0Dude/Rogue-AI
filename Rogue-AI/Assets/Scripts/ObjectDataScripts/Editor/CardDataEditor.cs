@@ -66,7 +66,7 @@ namespace ObjectDataScripts.Editor
             EditorGUILayout.PropertyField(_cardType, new GUIContent("Card Type"));
             EditorGUILayout.PropertyField(_cardRarity, new GUIContent("Card Rarity"));
            
-            if ((!_canPrompt && !_canDraw && !_canDelete && !_canStatus))
+            if ((!_canPrompt && !_canDraw && !_canDelete && !_canStatus && !_canDiscard))
             {
                 EditorGUILayout.HelpBox("No Card Type is selected and card won't work", MessageType.Error);
             }
@@ -149,6 +149,8 @@ namespace ObjectDataScripts.Editor
             _canDelete = (cardTypeValue & CardType.Delete) != 0;
             
             _canStatus = (cardTypeValue & CardType.Status) != 0;
+
+            _canDiscard = (cardTypeValue & CardType.Discard) != 0;
 
             _selectedPromptType = _promptType.intValue == 0;
 
