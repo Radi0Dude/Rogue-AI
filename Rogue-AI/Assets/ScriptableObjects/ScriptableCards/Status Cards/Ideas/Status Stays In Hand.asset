@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Draw 2
+  m_Name: Status Stays In Hand
   m_EditorClassIdentifier: 
-  cardType: 2
+  cardType: 16
   promptType: 0
-  effectiveAgainst: 0
-  cardRarity: 4
-  cardName: Brainstorm
-  cardDescription: Description of BasicDraw
+  cardRarity: 0
+  cardName: Overloaded Memory
+  cardDescription: 
   cardSymbol: {fileID: 0}
-  cardsToDraw: 2
+  cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
   isPlayable: 0

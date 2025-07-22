@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: All prompt
+  m_Name: CardData
   m_EditorClassIdentifier: 
-  cardType: 1
-  promptType: -1
-  effectiveAgainst: -1
-  cardRarity: 0
-  cardName: Ask AI
-  cardDescription: No one knows AI better than AI
+  cardType: 4
+  promptType: 0
+  effectiveAgainst: 0
+  cardRarity: 2
+  cardName: Clean Prompt
+  cardDescription: Permanently remove clutter from your thinking.
   cardSymbol: {fileID: 0}
   cardsToDraw: 1
   cardsToDelete: 1

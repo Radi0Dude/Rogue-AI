@@ -12,7 +12,6 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardType;
         private SerializedProperty _cardRarity;
         private SerializedProperty _promptType;
-        private SerializedProperty _effectiveAgainst;
         private SerializedProperty _cardName;
         private SerializedProperty _cardDescription;
         private SerializedProperty _cardSymbol;
@@ -32,7 +31,6 @@ namespace ObjectDataScripts.Editor
             _cardType = serializedObject.FindProperty("cardType");
             _promptType = serializedObject.FindProperty("promptType");
             _cardRarity = serializedObject.FindProperty("cardRarity");
-            _effectiveAgainst = serializedObject.FindProperty("effectiveAgainst");
             _cardName = serializedObject.FindProperty("cardName");
             _cardDescription = serializedObject.FindProperty("cardDescription");
             _cardSymbol = serializedObject.FindProperty("cardSymbol");
@@ -77,8 +75,6 @@ namespace ObjectDataScripts.Editor
             if (_canPrompt)
             {
                 EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
-                
-                EditorGUILayout.PropertyField(_effectiveAgainst, new GUIContent("Effective Against"));
                 
             }
             
@@ -141,9 +137,6 @@ namespace ObjectDataScripts.Editor
             _canDiscard = (cardTypeValue & CardType.Discard) != 0;
 
             _selectedPromptType = _promptType.intValue == 0;
-
-            _selectedEffective = _effectiveAgainst.intValue == 0;
-
         }
     }
 }

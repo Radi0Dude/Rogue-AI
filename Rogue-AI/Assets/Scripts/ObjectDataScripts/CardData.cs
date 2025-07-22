@@ -40,7 +40,6 @@ public class CardData : ScriptableObject
 {
     [SerializeField] private CardType cardType;
     [SerializeField] private PromptType promptType;
-    [SerializeField] private AITypes effectiveAgainst;
     [SerializeField] private CardRarity cardRarity;
 
     [SerializeField] private string cardName;
@@ -60,7 +59,6 @@ public class CardData : ScriptableObject
     
     // Prompt var
     public PromptType PromptType => promptType;
-    public AITypes EffectiveAgainst => effectiveAgainst;
     // Draw var
     public int CardsToDraw => cardsToDraw;
     // Delete var

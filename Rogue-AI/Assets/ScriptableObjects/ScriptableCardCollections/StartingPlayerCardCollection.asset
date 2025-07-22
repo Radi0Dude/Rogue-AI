@@ -13,13 +13,24 @@ MonoBehaviour:
   m_Name: StartingPlayerCardCollection
   m_EditorClassIdentifier: 
   cardsInCollection:
-  - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
+  - {fileID: 11400000, guid: a00256848177cbb4981f77c63d0ac48f, type: 2}
+  - {fileID: 11400000, guid: ff0dd82c96d0f7d48bb468836fea6f75, type: 2}
   - {fileID: 11400000, guid: d7abddbe361044745a0402987f4b9bf2, type: 2}
+  - {fileID: 11400000, guid: a80061ac4d003d341acea0785a2102c7, type: 2}
   - {fileID: 11400000, guid: 578348c722d435543931634222553c09, type: 2}
   - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
-  - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
-  - {fileID: 11400000, guid: 5f5066a329ff7514c9808fed19d28c85, type: 2}
+  - {fileID: 11400000, guid: 4b0f066cc8ac61341b99819f3ecdaf4d, type: 2}
+  - {fileID: 11400000, guid: 9ec3da727d071e341ab97907a630305d, type: 2}
+  - {fileID: 11400000, guid: aaed0d8b1188269439d4e3c163ea6270, type: 2}
+  - {fileID: 11400000, guid: b42668cbef0abf7408391dfb1b65ec92, type: 2}
+  - {fileID: 11400000, guid: 87c3d34cc3ffccf46a7f0dd720de9d89, type: 2}
+  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
+  - {fileID: 11400000, guid: b0c30d4679237db4995fe8dd6b2d171e, type: 2}
+  - {fileID: 11400000, guid: 8d0b178ffaedfb0428b289124de73be0, type: 2}
+  - {fileID: 11400000, guid: d1e843e1233c0f4498a85e701da76bd4, type: 2}
+  - {fileID: 11400000, guid: b92b66e839b1f2144a03196368c32c36, type: 2}
+  - {fileID: 11400000, guid: f97b23f54f7da15438c6eefa935116d9, type: 2}
+  - {fileID: 11400000, guid: ecfcfa91659c0b34aba3ddae0ee7995c, type: 2}
+  - {fileID: 11400000, guid: 9bfe11af29cdb6d4a92b29525a13bcaa, type: 2}
   - {fileID: 11400000, guid: f585f9a63afd29442a8dee7ec84a56e1, type: 2}
-  - {fileID: 11400000, guid: b42668cbef0abf7408391dfb1b65ec92, type: 2}
-  - {fileID: 11400000, guid: b42668cbef0abf7408391dfb1b65ec92, type: 2}
   - {fileID: 11400000, guid: ba34a511b3e10e34884258aaea9aac77, type: 2}

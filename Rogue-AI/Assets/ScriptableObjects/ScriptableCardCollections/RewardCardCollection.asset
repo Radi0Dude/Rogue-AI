@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: RewardCardCollection
   m_EditorClassIdentifier: 
   cardsInCollection:
-  - {fileID: 11400000, guid: 7f32769801151854eba4a88ac2a1859a, type: 2}
+  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
+  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
+  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
