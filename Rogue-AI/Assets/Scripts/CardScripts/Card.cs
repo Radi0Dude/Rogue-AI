@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -8,6 +9,7 @@ public class Card : MonoBehaviour
     [SerializeField] private CardVisual cardVisual;
     [SerializeField] private CardInteraction cardInteraction;
     [SerializeField] private TooltipText cardTooltip;
+    [SerializeField] private AbilityTooltipText cardAbilityTooltip;
  
     public event Action<Card> OnRewardSelected;
     public event Action<Card> OnCardPlayed;
@@ -19,11 +21,46 @@ public class Card : MonoBehaviour
         cardData = data;
         cardVisual.UpdateCardVisuals(data);
         cardTooltip.SetTooltipText(data.CardDescription);
+        SetAbilityTooltipText(data.GetCardTypes());
         cardInteraction.OnCardPressed += CardPressed;
         cardInteraction.OnRewardSelected += RewardSelected;
         // TODO: Use card Rarity to change model colour 
     }
-    
+
+    private void SetAbilityTooltipText(List<CardType> cardTypes)
+    {
+        string tooltipText = "";
+        
+        foreach (var cardType in cardTypes)
+        {
+            switch (cardType)
+            {
+                case CardType.Discard:
+                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
+                    break;
+                case CardType.Draw:
+                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
+                    break;
+                case CardType.Delete:
+                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
+                    break;
+                case CardType.Prompt:
+                    tooltipText += "";
+                    foreach (PromptType promptType in cardData.GetPromptTypes())
+                    {
+                        tooltipText += " " + promptType.ToString();
+                    }
+
+                    tooltipText += "/n";
+                    break;
+                case CardType.Status:
+                    break;
+            }
+        }
+        
+        cardAbilityTooltip.SetAbilityTooltipText(tooltipText);
+    }
+
     private void CardPressed()
     {
         if (GameManager.CanPlayCard)

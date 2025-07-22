@@ -83,4 +83,19 @@ public class CardData : ScriptableObject
         return result;
     }
 
+    public List<PromptType> GetPromptTypes()
+    {
+        List<PromptType> result = new List<PromptType>();
+
+        foreach (PromptType type in Enum.GetValues(typeof(PromptType)))
+        {
+            if (promptType.HasFlag(type))
+            {
+                result.Add(type);
+            }
+        }
+        
+        return result;
+    }
+
 }

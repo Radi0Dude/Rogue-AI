@@ -28,6 +28,7 @@ public class CardVisual : MonoBehaviour
         {
             for (int i = 0; i < cardDataData.CardSymbol.Length; i++)
             {
+                cardSymbol.enabled = false;
                 smallerCardSymbols[i].enabled = true;
                 smallerCardSymbols[i].sprite = cardDataData.CardSymbol[i];
             }

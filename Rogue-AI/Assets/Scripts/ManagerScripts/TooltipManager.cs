@@ -5,6 +5,9 @@ public class TooltipManager : MonoBehaviour
 {
     [SerializeField] private RectTransform rectTransform;
     [SerializeField] private TextMeshProUGUI tooltipText;
+    [Header("Ability Tooltip Variablse")] 
+    [SerializeField] private GameObject abilityTooltip;
+    [SerializeField] private TextMeshProUGUI abilityTooltipText;
     
     public static TooltipManager Instance;
 
@@ -61,5 +64,17 @@ public class TooltipManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         tooltipText.text = "";
+    }
+    
+    public void SetAndShowAbilityTooltip(string tooltip)
+    {
+        abilityTooltip.SetActive(true);
+        abilityTooltipText.text = tooltip;
+    }
+
+    public void HideAbilityTooltip()
+    {
+        abilityTooltip.SetActive(false);
+        abilityTooltipText.text = "";
     }
 }
