@@ -48,9 +48,8 @@ public class Card : MonoBehaviour
                     tooltipText += "";
                     foreach (PromptType promptType in cardData.GetPromptTypes())
                     {
-                        tooltipText += " " + promptType.ToString();
+                        tooltipText += " " + promptType;
                     }
-
                     tooltipText += "/n";
                     break;
                 case CardType.Status:
