@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   promptType: -1
-  effectiveAgainst: -1
   cardRarity: 0
   cardName: Ask AI
   cardDescription: No one knows AI better than AI
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: c569499016f82104683cf7eb359b6ae1, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

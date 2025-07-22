@@ -44,7 +44,7 @@ public class CardData : ScriptableObject
 
     [SerializeField] private string cardName;
     [SerializeField, TextArea] private string cardDescription;
-    [SerializeField] private Sprite cardSymbol;
+    [SerializeField] private Sprite[] cardSymbol;
 
     [SerializeField] private int cardsToDraw = 1;
     [SerializeField] private int cardsToDelete = 1;
@@ -54,7 +54,7 @@ public class CardData : ScriptableObject
 
     public string CardName => cardName;
     public string CardDescription => cardDescription;
-    public Sprite CardSymbol => cardSymbol;
+    public Sprite[] CardSymbol => cardSymbol;
     public CardRarity Rarity => cardRarity;
     
     // Prompt var

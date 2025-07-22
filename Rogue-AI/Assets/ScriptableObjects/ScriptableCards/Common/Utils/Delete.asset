@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: CardData
+  m_Name: Delete
   m_EditorClassIdentifier: 
   cardType: 4
   promptType: 0
-  effectiveAgainst: 0
   cardRarity: 2
   cardName: Clean Prompt
   cardDescription: Permanently remove clutter from your thinking.
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: 92c1d2659cb782346b1441aa4ee12c4d, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

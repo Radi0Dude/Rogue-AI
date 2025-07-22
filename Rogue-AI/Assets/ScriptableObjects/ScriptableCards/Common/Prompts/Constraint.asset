@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   promptType: 32
-  effectiveAgainst: 0
   cardRarity: 2
   cardName: Define Limits
   cardDescription: Set clear boundaries on what the AI should and shouldn't do.
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

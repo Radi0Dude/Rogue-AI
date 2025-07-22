@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   promptType: 145
-  effectiveAgainst: 0
   cardRarity: 4
   cardName: Laser-Focused Briefing
   cardDescription: "Pinpoint what matters, why, and what\u2019s expected."
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: bd771f8a82957ea4086422dab6542a09, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

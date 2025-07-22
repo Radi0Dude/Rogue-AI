@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 1
   promptType: 48
-  effectiveAgainst: 0
   cardRarity: 4
   cardName: Constraints with Context
   cardDescription: Set boundaries that fit the situation precisely.
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: b48e5903fc5fbb54982fa84631ffa6c6, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

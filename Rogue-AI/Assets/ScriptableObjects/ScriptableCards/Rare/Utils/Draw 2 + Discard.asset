@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 10
   promptType: 0
-  effectiveAgainst: 0
   cardRarity: 4
   cardName: Brainstorm
   cardDescription: Description of BasicDraw
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: 38e6f121ae58a7c4ab95f14c8919c01c, type: 3}
+  - {fileID: 21300000, guid: 9de0e4c86e537c54f891a4ca63ba7f40, type: 3}
   cardsToDraw: 2
   cardsToDelete: 1
   cardsToDiscard: 1

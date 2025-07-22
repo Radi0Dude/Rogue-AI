@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardType: 8
   promptType: 0
-  effectiveAgainst: 0
   cardRarity: 2
   cardName: Mental Reset
   cardDescription: Drop thoughts that aren't useful right now. Discard 1 random card.
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: 38e6f121ae58a7c4ab95f14c8919c01c, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
