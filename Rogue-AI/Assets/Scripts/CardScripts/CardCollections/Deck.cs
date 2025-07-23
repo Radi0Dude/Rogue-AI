@@ -45,14 +45,9 @@ public class Deck : MonoBehaviour
 
     private void InstantiateDeck()
     {
-        for (int i = 0; i < playerDeck.CardsInCollection.Count; i++)
+        foreach (var data in playerDeck.CardsInCollection)
         {
-            Card card = Instantiate(cardPrefab, transform.position + new Vector3(i, 0.0f, 0.0f), quaternion.identity); //Add Transform and shit later
-            card.SetUp(playerDeck.CardsInCollection[i]);
-            card.OnCardPlayed += CardPlayed;
-            card.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
-            _deckPileList.Add(card); // All cards starts in the deck
-            card.gameObject.SetActive(false); // Will later be activated when needed
+            AddCardToDeck(data);
         }
         
         GameManager.CurrentPlayState = CardPlayState.Play;
@@ -181,5 +176,14 @@ public class Deck : MonoBehaviour
     {
         hand.UpdateCardPositions(HandCards);
     }
-    
+
+    public void AddCardToDeck(CardData cardData)
+    {
+        Card dataInstance = Instantiate(cardPrefab);
+        dataInstance.SetUp(cardData);
+        dataInstance.OnCardPlayed += CardPlayed;
+        dataInstance.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
+        _deckPileList.Add(dataInstance); // All cards starts in the deck
+        dataInstance.gameObject.SetActive(false); // Will later be activated when needed
+    }
 }

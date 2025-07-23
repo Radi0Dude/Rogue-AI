@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
         healthText.text = GameManager.PlayerHealth+"/"+GameManager.PlayerMaxHealth;
     }
 
+    public void AddCardToCombat(CardData cardData)
+    {
+        _deck.AddCardToDeck(cardData);
+    }
 
     public void DiscardAllCards()
     {

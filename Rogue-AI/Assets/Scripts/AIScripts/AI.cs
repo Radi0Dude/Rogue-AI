@@ -1,63 +1,65 @@
 using System;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class AI : MonoBehaviour
 {
     public event Action OnAISane;
     
-    [SerializeField] private AIData data;
-
-    [Header("UI Elements")] 
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private Image sanityBar;
-    [SerializeField] private TooltipText sanityBarTooltip;
-
-
+    [SerializeField] private AIVisual visual;
     
     private float _maxSanity;
     private float _currentSanity;
     private int _countDown;
     
+    private AIData _data;
     private Player _player;
     private AIActionData _currentAction;
+    private AIActionData _endOfTurnAction;
+
 
     public void Initialize(Player player)
     {
+        
         if (GameManager.GetRoom() is CombatRoom room)
         {
-            data = room.AIData;
+            _data = room.AIData;
         }
         else
         {
-            Debug.LogError("The current room in GameManager is not a CombatRoom");
+            Debug.LogError("Room is not a CombatRoom");
             return;
         }
         
-        
-        _maxSanity = data.MaxSanity;
-        _currentSanity = data.StartSanity;
+        _currentSanity = _data.StartSanity;
+        _maxSanity = _data.MaxSanity;
         _player = player;
         GetNextAction();
-        UpdateUI();
+        _endOfTurnAction = _data.EndOfTurnAction;
+
+        visual.UpdateSanityBar(_currentSanity, _maxSanity);
+
+        if (_data.EndOfTurnAction != null)
+        {
+            visual.SetEndOfTurnAction(_data.EndOfTurnAction);
+        }
     }
 
     private void GetNextAction()
     {
-        _currentAction = data.AIActions[Random.Range(0, data.AIActions.Count)];
+        _currentAction = _data.AIActions[Random.Range(0, _data.AIActions.Count)];
+        visual.SetMainAction(_currentAction);
         _countDown = _currentAction.RoundsUntilAction;
     }
     
     public void ReduceCountDown()
     {
         _countDown--;
+        visual.SetMainCountdown(_countDown);
         
-        if (data.EndOfTurnAction != null)
+        if (_endOfTurnAction != null)
         {
-            data.EndOfTurnAction.PerformAction(this, _player);
+            _endOfTurnAction.PerformAction(this, _player);
         }
         
         if (_countDown <= 0)
@@ -78,11 +80,10 @@ public class AI : MonoBehaviour
         else if (_currentSanity >= _maxSanity)
         {
             _currentSanity = _maxSanity;
-            canvas.enabled = false;
-            Debug.Log("AI was made sane");
+            visual.HideCanvas();
             OnAISane?.Invoke();
         }
-        UpdateUI();
+        visual.UpdateSanityBar(_currentSanity, _maxSanity);
 
     }
 
@@ -91,17 +92,5 @@ public class AI : MonoBehaviour
         return Mathf.Approximately(_currentSanity, _maxSanity);
     }
 
-    private void UpdateUI()
-    {
-        // Calculate Percentage
-        var percentageInDecimal = _currentSanity / _maxSanity;
-        var percentage = percentageInDecimal * 100f;
-
-        // Update SanityBar
-        DOTween.To(()=> sanityBar.fillAmount, x=> sanityBar.fillAmount = x, percentageInDecimal, 1f);
-
-        // Update SanityTextPercentage
-        if (sanityBarTooltip != null) 
-            sanityBarTooltip.SetTooltipText("Sanity level: " + percentage.ToString("0.0") + "%");
-    }
+    
 }

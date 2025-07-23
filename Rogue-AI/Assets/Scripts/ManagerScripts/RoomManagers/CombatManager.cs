@@ -88,7 +88,6 @@ public class CombatManager : MonoBehaviour
             }
         }
         deck.DiscardCard(card);
-        Debug.LogWarning("Playing card");
     }
     
     private void SendPrompt(List<PromptType> prompts)
@@ -108,7 +107,6 @@ public class CombatManager : MonoBehaviour
     
     private void EndTurn()
     {
-        Debug.Log("Ending Turn");
         player.DiscardAllCards();
         if (!ai.IsSane())
         {
