@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
 
     public void AddCardToCombat(CardData cardData)
     {
-        _deck.AddCardToDeck(cardData);
+        _deck.AddCardToDeck(cardData, true);
     }
 
     public void DiscardAllCards()

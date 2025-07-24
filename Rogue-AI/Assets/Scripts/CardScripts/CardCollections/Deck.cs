@@ -1,6 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -68,29 +69,32 @@ public class Deck : MonoBehaviour
             int j = Random.Range(0, i + 1);
             (_deckPileList[i], _deckPileList[j]) = (_deckPileList[j], _deckPileList[i]);
         }
+        Debug.Log("Shuffled Deck");
     }
 
     public void DrawHand(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
-            if (HandCards.Count > GameManager.MaxHandSize)
+            if (HandCards.Count >= GameManager.MaxHandSize)
             { continue; }
-            // Check if shuffle is necessary
-            if (_deckPileList.Count <= 0)
+
+            switch (_deckPileList.Count)
             {
-                 _deckPileList.AddRange(_discardPileList);
-                _discardPileList.Clear();
-                ShuffleDeck();
-            }
-            // Draw card
-            if (_deckPileList.Count > 0)
-            {
-                HandCards.Add(_deckPileList[0]);
-                _deckPileList[0].transform.position = transform.position;
-                _deckPileList[0].gameObject.SetActive(true);
-                _deckPileList.RemoveAt(0);
-                UpdateCardPositions();
+                // Check if shuffle is necessary
+                case <= 0:
+                    _deckPileList.AddRange(_discardPileList);
+                    _discardPileList.Clear();
+                    ShuffleDeck();
+                    break;
+                // Draw card
+                case > 0:
+                    HandCards.Add(_deckPileList[0]);
+                    _deckPileList[0].transform.position = transform.position;
+                    _deckPileList[0].gameObject.SetActive(true);
+                    _deckPileList.RemoveAt(0);
+                    UpdateCardPositions();
+                    break;
             }
         }
     }
@@ -177,13 +181,19 @@ public class Deck : MonoBehaviour
         hand.UpdateCardPositions(HandCards);
     }
 
-    public void AddCardToDeck(CardData cardData)
+    public void AddCardToDeck(CardData cardData, bool shouldShuffle = false)
     {
-        Card dataInstance = Instantiate(cardPrefab);
-        dataInstance.SetUp(cardData);
-        dataInstance.OnCardPlayed += CardPlayed;
-        dataInstance.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
-        _deckPileList.Add(dataInstance); // All cards starts in the deck
-        dataInstance.gameObject.SetActive(false); // Will later be activated when needed
+        Card cardInstance = Instantiate(cardPrefab);
+        cardInstance.transform.position = transform.position;
+        cardInstance.SetUp(cardData);
+        cardInstance.OnCardPlayed += CardPlayed;
+        cardInstance.transform.localEulerAngles = new Vector3(-100.0f, 0.0f, 0.0f);
+        cardInstance.gameObject.SetActive(false);
+        _deckPileList.Add(cardInstance);
+
+        if (shouldShuffle)
+        {
+            ShuffleDeck();
+        }
     }
 }

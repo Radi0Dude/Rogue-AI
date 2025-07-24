@@ -5,13 +5,14 @@ using UnityEngine;
 public class AIStatusAction : AIActionData
 {
     [Header("Heal Action Specifics")]
-    [SerializeField] private CardData statusCard;
+    [SerializeField] private CardData[] statusCards;
     
     
     public override void PerformAction(AI ai, Player player)
     {
-        Debug.Log("AI Perform Heal action");
-
-        player.AddCardToCombat(statusCard);
+        foreach (var statusCard in statusCards)
+        {
+            player.AddCardToCombat(statusCard);
+        }
     }
 }

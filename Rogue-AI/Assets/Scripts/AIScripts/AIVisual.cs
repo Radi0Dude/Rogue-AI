@@ -13,8 +13,9 @@ public class AIVisual : MonoBehaviour
     [Header("Action Indicator")] 
     [SerializeField] private Image mainActionIndicator;
     [SerializeField] private TextMeshProUGUI mainActionCountdownText;
+    [SerializeField] private TooltipText mainActionIndicatorTooltip;
     [SerializeField] private Image endOfTurnActionIndicator;
-    [SerializeField] private TextMeshProUGUI endOfTurnActionCountdownText;
+    [SerializeField] private TooltipText endOfTurnActionIndicatorTooltip;
 
 
     public void HideCanvas()
@@ -39,6 +40,7 @@ public class AIVisual : MonoBehaviour
     {
         mainActionIndicator.sprite = data.ActionIcon;
         mainActionIndicator.color = data.BarColor;
+        mainActionIndicatorTooltip.SetTooltipText(data.ActionDescription);
         SetMainCountdown(data.RoundsUntilAction);
     }
     
@@ -47,6 +49,8 @@ public class AIVisual : MonoBehaviour
         endOfTurnActionIndicator.gameObject.SetActive(true);
         endOfTurnActionIndicator.sprite = data.ActionIcon;
         mainActionIndicator.color = data.BarColor;
+        endOfTurnActionIndicatorTooltip.SetTooltipText(data.ActionDescription);
+
     }
 
     public void SetMainCountdown(int roundsLeft)

@@ -53,6 +53,7 @@ public class Card : MonoBehaviour
                     tooltipText += "/n";
                     break;
                 case CardType.Status:
+                    tooltipText += $"<color=purple>{cardType}</color> ";
                     break;
             }
         }

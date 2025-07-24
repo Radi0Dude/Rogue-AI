@@ -29,11 +29,6 @@ public class CardReward : MonoBehaviour
         CardData data = card.GetData();
         
         GameManager.PlayerCardCollection.AddCardToCollection(data);
-
-        foreach (var playerCard in GameManager.PlayerCardCollection.CardsInCollection)
-        {
-            print(playerCard.name);
-        }
         
         GameManager.RemoveRoomFromListAndLoadNextScene();
     }

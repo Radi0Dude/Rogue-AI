@@ -4,6 +4,11 @@ public class TooltipText : MonoBehaviour
 {
     private string _tooltipText = null;
 
+    public void SetTooltipText(string tooltipText)
+    {
+        _tooltipText = tooltipText;
+    }
+    
     private void OnMouseEnter()
     {
         if (_tooltipText == null)
@@ -17,10 +22,5 @@ public class TooltipText : MonoBehaviour
     private void OnMouseExit()
     {
         TooltipManager.Instance.HideTooltip();
-    }
-
-    public void SetTooltipText(string tooltipText)
-    {
-        _tooltipText = tooltipText;
     }
 }
