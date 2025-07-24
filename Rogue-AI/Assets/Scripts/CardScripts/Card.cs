@@ -39,18 +39,18 @@ public class Card : MonoBehaviour
                     tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
                     break;
                 case CardType.Draw:
-                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
+                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDraw + " card(s)\n";
                     break;
                 case CardType.Delete:
-                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
+                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDelete + " card(s)\n";
                     break;
                 case CardType.Prompt:
-                    tooltipText += "";
+                    tooltipText += "Prompt term(s): ";
                     foreach (PromptType promptType in cardData.GetPromptTypes())
                     {
-                        tooltipText += " " + promptType;
+                        tooltipText += promptType + " ";
                     }
-                    tooltipText += "/n";
+                    tooltipText += "\n";
                     break;
                 case CardType.Status:
                     tooltipText += $"<color=purple>{cardType}</color> ";

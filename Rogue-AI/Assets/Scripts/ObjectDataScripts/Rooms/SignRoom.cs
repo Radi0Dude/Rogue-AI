@@ -8,11 +8,10 @@ public class SignRoom : RoomData
 
     [Header("Sign Room Settings")]
     [SerializeField] private int numberOfSigns = 3;
-    [SerializeField] private int placesToGo = 3;
     [SerializeField] private SignRoom nextSignRoom;
-
+    
+    
     public int NumberOfSigns => numberOfSigns;
-    public int PlacesToGo => placesToGo;
     public SignRoom NextSignRoom => nextSignRoom;
 
 }

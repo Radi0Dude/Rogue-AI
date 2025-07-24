@@ -13,14 +13,12 @@ public class SignManager : MonoBehaviour
     [SerializeField] private SignRoom signRoom;
     
     private int _numberOfSigns = 3;
-    private int _placesToGo = 3;
 
     private void Start()
     {
         if (GameManager.GetRoom() is SignRoom room)
         {
             _numberOfSigns = room.NumberOfSigns;
-            _placesToGo = room.PlacesToGo;
             signRoom = room.NextSignRoom;
         }
         
@@ -34,7 +32,7 @@ public class SignManager : MonoBehaviour
             signs[i].gameObject.SetActive(true);
             
             // Create and Send list of rooms
-            signs[i].Init(crossRoadData.GetRandomRooms(_placesToGo), signRoom);
+            signs[i].Init(crossRoadData.GetRandomRooms(3), signRoom);
         }
     }
 }
