@@ -260,7 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cbcadcd3373834e82a2f480de008e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d47285b4da388174080205b32bd73d4e, type: 2}
   visual: {fileID: 6337217555313409428}
 --- !u!114 &6337217555313409428
 MonoBehaviour:
@@ -279,8 +278,9 @@ MonoBehaviour:
   sanityBarTooltip: {fileID: 3139680343071495790}
   mainActionIndicator: {fileID: 5109550509721372804}
   mainActionCountdownText: {fileID: 928597053420783916}
+  mainActionIndicatorTooltip: {fileID: 8698206142700625934}
   endOfTurnActionIndicator: {fileID: 388713620183532736}
-  endOfTurnActionCountdownText: {fileID: 8027369969500400869}
+  endOfTurnActionIndicatorTooltip: {fileID: 4344446241577602945}
 --- !u!1 &1402784592071327877
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +720,8 @@ GameObject:
   - component: {fileID: 7615917436611497409}
   - component: {fileID: 2723292409887545364}
   - component: {fileID: 5109550509721372804}
+  - component: {fileID: 3889374061510250546}
+  - component: {fileID: 8698206142700625934}
   m_Layer: 0
   m_Name: MainActionSprite
   m_TagString: Untagged
@@ -785,6 +787,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &3889374061510250546
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148940928160791924}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 70, y: 70, z: 4.94}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8698206142700625934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5148940928160791924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5886a1c8fab55ba43ab0501a6bc8cff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5894358230212916132
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,6 +1016,8 @@ GameObject:
   - component: {fileID: 3537004109361090264}
   - component: {fileID: 3046680376666511328}
   - component: {fileID: 388713620183532736}
+  - component: {fileID: 3305904673375311110}
+  - component: {fileID: 4344446241577602945}
   m_Layer: 0
   m_Name: EveryTurnActionSprite
   m_TagString: Untagged
@@ -1046,6 +1083,39 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &3305904673375311110
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144194879347917586}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 70, y: 70, z: 4.94}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4344446241577602945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144194879347917586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5886a1c8fab55ba43ab0501a6bc8cff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7387157107819413861
 GameObject:
   m_ObjectHideFlags: 0

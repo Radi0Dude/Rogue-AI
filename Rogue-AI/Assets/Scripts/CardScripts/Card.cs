@@ -68,6 +68,11 @@ public class Card : MonoBehaviour
             OnCardPlayed?.Invoke(this);
         }
     }
+
+    public void PlayCard()
+    {
+        OnCardPlayed?.Invoke(this);
+    }
     
     private void RewardSelected()
     {

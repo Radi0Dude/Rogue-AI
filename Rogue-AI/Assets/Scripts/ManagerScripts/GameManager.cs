@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,12 +19,41 @@ public static class GameManager
     
     
     // Player Variables
-    public static int PlayerMaxHealth = 100;
-    public static int PlayerHealth = PlayerMaxHealth;
+    private static int _playerMaxHealth = 100;
+    private static int _playerHealth = PlayerMaxHealth;
+
+    public static event Action OnHealthChanged;
+    public static event Action OnGameLost;
+    
     public static CardCollectionData PlayerCardCollection;
+
+    
+    public static int PlayerMaxHealth
+    {
+        get { return _playerMaxHealth; }
+        set
+        {
+            if (_playerMaxHealth == value) return;
+            
+            _playerMaxHealth = value;
+            OnHealthChanged?.Invoke();
+        }
+    }
+
+    public static int PlayerHealth
+    {
+        get => _playerHealth;
+        set
+        {
+            if (_playerHealth == value) return;
+            
+            _playerHealth = value;
+            OnHealthChanged?.Invoke();
+        }
+    }
+    
     
     private static List<RoomData> _rooms = new ();
-    
     private static bool _isGameStarted = false;
     
     public static void AddRoomsToList(List<RoomData> addedRooms)
@@ -90,6 +120,7 @@ public static class GameManager
     public static void GameOver()
     {
         Debug.Log("Game Over, You Lost The Game");
+        OnGameLost?.Invoke();
     }
     
 }

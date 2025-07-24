@@ -15,7 +15,7 @@ public abstract class AIActionData : ScriptableObject
     public int RoundsUntilAction => roundsUntilAction;
     public Color BarColor => barColor;
 
-    public virtual void PerformAction(AI ai, Player player)
+    public virtual void PerformAction(AI ai, CombatManager cm)
     {
         Debug.Log("AI not given action");
     }

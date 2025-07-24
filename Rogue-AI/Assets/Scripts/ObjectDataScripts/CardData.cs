@@ -23,6 +23,7 @@ public enum PromptType
     Constraints = 1 << 5,
     Steps = 1 << 6,
     Goal = 1 << 7,
+    False = 1 << 8,
 }
 
 public enum CardRarity

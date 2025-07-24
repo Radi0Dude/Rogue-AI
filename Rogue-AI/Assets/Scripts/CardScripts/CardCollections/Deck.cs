@@ -170,6 +170,18 @@ public class Deck : MonoBehaviour
 
     public void DiscardAllCards()
     {
+        foreach (Card card in HandCards)
+        {
+            var data = card.GetData();
+            if (data.IsPlayedEndOfTurn && data.GetCardTypes().Contains(CardType.Status))
+            {
+                // Perform any status card effect if any
+                if (data.GetCardTypes().Contains(CardType.Prompt))
+                {
+                    card.PlayCard();
+                }
+            }
+        }
         for (int i = HandCards.Count - 1; i >= 0; i--)
         {
             DiscardCard(HandCards[i]);

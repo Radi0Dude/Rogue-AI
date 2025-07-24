@@ -8,11 +8,11 @@ public class AIStatusAction : AIActionData
     [SerializeField] private CardData[] statusCards;
     
     
-    public override void PerformAction(AI ai, Player player)
+    public override void PerformAction(AI ai, CombatManager cm)
     {
         foreach (var statusCard in statusCards)
         {
-            player.AddCardToCombat(statusCard);
+            cm.AddCardToCombat(statusCard);
         }
     }
 }

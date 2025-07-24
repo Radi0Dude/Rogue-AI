@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9e7d2b3109656e4fa13692c42888fa7, type: 3}
-  m_Name: SmallDamageAction
+  m_Name: DamageAction1MidHeavy
   m_EditorClassIdentifier: 
-  actionName: Small Damage
-  actionIcon: {fileID: 21300000, guid: 6fa365c0ceed64a49836c8da6dc0fcf8, type: 3}
-  roundsUntilAction: 3
-  barColor: {r: 0.764151, g: 0.33521715, b: 0.33521715, a: 1}
-  damage: 10
+  actionName: Heavy Attack
+  actionIcon: {fileID: 21300000, guid: 9c63d6a9ca485ec489eb598b0edc441f, type: 3}
+  actionDescription: 
+  roundsUntilAction: 4
+  barColor: {r: 0.8396226, g: 0.23366857, b: 0.23366857, a: 1}
+  minDamage: 12
+  maxDamage: 14

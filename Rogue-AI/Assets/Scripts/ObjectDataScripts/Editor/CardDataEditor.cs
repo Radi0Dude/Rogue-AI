@@ -75,7 +75,6 @@ namespace ObjectDataScripts.Editor
             if (_canPrompt)
             {
                 EditorGUILayout.PropertyField(_promptType, new GUIContent("Prompt Type"));
-                
             }
             
             if (_canDraw)
@@ -98,7 +97,6 @@ namespace ObjectDataScripts.Editor
             {
                 EditorGUILayout.PropertyField(_isPlayable, new GUIContent("Is Playable"));
                 EditorGUILayout.PropertyField(_isPlayedEndOfTurn, new GUIContent("Will be Played End of Turn"));
-
             }
 
             EditorGUI.indentLevel--;

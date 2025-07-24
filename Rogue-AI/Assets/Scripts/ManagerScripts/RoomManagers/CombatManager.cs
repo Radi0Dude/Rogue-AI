@@ -8,11 +8,11 @@ public class CombatManager : MonoBehaviour
     [Header("Scripts from Scene")]
     [SerializeField] private InputField inputField;
     [SerializeField] private CardReward cardReward;
-    [SerializeField] private Player player;
+    [SerializeField] private PlayerVisual player;
     [SerializeField] private AI ai;
     [SerializeField] private Deck deck;
 
-
+    
     private void Awake()
     {
         BeginCombat();
@@ -26,7 +26,10 @@ public class CombatManager : MonoBehaviour
         deck.OnCardPlayed += PlayCard;
             
         GameManager.CanPlayCard = true;
-        ai.Initialize(player);
+
+        var room = (CombatRoom)GameManager.GetRoom();
+        
+        ai.Initialize(this, room.AIData);
     }
 
     private void Start()
@@ -39,7 +42,7 @@ public class CombatManager : MonoBehaviour
     {
         // If there are no prompt present, give a new prompt
         // Player draws card
-        player.DrawHand();
+        deck.DrawHand(GameManager.StartOfRoundDraw);
     }
     
     private void PlayCard(Card card)
@@ -107,7 +110,7 @@ public class CombatManager : MonoBehaviour
     
     private void EndTurn()
     {
-        player.DiscardAllCards();
+        deck.DiscardAllCards();
         if (!ai.IsSane())
         {
             EnemyAdvancement();
@@ -130,11 +133,13 @@ public class CombatManager : MonoBehaviour
         cardReward.DisplayCardReward();
         // In UI Player can load next scene
     }
-
-    public void LoadNextScene()
+    public void ChangeHealth(int value)
     {
-        GameManager.RemoveRoomFromListAndLoadNextScene();
-        
+        GameManager.ChangePlayerHealth(value);
+    }
+    public void AddCardToCombat(CardData cardData)
+    {
+        deck.AddCardToDeck(cardData, true);
     }
     
     private void LoseCombat()

@@ -9,12 +9,10 @@ public class RestSiteManager : MonoBehaviour
     [SerializeField] private int numbToDelete = 1;
     [Header("Scripts")]
     [SerializeField] private CardLibrary cardLibrary;
-    [SerializeField] private Player player;
     
     
     public void RestButtonPressed()
     {
-        player.ChangeHealth(healAmount);
         AfterButtonPressed();
     }
     

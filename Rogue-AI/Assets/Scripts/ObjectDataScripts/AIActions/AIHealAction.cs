@@ -8,7 +8,7 @@ public class AIHealAction : AIActionData
     [SerializeField] private int healAmount;
     
     
-    public override void PerformAction(AI ai, Player player)
+    public override void PerformAction(AI ai, CombatManager cm)
     {
         Debug.Log("AI Perform Heal action");
         

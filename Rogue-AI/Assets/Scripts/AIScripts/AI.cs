@@ -13,27 +13,18 @@ public class AI : MonoBehaviour
     private int _countDown;
     
     private AIData _data;
-    private Player _player;
+    private CombatManager _combatManager;
+    //private PlayerVisual _player;
     private AIActionData _currentAction;
     private AIActionData _endOfTurnAction;
 
 
-    public void Initialize(Player player)
+    public void Initialize(CombatManager combatManager, AIData data)
     {
-        
-        if (GameManager.GetRoom() is CombatRoom room)
-        {
-            _data = room.AIData;
-        }
-        else
-        {
-            Debug.LogError("Room is not a CombatRoom");
-            return;
-        }
-        
+        _data = data;
+        _combatManager = combatManager;
         _currentSanity = _data.StartSanity;
         _maxSanity = _data.MaxSanity;
-        _player = player;
         GetNextAction();
         _endOfTurnAction = _data.EndOfTurnAction;
 
@@ -59,12 +50,12 @@ public class AI : MonoBehaviour
         
         if (_endOfTurnAction != null)
         {
-            _endOfTurnAction.PerformAction(this, _player);
+            _endOfTurnAction.PerformAction(this, _combatManager);
         }
         
         if (_countDown <= 0)
         {
-            _currentAction.PerformAction(this, _player);
+            _currentAction.PerformAction(this, _combatManager);
             GetNextAction();
         }
     }
