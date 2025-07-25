@@ -113,12 +113,12 @@ public class CombatManager : MonoBehaviour
                 return;
             }
         }
-        
+        deck.DiscardCard(card);
+
         if (cardTypes.Contains(CardType.Prompt))
         {
             inputField.UpdatePrompt(data.PromptType);
         }
-        
         if (cardTypes.Contains(CardType.Discard))
         {
             deck.DiscardRandomCards(data.CardsToDiscard);
@@ -128,13 +128,13 @@ public class CombatManager : MonoBehaviour
         {
             deck.DrawHand(data.CardsToDraw);
         }
-
+        
         if (cardTypes.Contains(CardType.Delete))
         {
             deck.PlayedDeleteCard(data.CardsToDelete);
         }
         
-        deck.DiscardCard(card);
+        
     }
     
    

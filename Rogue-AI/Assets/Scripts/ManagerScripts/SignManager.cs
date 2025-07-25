@@ -26,12 +26,21 @@ public class SignManager : MonoBehaviour
 
     private void InitiateSigns()
     {
+        // Get total number of rooms needed (e.g., 3 signs * 3 options per sign)
+        int totalRoomCount = _numberOfSigns * 3;
+
+        // Get unique random rooms
+        List<RoomData> allRandomRooms = _crossRoadData.GetRandomRooms(totalRoomCount);
+
+        // Assign rooms to each sign
         for (int i = 0; i < _numberOfSigns; i++)
         {
             signs[i].gameObject.SetActive(true);
-            
-            // Create and Send list of rooms
-            signs[i].Init(_crossRoadData.GetRandomRooms(3), _signRoom);
+
+            // Take 3 rooms per sign
+            var roomOptions = allRandomRooms.GetRange(i * 3, 3);
+            signs[i].Init(roomOptions, _signRoom);
         }
     }
+
 }

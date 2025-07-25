@@ -8,13 +8,18 @@ public class CrossRoadData : ScriptableObject
 
     public List<RoomData> GetRandomRooms(int amount)
     {
-        var randomRooms = new List<RoomData>();
-        
-        for (int i = 0; i < amount; i++)
+        // Copy the list locally so we don't modify the original
+        var shuffledRooms = new List<RoomData>(rooms);
+
+        // Shuffle the copied list
+        for (int i = shuffledRooms.Count - 1; i > 0; i--)
         {
-            randomRooms.Add(rooms[Random.Range(0, rooms.Count)]);
+            int j = Random.Range(0, i + 1);
+            (shuffledRooms[i], shuffledRooms[j]) = (shuffledRooms[j], shuffledRooms[i]);
         }
-        
-        return randomRooms;
+
+        // Return the first `amount` items (clamped to avoid overflow)
+        return shuffledRooms.GetRange(0, Mathf.Min(amount, shuffledRooms.Count));
     }
+
 } 

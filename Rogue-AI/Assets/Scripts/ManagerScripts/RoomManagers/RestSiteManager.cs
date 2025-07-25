@@ -13,6 +13,7 @@ public class RestSiteManager : MonoBehaviour
     
     public void RestButtonPressed()
     {
+        GameManager.ChangePlayerHealth(healAmount);
         AfterButtonPressed();
     }
     

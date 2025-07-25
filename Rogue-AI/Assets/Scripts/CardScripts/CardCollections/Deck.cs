@@ -138,7 +138,7 @@ public class Deck : MonoBehaviour
             Destroy(card.gameObject);
             UpdateCardPositions();
             _cardsToDelete--;
-            if (_cardsToDelete <= 0)
+            if (_cardsToDelete <= 0 || _handCardsList.Count == 0)
             {
                 ChangePlayStateToPlay();
             }
