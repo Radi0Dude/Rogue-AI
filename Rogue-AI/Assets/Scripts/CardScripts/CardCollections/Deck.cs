@@ -72,7 +72,6 @@ public class Deck : MonoBehaviour
             int j = Random.Range(0, i + 1);
             (_deckPileList[i], _deckPileList[j]) = (_deckPileList[j], _deckPileList[i]);
         }
-        Debug.Log("Shuffled Deck");
     }
 
     public void DrawHand(int amount)
@@ -187,7 +186,6 @@ public class Deck : MonoBehaviour
                 if (data.GetCardTypes().Contains(CardType.Prompt))
                 {
                     card.PlayCard();
-                    Debug.LogWarning("Adding false prompt");
                 }
                 continue;
             }
@@ -195,19 +193,15 @@ public class Deck : MonoBehaviour
             switch (data.VirusEffect)
             {
                 case VirusEffect.None:
-                    Debug.LogWarning("No action taken");
                     continue;
                 case VirusEffect.Duplicate:
                     AddCardToDeck(card.GetData());
-                    Debug.LogWarning("Card added to deck");
                     break;
                 case VirusEffect.LoseHealth:
                     GameManager.ChangePlayerHealth(-10);
-                    Debug.LogWarning("Player Health Changed");
                     break;
                 case VirusEffect.LoseSanity:
                     AIHealthChange?.Invoke(50);
-                    Debug.LogWarning("Ai Sanity Changed");
                     break;
             }
         }

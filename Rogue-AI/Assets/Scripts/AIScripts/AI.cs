@@ -64,9 +64,10 @@ public class AI : MonoBehaviour
     {
         _currentSanity += value;
         
-        if (_currentSanity <= 0.0f)
+        if (_currentSanity <= 0f)
         {
             _currentSanity = 0.0f;
+            GameManager.GameOver();
         }
         else if (_currentSanity >= _maxSanity)
         {
