@@ -4,36 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Base-AI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Base-AI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/2_AICombatScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/2_AICombatScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/New AI Data.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/New AI Data.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/MediumDamageAction.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/MediumDamageAction.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/SmallDamageAction.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/SmallDamageAction.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/SmallHealAction.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/SmallHealAction.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/StatusAction.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/ScriptableAIActions/StatusAction.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/TestSignRoom.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/TestSignRoom.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AIScripts/AI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AIScripts/AI.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/Card.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardCollections/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardCollections/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/CombatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/CombatManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/RestSiteManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/RestSiteManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActionData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActionData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIDamageAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIDamageAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIHealAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIHealAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIStatusAction.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/AIActions/AIStatusAction.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/CardData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/CardData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/CardDataEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/Editor/CardDataEditor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerVisual.cs.meta" afterDir="false" />
-    </list>
+    <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -175,7 +146,7 @@
       <workItem from="1753086752432" duration="7178000" />
       <workItem from="1753166553011" duration="5154000" />
       <workItem from="1753261817382" duration="5475000" />
-      <workItem from="1753341949321" duration="13619000" />
+      <workItem from="1753341949321" duration="13793000" />
     </task>
     <servers />
   </component>

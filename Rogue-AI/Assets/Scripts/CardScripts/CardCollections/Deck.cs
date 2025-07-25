@@ -170,6 +170,14 @@ public class Deck : MonoBehaviour
 
     public void DiscardAllCards()
     {
+        for (int i = HandCards.Count - 1; i >= 0; i--)
+        {
+            DiscardCard(HandCards[i]);
+        }
+    }
+
+    public void CheckForVirusCardEffects()
+    {
         foreach (Card card in HandCards)
         {
             var data = card.GetData();
@@ -181,10 +189,6 @@ public class Deck : MonoBehaviour
                     card.PlayCard();
                 }
             }
-        }
-        for (int i = HandCards.Count - 1; i >= 0; i--)
-        {
-            DiscardCard(HandCards[i]);
         }
     }
 

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Card : MonoBehaviour
 {
@@ -27,36 +26,44 @@ public class Card : MonoBehaviour
         // TODO: Use card Rarity to change model colour 
     }
 
-    private void SetAbilityTooltipText(List<CardType> cardTypes)
+    private void SetAbilityTooltipText(List<CardType> cardTypesEnum)
     {
         string tooltipText = "";
         
-        foreach (var cardType in cardTypes)
+        var cardTypes = new HashSet<CardType>(cardTypesEnum);
+        
+        if (cardTypes.Contains(CardType.Prompt))
         {
-            switch (cardType)
+            tooltipText += "Prompt term(s): ";
+            foreach (PromptType promptType in cardData.GetPromptTypes())
             {
-                case CardType.Discard:
-                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDiscard + " card(s)\n";
-                    break;
-                case CardType.Draw:
-                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDraw + " card(s)\n";
-                    break;
-                case CardType.Delete:
-                    tooltipText += $"<color=yellow>{cardType}</color> " + cardData.CardsToDelete + " card(s)\n";
-                    break;
-                case CardType.Prompt:
-                    tooltipText += "Prompt term(s): ";
-                    foreach (PromptType promptType in cardData.GetPromptTypes())
-                    {
-                        tooltipText += promptType + " ";
-                    }
-                    tooltipText += "\n";
-                    break;
-                case CardType.Status:
-                    tooltipText += $"<color=purple>{cardType}</color> ";
-                    break;
+                tooltipText += promptType + " ";
             }
+            tooltipText += "\n";
         }
+        
+        if (cardTypes.Contains(CardType.Discard))
+        {
+            tooltipText += $"<color=yellow>{CardType.Discard}</color> " + cardData.CardsToDiscard + " card(s)\n";
+        }
+
+        if (cardTypes.Contains(CardType.Draw))
+        {
+            tooltipText += $"<color=yellow>{CardType.Draw}</color> " + cardData.CardsToDraw + " card(s)\n";
+        }
+
+        if (cardTypes.Contains(CardType.Delete))
+        {
+            tooltipText += $"<color=yellow>{CardType.Delete}</color> " + cardData.CardsToDelete + " card(s)\n";
+        }
+
+        
+
+        if (cardTypes.Contains(CardType.Status))
+        {
+            tooltipText += $"<color=purple>{CardType.Status}</color> ";
+        }
+
         
         cardAbilityTooltip.SetAbilityTooltipText(tooltipText);
     }

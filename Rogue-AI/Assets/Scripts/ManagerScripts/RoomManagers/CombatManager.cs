@@ -56,40 +56,39 @@ public class CombatManager : MonoBehaviour
         
         var cardData = card.GetData();
 
-        List<CardType> cardTypes = cardData.GetCardTypes();
+        List<CardType> cardTypesEnum = cardData.GetCardTypes();
 
-        
+        var cardTypes = new HashSet<CardType>(cardTypesEnum);
 
-        foreach (CardType cardType in cardTypes)
+        if (cardTypes.Contains(CardType.Prompt))
         {
-            if (cardType == CardType.Prompt)
+            inputField.UpdatePrompt(cardData.PromptType);
+        }
+        
+        if (cardTypes.Contains(CardType.Discard))
+        {
+            deck.DiscardRandomCards(cardData.CardsToDiscard);
+        }
+
+        if (cardTypes.Contains(CardType.Draw))
+        {
+            deck.DrawHand(cardData.CardsToDraw);
+        }
+
+        if (cardTypes.Contains(CardType.Delete))
+        {
+            deck.PlayedDeleteCard(cardData.CardsToDelete);
+        }
+        
+        if (cardTypes.Contains(CardType.Status))
+        {
+            if (!cardData.IsPlayable)
             {
-                inputField.UpdatePrompt(cardData.PromptType);
-            }
-            else if (cardType == CardType.Draw)
-            {
-                deck.DrawHand(cardData.CardsToDraw);
-            }
-            else if (cardType == CardType.Delete)
-            {
-                deck.PlayedDeleteCard(cardData.CardsToDelete);
-            }
-            else if (cardType == CardType.Discard)
-            {
-                deck.DiscardRandomCards(cardData.CardsToDiscard);
-            }
-            else if (cardType == CardType.Status)
-            {
-                if (!cardData.IsPlayable)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                Debug.LogError(cardType + " has not been given an action");
+                return;
             }
         }
+        
+
         deck.DiscardCard(card);
     }
     
@@ -110,6 +109,7 @@ public class CombatManager : MonoBehaviour
     
     private void EndTurn()
     {
+        deck.CheckForVirusCardEffects();
         deck.DiscardAllCards();
         if (!ai.IsSane())
         {
