@@ -15,13 +15,15 @@ public static class GameManager
     public const int MaxHandSize = 6;
     public static int StartOfRoundDraw = 4;
     public static CardPlayState CurrentPlayState;
-    public static bool CanPlayCard = false;
     
+    // Combat Variable
+    public static RoundState RoundState;
+
     
     // Player Variables
     private static int _playerMaxHealth = 100;
     private static int _playerHealth = PlayerMaxHealth;
-
+    
     public static event Action OnHealthChanged;
     public static event Action OnGameLost;
     

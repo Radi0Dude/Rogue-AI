@@ -319,7 +319,6 @@ MonoBehaviour:
   cardVisual: {fileID: 8683528191210187323}
   cardInteraction: {fileID: 8942731695958524171}
   cardTooltip: {fileID: 836249323031501645}
-  cardAbilityTooltip: {fileID: 4630917161086429962}
 --- !u!114 &8683528191210187323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,6 +338,7 @@ MonoBehaviour:
   - {fileID: 7612607130866474883}
   - {fileID: 7623950010648898948}
   - {fileID: 5193685411198064818}
+  cardAbilityTooltip: {fileID: 4630917161086429962}
 --- !u!114 &8942731695958524171
 MonoBehaviour:
   m_ObjectHideFlags: 0

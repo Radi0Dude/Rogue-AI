@@ -2,6 +2,15 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+public enum RoundState
+{
+    BeginCombat,
+    StartRound,
+    EndRound,
+    EndCombat,
+}
+    
+
 
 public class CombatManager : MonoBehaviour
 {
@@ -20,13 +29,13 @@ public class CombatManager : MonoBehaviour
 
     private void BeginCombat()
     {
+        GameManager.RoundState = RoundState.BeginCombat;
+
         inputField.OnEndingTurnEvent += EndTurn;
         inputField.OnSendPromptEvent += SendPrompt;
         ai.OnAISane += EndCombat;
         deck.OnCardPlayed += PlayCard;
             
-        GameManager.CanPlayCard = true;
-
         var room = (CombatRoom)GameManager.GetRoom();
         
         ai.Initialize(this, room.AIData);
@@ -40,10 +49,38 @@ public class CombatManager : MonoBehaviour
 
     private void StartTurn()
     {
+        GameManager.RoundState = RoundState.StartRound;
         // If there are no prompt present, give a new prompt
         // Player draws card
         deck.DrawHand(GameManager.StartOfRoundDraw);
     }
+    
+    private void SendPrompt(List<PromptType> prompts)
+    {
+        //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
+        int sumSanity = 1;
+        foreach (PromptType prompt in prompts)
+        {
+            if (prompt == PromptType.False)
+                sumSanity /= 2;
+            else
+                sumSanity += sumSanity;
+        }
+        ai.ChangeSanity(sumSanity);
+        EndTurn();
+    }
+    
+    private void EndTurn()
+    {
+        GameManager.RoundState = RoundState.EndRound;
+        deck.CheckForVirusCardEffects();
+        deck.DiscardAllCards();
+        if (!ai.IsSane())
+        {
+            EnemyAdvancement();
+        }
+    }
+
     
     private void PlayCard(Card card)
     {
@@ -54,69 +91,45 @@ public class CombatManager : MonoBehaviour
             return;
         }
         
-        var cardData = card.GetData();
+        var data = card.GetData();
 
-        List<CardType> cardTypesEnum = cardData.GetCardTypes();
+        List<CardType> cardTypesEnum = data.GetCardTypes();
 
         var cardTypes = new HashSet<CardType>(cardTypesEnum);
 
-        if (cardTypes.Contains(CardType.Prompt))
-        {
-            inputField.UpdatePrompt(cardData.PromptType);
-        }
-        
-        if (cardTypes.Contains(CardType.Discard))
-        {
-            deck.DiscardRandomCards(cardData.CardsToDiscard);
-        }
-
-        if (cardTypes.Contains(CardType.Draw))
-        {
-            deck.DrawHand(cardData.CardsToDraw);
-        }
-
-        if (cardTypes.Contains(CardType.Delete))
-        {
-            deck.PlayedDeleteCard(cardData.CardsToDelete);
-        }
-        
+        // Check status playability first to stop other cards from being played
         if (cardTypes.Contains(CardType.Status))
         {
-            if (!cardData.IsPlayable)
+            if (!data.IsPlayable && GameManager.RoundState == RoundState.StartRound)
             {
                 return;
             }
         }
         
+        if (cardTypes.Contains(CardType.Prompt))
+        {
+            inputField.UpdatePrompt(data.PromptType);
+        }
+        
+        if (cardTypes.Contains(CardType.Discard))
+        {
+            deck.DiscardRandomCards(data.CardsToDiscard);
+        }
 
+        if (cardTypes.Contains(CardType.Draw))
+        {
+            deck.DrawHand(data.CardsToDraw);
+        }
+
+        if (cardTypes.Contains(CardType.Delete))
+        {
+            deck.PlayedDeleteCard(data.CardsToDelete);
+        }
+        
         deck.DiscardCard(card);
     }
     
-    private void SendPrompt(List<PromptType> prompts)
-    {
-        //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
-        Debug.Log("Sending Prompt.");
-        int sumSanity = 0;
-        foreach (var prompt in prompts)
-        {
-            sumSanity += 10;
-        }
-        ai.ChangeSanity(sumSanity);
-        EndTurn();
-    }
-    
-    
-    
-    private void EndTurn()
-    {
-        deck.CheckForVirusCardEffects();
-        deck.DiscardAllCards();
-        if (!ai.IsSane())
-        {
-            EnemyAdvancement();
-        }
-    }
-
+   
 
 
     private void EnemyAdvancement()
@@ -127,8 +140,8 @@ public class CombatManager : MonoBehaviour
     
     private void EndCombat()
     {
+        GameManager.RoundState = RoundState.EndCombat;
         // Reward is presented to the player
-        GameManager.CanPlayCard = false;
         Debug.Log("Ending Combat");
         cardReward.DisplayCardReward();
         // In UI Player can load next scene
@@ -137,15 +150,16 @@ public class CombatManager : MonoBehaviour
     {
         GameManager.ChangePlayerHealth(value);
     }
-    public void AddCardToCombat(CardData cardData)
+    public void AddCardToCombat(CardData data)
     {
-        deck.AddCardToDeck(cardData, true);
+        deck.AddCardToDeck(data, true);
     }
     
     private void LoseCombat()
     {
         // Game Over the player
-        
+        GameManager.RoundState = RoundState.EndCombat;
+
         GameManager.GameOver();
     }
 

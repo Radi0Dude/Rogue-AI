@@ -16,8 +16,6 @@ public class MainMenuManager : MonoBehaviour
         GameManager.PlayerHealth = GameManager.PlayerMaxHealth;
         GameManager.StartOfRoundDraw = 4;
         
-        GameManager.CanPlayCard = false;
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

@@ -58,6 +58,10 @@ public class Deck : MonoBehaviour
 
     private void CardPlayed(Card card)
     {
+        if (GameManager.RoundState == RoundState.StartRound)
+        {
+            
+        }
         OnCardPlayed?.Invoke(card);
     }
     
