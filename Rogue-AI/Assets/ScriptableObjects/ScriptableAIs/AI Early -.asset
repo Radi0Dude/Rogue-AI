@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7dc062028b70d5c46818a7758e4a766d, type: 3}
-  m_Name: BaseAI
+  m_Name: AI Early -
   m_EditorClassIdentifier: 
-  aiName: The First
+  aiName: Syntax Lurker
   maxSanity: 50
   startSanity: 40
   aiType: 1

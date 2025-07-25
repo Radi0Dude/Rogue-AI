@@ -44,10 +44,14 @@ public class CardVisual : MonoBehaviour
     private void SetAbilityTooltipText(CardData data)
     {
         string tooltipText = "";
-
         List<CardType> cardTypesEnum = data.GetCardTypes();
-        
         var cardTypes = new HashSet<CardType>(cardTypesEnum);
+        
+
+        if (cardTypes.Contains(CardType.Status))
+        {
+            tooltipText += $"<color=purple>{CardType.Status}</color> ";
+        }
         
         if (cardTypes.Contains(CardType.Prompt))
         {
@@ -73,14 +77,6 @@ public class CardVisual : MonoBehaviour
         {
             tooltipText += $"<color=yellow>{CardType.Delete}</color> " + data.CardsToDelete + " card(s)\n";
         }
-
-        
-
-        if (cardTypes.Contains(CardType.Status))
-        {
-            tooltipText += $"<color=purple>{CardType.Status}</color> ";
-        }
-
         
         cardAbilityTooltip.SetAbilityTooltipText(tooltipText);
     }

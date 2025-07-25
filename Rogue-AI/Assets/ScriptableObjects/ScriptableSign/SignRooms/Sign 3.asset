@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2dca71e9aaa4b66bd4356dc1fc01073, type: 3}
-  m_Name: TestSignRoom
+  m_Name: Sign 3
   m_EditorClassIdentifier: 
-  roomName: First Sign Room
-  roomIcon: {fileID: 21300000, guid: ada3f29e6973f6d4ca61ea8adc98548f, type: 3}
-  numberOfSigns: 2
-  nextSignRoom: {fileID: 11400000, guid: 3eca63bacf3fb6c4ca0da176cdb3f4ed, type: 2}
+  roomName: Starting Room
+  roomIcon: {fileID: 21300000, guid: 9a3108556f3639044bf20cb9c7652fa8, type: 3}
+  numberOfSigns: 3
+  crossRoadData: {fileID: 0}
+  nextSignRoom: {fileID: 0}

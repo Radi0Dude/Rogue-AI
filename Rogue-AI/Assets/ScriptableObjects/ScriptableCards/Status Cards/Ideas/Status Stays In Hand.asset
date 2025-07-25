@@ -17,7 +17,8 @@ MonoBehaviour:
   cardRarity: 0
   cardName: Overloaded Memory
   cardDescription: 
-  cardSymbol: {fileID: 0}
+  cardSymbol:
+  - {fileID: 21300000, guid: 0a26c588c59d5ad44b9d7c8127f0cb34, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

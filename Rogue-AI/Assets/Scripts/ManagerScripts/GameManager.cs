@@ -56,7 +56,6 @@ public static class GameManager
     
     
     private static List<RoomData> _rooms = new ();
-    private static bool _isGameStarted = false;
     
     public static void AddRoomsToList(List<RoomData> addedRooms)
     {
@@ -64,16 +63,11 @@ public static class GameManager
         {
             _rooms.Add(newRoom);
         }
+    }
 
-        if (_isGameStarted)
-        {
-            RemoveRoomFromListAndLoadNextScene();
-        }
-        else
-        {
-            LoadNextRoom();
-            _isGameStarted = true;
-        }
+    public static void ClearRoomList()
+    {
+        _rooms.Clear();
     }
 
     public static void ChangePlayerHealth(int changeValue)
@@ -104,18 +98,16 @@ public static class GameManager
     {
         return _rooms.Count == 0 ? null : _rooms[0];
     }
-    
-    
-    private static void LoadNextRoom()
-    {
-        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
-    }
-    
 
     public static void RemoveRoomFromListAndLoadNextScene()
     {
         _rooms.RemoveAt(0);
-        LoadNextRoom();
+        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
+    }
+
+    public static void LoadNextScene()
+    {
+        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
     }
 
 

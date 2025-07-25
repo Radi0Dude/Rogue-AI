@@ -33,7 +33,11 @@ public enum CardRarity
     Common = 2,
     Rare = 4,
     Legendary = 8,
-    
+}
+
+public enum VirusEffect
+{
+    None = 0,
 }
 
 [CreateAssetMenu(fileName = "CardData", menuName = "Card/Card Data")]
@@ -51,7 +55,8 @@ public class CardData : ScriptableObject
     [SerializeField] private int cardsToDelete = 1;
     [SerializeField] private int cardsToDiscard = 1;
     [SerializeField] private bool isPlayable;
-    [SerializeField] private bool isPlayedEndOfTurn;    
+    [SerializeField] private bool isPlayedEndOfTurn;  
+    [SerializeField] private VirusEffect virusEffect;
 
     public string CardName => cardName;
     public string CardDescription => cardDescription;
@@ -68,6 +73,7 @@ public class CardData : ScriptableObject
     // Status var
     public bool IsPlayable => isPlayable;
     public bool IsPlayedEndOfTurn => isPlayedEndOfTurn;
+    public VirusEffect VirusEffect => virusEffect;
     
     public List<CardType> GetCardTypes()
     {

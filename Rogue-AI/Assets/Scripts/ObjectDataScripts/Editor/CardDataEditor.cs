@@ -20,7 +20,7 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardsToDiscard;
         private SerializedProperty _isPlayable;
         private SerializedProperty _isPlayedEndOfTurn;
-        
+        private SerializedProperty _virusEffect;
         
         private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canDiscard, _canStatus;
         
@@ -39,6 +39,7 @@ namespace ObjectDataScripts.Editor
             _cardsToDiscard = serializedObject.FindProperty("cardsToDiscard");
             _isPlayable = serializedObject.FindProperty("isPlayable");
             _isPlayedEndOfTurn = serializedObject.FindProperty("isPlayedEndOfTurn");
+            _virusEffect = serializedObject.FindProperty("virusEffect");
         }
 
         public override void OnInspectorGUI()
@@ -97,6 +98,7 @@ namespace ObjectDataScripts.Editor
             {
                 EditorGUILayout.PropertyField(_isPlayable, new GUIContent("Is Playable"));
                 EditorGUILayout.PropertyField(_isPlayedEndOfTurn, new GUIContent("Will be Played End of Turn"));
+                EditorGUILayout.PropertyField(_virusEffect, new GUIContent("Virus Effect"));
             }
 
             EditorGUI.indentLevel--;

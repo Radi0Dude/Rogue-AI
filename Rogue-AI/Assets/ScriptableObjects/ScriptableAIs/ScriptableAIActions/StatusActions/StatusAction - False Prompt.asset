@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab4de0c1759a2cb4cbd2ee5bcb69e60a, type: 3}
-  m_Name: StatusAction
+  m_Name: StatusAction - False Prompt
   m_EditorClassIdentifier: 
-  actionName: Test Status Action
+  actionName: False Prompt
   actionIcon: {fileID: 21300000, guid: 0a26c588c59d5ad44b9d7c8127f0cb34, type: 3}
-  roundsUntilAction: 1
+  actionDescription: 
+  roundsUntilAction: 2
   barColor: {r: 0.5849056, g: 0.1682983, b: 0.5072367, a: 1}
   statusCards:
   - {fileID: 11400000, guid: 0412c36e0f26a734fa01fbafae55f33d, type: 2}
