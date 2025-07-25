@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
         foreach (var option in _data.OptionDescriptions)
         {
             var choiceInstance = Instantiate(eventChoicePrefab, eventChoiceGroup.transform);
-            choiceInstance.transform.parent = eventChoiceGroup.transform;
+            choiceInstance.transform.SetParent(eventChoiceGroup.transform);
             choiceInstance.Init(option);
             choiceInstance.OnChoiceSelected += EventChoiceSelected;
         }

@@ -16,6 +16,6 @@ MonoBehaviour:
   actionIcon: {fileID: 21300000, guid: 4821f9c494b79774fbbf0c49f2ea9056, type: 3}
   actionDescription: 
   roundsUntilAction: 1
-  barColor: {r: 0.6509434, g: 0, b: 0, a: 1}
+  barColor: {r: 0.6509804, g: 0.25357977, b: 0, a: 1}
   minDamage: 7
   maxDamage: 9
