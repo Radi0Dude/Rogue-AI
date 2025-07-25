@@ -850,6 +850,18 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5256994311562473230, guid: 0e5f99f2785cebe489a38b7200f5e33a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256994311562473230, guid: 0e5f99f2785cebe489a38b7200f5e33a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5256994311562473230, guid: 0e5f99f2785cebe489a38b7200f5e33a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5453585910883203394, guid: 0e5f99f2785cebe489a38b7200f5e33a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1032,6 +1044,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2250038896952247128, guid: 41514078126dc43468ee712a8e39ba33, type: 3}
+      propertyPath: signRoom
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2289932639654991011, guid: 41514078126dc43468ee712a8e39ba33, type: 3}
       propertyPath: m_IsActive
       value: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9b80694d26442269621e2ff6fb2d2fa, type: 3}
-  m_Name: BaseRestSiteRoom
+  m_Name: RestSite
   m_EditorClassIdentifier: 
   roomName: BaseRestRoom
   roomIcon: {fileID: 21300000, guid: 4fb10d78a49253246880a851928e2f11, type: 3}

@@ -7,9 +7,8 @@ using Random = UnityEngine.Random;
 public class SignManager : MonoBehaviour
 {
     [SerializeField] private List<Sign> signs;
-    [Tooltip("The Room scriptable object for the next sign post")]
-    [SerializeField] private SignRoom signRoom;
     
+    private SignRoom _signRoom;
     private CrossRoadData _crossRoadData;
     private int _numberOfSigns = 3;
 
@@ -19,20 +18,20 @@ public class SignManager : MonoBehaviour
         {
             _numberOfSigns = room.NumberOfSigns;
             _crossRoadData = room.CrossRoadData;
-            signRoom = room.NextSignRoom;
+            _signRoom = room.NextSignRoom;
         }
         
         InitiateSigns();
     }
 
-    public void InitiateSigns()
+    private void InitiateSigns()
     {
         for (int i = 0; i < _numberOfSigns; i++)
         {
             signs[i].gameObject.SetActive(true);
             
             // Create and Send list of rooms
-            signs[i].Init(_crossRoadData.GetRandomRooms(3), signRoom);
+            signs[i].Init(_crossRoadData.GetRandomRooms(3), _signRoom);
         }
     }
 }

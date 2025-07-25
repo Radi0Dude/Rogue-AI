@@ -35,11 +35,15 @@ public class CombatManager : MonoBehaviour
         inputField.OnSendPromptEvent += SendPrompt;
         ai.OnAISane += EndCombat;
         deck.OnCardPlayed += PlayCard;
+        deck.AIHealthChange += ChangeAIHealth;
+        
             
         var room = (CombatRoom)GameManager.GetRoom();
         
         ai.Initialize(this, room.AIData);
     }
+
+    
 
     private void Start()
     {
@@ -68,6 +72,10 @@ public class CombatManager : MonoBehaviour
         }
         ai.ChangeSanity(sumSanity);
         EndTurn();
+    }
+    private void ChangeAIHealth(float percentage)
+    {
+        ai.LoseSanityByPercentage(percentage);
     }
     
     private void EndTurn()
@@ -100,7 +108,7 @@ public class CombatManager : MonoBehaviour
         // Check status playability first to stop other cards from being played
         if (cardTypes.Contains(CardType.Status))
         {
-            if (!data.IsPlayable && GameManager.RoundState == RoundState.StartRound)
+            if (GameManager.RoundState == RoundState.StartRound)
             {
                 return;
             }
@@ -168,6 +176,8 @@ public class CombatManager : MonoBehaviour
         inputField.OnEndingTurnEvent -= EndTurn;
         inputField.OnSendPromptEvent -= SendPrompt;
         ai.OnAISane -= EndCombat;
+        deck.OnCardPlayed -= PlayCard;
+        deck.AIHealthChange -= ChangeAIHealth;
     }
 
 }

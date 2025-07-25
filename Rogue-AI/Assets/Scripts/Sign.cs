@@ -12,7 +12,9 @@ public class Sign : MonoBehaviour
     public void Init(List<RoomData> rooms, SignRoom signRoom)
     {
         _rooms = rooms;
+
         SetIcons();
+        
         _rooms.Add(signRoom);
     }
 
@@ -30,5 +32,6 @@ public class Sign : MonoBehaviour
     {
         // Should save selected rooms down path
         GameManager.AddRoomsToList(_rooms);
+        GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 }

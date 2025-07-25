@@ -78,6 +78,12 @@ public class AI : MonoBehaviour
 
     }
 
+    public void LoseSanityByPercentage(float value)
+    {
+        var sanityLoss = -_currentSanity * value / 100.0f; 
+        ChangeSanity(sanityLoss);
+    }
+
     public bool IsSane()
     {
         return Mathf.Approximately(_currentSanity, _maxSanity);

@@ -16,4 +16,4 @@ MonoBehaviour:
   roomIcon: {fileID: 21300000, guid: 9a3108556f3639044bf20cb9c7652fa8, type: 3}
   numberOfSigns: 3
   crossRoadData: {fileID: 0}
-  nextSignRoom: {fileID: 0}
+  nextSignRoom: {fileID: 11400000, guid: 8b0d061a5ac483d4792e4145dcff95a8, type: 2}

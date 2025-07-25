@@ -16,7 +16,7 @@ MonoBehaviour:
   roomIcon: {fileID: 21300000, guid: dfa7573a6acf9e143a09725f05116e1a, type: 3}
   rewardType: 0
   rewardSprite: {fileID: 21300000, guid: 5830d82cd44ed954281f452708f8ca66, type: 3}
-  rewardName: New Card
-  rewardDescription: This cards gives you the power of kindness
-  rewardCard: {fileID: 11400000, guid: 7f32769801151854eba4a88ac2a1859a, type: 2}
+  rewardName: 
+  rewardDescription: 
+  rewardCard: {fileID: 11400000, guid: d1e843e1233c0f4498a85e701da76bd4, type: 2}
   numberToDelete: 1

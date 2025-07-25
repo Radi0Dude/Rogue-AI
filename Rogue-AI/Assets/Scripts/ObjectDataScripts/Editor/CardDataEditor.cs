@@ -18,7 +18,6 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardsToDraw;
         private SerializedProperty _cardsToDelete;
         private SerializedProperty _cardsToDiscard;
-        private SerializedProperty _isPlayable;
         private SerializedProperty _isPlayedEndOfTurn;
         private SerializedProperty _virusEffect;
         
@@ -37,7 +36,6 @@ namespace ObjectDataScripts.Editor
             _cardsToDraw = serializedObject.FindProperty("cardsToDraw");
             _cardsToDelete = serializedObject.FindProperty("cardsToDelete");
             _cardsToDiscard = serializedObject.FindProperty("cardsToDiscard");
-            _isPlayable = serializedObject.FindProperty("isPlayable");
             _isPlayedEndOfTurn = serializedObject.FindProperty("isPlayedEndOfTurn");
             _virusEffect = serializedObject.FindProperty("virusEffect");
         }
@@ -96,7 +94,6 @@ namespace ObjectDataScripts.Editor
 
             if (_canStatus)
             {
-                EditorGUILayout.PropertyField(_isPlayable, new GUIContent("Is Playable"));
                 EditorGUILayout.PropertyField(_isPlayedEndOfTurn, new GUIContent("Will be Played End of Turn"));
                 EditorGUILayout.PropertyField(_virusEffect, new GUIContent("Virus Effect"));
             }

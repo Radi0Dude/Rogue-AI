@@ -18,4 +18,4 @@ MonoBehaviour:
   roundsUntilAction: 2
   barColor: {r: 0.5849056, g: 0.1682983, b: 0.5072367, a: 1}
   statusCards:
-  - {fileID: 11400000, guid: 0412c36e0f26a734fa01fbafae55f33d, type: 2}
+  - {fileID: 11400000, guid: b4be63d148fc1794b8636dd8747b646b, type: 2}

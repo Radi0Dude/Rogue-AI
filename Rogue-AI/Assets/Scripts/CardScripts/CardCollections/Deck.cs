@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class Deck : MonoBehaviour
@@ -22,6 +24,7 @@ public class Deck : MonoBehaviour
 
 
     public event Action<Card> OnCardPlayed;
+    public event Action<float> AIHealthChange;
 
 
     private int _cardsToDelete;
@@ -58,10 +61,6 @@ public class Deck : MonoBehaviour
 
     private void CardPlayed(Card card)
     {
-        if (GameManager.RoundState == RoundState.StartRound)
-        {
-            
-        }
         OnCardPlayed?.Invoke(card);
     }
     
@@ -78,7 +77,6 @@ public class Deck : MonoBehaviour
 
     public void DrawHand(int amount)
     {
-        print("Amount of cards to draw: " + amount);
         for (int i = 0; i < amount; i++)
         {
             if (_handCardsList.Count > GameManager.MaxHandSize)
@@ -96,17 +94,8 @@ public class Deck : MonoBehaviour
             if (_deckPileList.Count > 0)
                 DrawCard();
         }
-
-        DebugHandCards();
     }
-
-    private void DebugHandCards()
-    {
-        foreach (var card in _handCardsList)
-        {
-            Debug.Log(card.name);
-        }
-    }
+    
     private void DrawCard()
     {
         _handCardsList.Add(_deckPileList[0]);
@@ -191,12 +180,35 @@ public class Deck : MonoBehaviour
         {
             var data = card.GetData();
 
-            if (data.IsPlayedEndOfTurn && data.GetCardTypes().Contains(CardType.Status))
+            if (!data.GetCardTypes().Contains(CardType.Status)) { continue; }
+            
+            if (data.IsPlayedEndOfTurn)
             {
                 if (data.GetCardTypes().Contains(CardType.Prompt))
                 {
                     card.PlayCard();
+                    Debug.LogWarning("Adding false prompt");
                 }
+                continue;
+            }
+
+            switch (data.VirusEffect)
+            {
+                case VirusEffect.None:
+                    Debug.LogWarning("No action taken");
+                    continue;
+                case VirusEffect.Duplicate:
+                    AddCardToDeck(card.GetData());
+                    Debug.LogWarning("Card added to deck");
+                    break;
+                case VirusEffect.LoseHealth:
+                    GameManager.ChangePlayerHealth(-10);
+                    Debug.LogWarning("Player Health Changed");
+                    break;
+                case VirusEffect.LoseSanity:
+                    AIHealthChange?.Invoke(50);
+                    Debug.LogWarning("Ai Sanity Changed");
+                    break;
             }
         }
     }

@@ -515,6 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingCardCollection: {fileID: 11400000, guid: e86dbe0cfef42344494101a44ab86777, type: 2}
+  startingSignRoom: {fileID: 11400000, guid: a772e5473d7f33e4583346b6e092e905, type: 2}
 --- !u!1 &501665400
 GameObject:
   m_ObjectHideFlags: 0

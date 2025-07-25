@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc55b1df042ec6c49aad555903686062, type: 3}
-  m_Name: Status Lose health
+  m_Name: Status EoT Lose Sanity
   m_EditorClassIdentifier: 
   cardType: 16
   promptType: 0
   cardRarity: 0
-  cardName: Token Leak
-  cardDescription: Your mental resources are dripping away.
+  cardName: Sanity Loss
+  cardDescription: AI loses sanity at end of turn.
   cardSymbol:
   - {fileID: 21300000, guid: 0a26c588c59d5ad44b9d7c8127f0cb34, type: 3}
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
-  isPlayedEndOfTurn: 1
+  isPlayedEndOfTurn: 0
+  virusEffect: 2
