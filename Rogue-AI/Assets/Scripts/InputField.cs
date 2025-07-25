@@ -55,6 +55,7 @@ public class InputField : MonoBehaviour
     
     public void SendPrompt()
     {
+        if (GameManager.RoundState == RoundState.EndCombat) return;
         OnSendPromptEvent?.Invoke(_promptTypes);
         
         _currentPrompt = "Prompt";
@@ -65,6 +66,7 @@ public class InputField : MonoBehaviour
 
     public void EndTurn()
     {
+        if (GameManager.RoundState == RoundState.EndCombat) return;
         // Use event to call Combat manager
         OnEndingTurnEvent?.Invoke();
     }

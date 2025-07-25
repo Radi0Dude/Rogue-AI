@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ask AI
   m_EditorClassIdentifier: 
   cardType: 1
-  promptType: -1
+  promptType: 255
   cardRarity: 0
   cardName: Ask AI
   cardDescription: No one knows AI better than AI
@@ -22,5 +22,5 @@ MonoBehaviour:
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3681c190a9f191148ba9f1139f0cef8a, type: 3}
+  m_Name: MidCrossRoadData
+  m_EditorClassIdentifier: 
+  rooms:
+  - {fileID: 11400000, guid: efc350a5f6b33264f9f8d3de9715fe3e, type: 2}
+  - {fileID: 11400000, guid: 6898c375977e8dd44840887f55f487d5, type: 2}
+  - {fileID: 11400000, guid: a33a576c54da33f43bde6f75589f7758, type: 2}
+  - {fileID: 11400000, guid: 9441016e06eb30b40814ce6df19e9923, type: 2}
+  - {fileID: 11400000, guid: 03857d2d1b7cb144da986c8c8aa8a425, type: 2}
+  - {fileID: 11400000, guid: 00c3b5ab1a9b58b4e9579ff6241efcb5, type: 2}
+  - {fileID: 11400000, guid: 2dd633291432c2f4ab739dafed661c90, type: 2}
+  - {fileID: 11400000, guid: 2dd633291432c2f4ab739dafed661c90, type: 2}
+  - {fileID: 11400000, guid: 80126f0e636186e46818d27f1543022e, type: 2}
+  - {fileID: 11400000, guid: efc350a5f6b33264f9f8d3de9715fe3e, type: 2}
+  - {fileID: 11400000, guid: 6898c375977e8dd44840887f55f487d5, type: 2}
+  - {fileID: 11400000, guid: a33a576c54da33f43bde6f75589f7758, type: 2}
+  - {fileID: 11400000, guid: 9441016e06eb30b40814ce6df19e9923, type: 2}

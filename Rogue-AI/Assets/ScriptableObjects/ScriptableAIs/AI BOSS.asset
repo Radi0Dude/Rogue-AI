@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc062028b70d5c46818a7758e4a766d, type: 3}
+  m_Name: AI BOSS
+  m_EditorClassIdentifier: 
+  aiName: THE BOSS
+  maxSanity: 180
+  startSanity: 19
+  aiType: 1
+  aiActions:
+  - {fileID: 11400000, guid: 31904308c6bd1c84a9036c501250500c, type: 2}
+  - {fileID: 11400000, guid: 9bbe0a9c2aabf38468110944883bda37, type: 2}
+  - {fileID: 11400000, guid: 59703a674c2b9eb478800f4fd3611212, type: 2}
+  - {fileID: 11400000, guid: 44db33221dadda44ca2398b06922f301, type: 2}
+  - {fileID: 11400000, guid: ed4be55b6d70a804c88d6d51576fd350, type: 2}
+  - {fileID: 11400000, guid: f6ff4c60452bc2d49a021e4a0d405d5f, type: 2}
+  endOfTurnAction: {fileID: 11400000, guid: 628f7a150f98a5a42a2f42cdb7876d74, type: 2}

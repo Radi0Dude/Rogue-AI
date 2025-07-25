@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1882170c62294f189693645581c4f889, type: 3}
+  m_Name: Event The Junk Drawer
+  m_EditorClassIdentifier: 
+  roomName: The Junk Drawer
+  roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
+  eventDescription: "A locked subroutine suddenly opens \u2014 inside: corrupted
+    data, prompt fragments, and something that looks like a sandwich. Do you dare?"
+  optionDescriptions:
+  - eventDescription: Dig deep
+    eventEffectTooltip: Gain a random Prompt card
+    eventResults: 8
+    currentHealthChange: 0
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 11400000, guid: 8d0b178ffaedfb0428b289124de73be0, type: 2}
+  - eventDescription: "Take what\u2019s useful"
+    eventEffectTooltip: Gain 1 Draw card and Lose 5 Health
+    eventResults: 9
+    currentHealthChange: -5
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 11400000, guid: ba34a511b3e10e34884258aaea9aac77, type: 2}
+  - eventDescription: 'Shut it and run  '
+    eventEffectTooltip: Nothing happens
+    eventResults: 0
+    currentHealthChange: 0
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 0}

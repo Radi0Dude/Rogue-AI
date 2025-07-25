@@ -16,6 +16,6 @@ MonoBehaviour:
   actionIcon: {fileID: 21300000, guid: 0a26c588c59d5ad44b9d7c8127f0cb34, type: 3}
   actionDescription: 
   roundsUntilAction: 2
-  barColor: {r: 0.5849056, g: 0.1682983, b: 0.5072367, a: 1}
+  barColor: {r: 0.6698113, g: 0.16745283, b: 0.5750267, a: 1}
   statusCards:
   - {fileID: 11400000, guid: b4be63d148fc1794b8636dd8747b646b, type: 2}

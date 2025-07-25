@@ -201,7 +201,7 @@ public class Deck : MonoBehaviour
                     GameManager.ChangePlayerHealth(-10);
                     break;
                 case VirusEffect.LoseSanity:
-                    AIHealthChange?.Invoke(50);
+                    AIHealthChange?.Invoke(5);
                     break;
             }
         }

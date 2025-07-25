@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Light Attack
   actionIcon: {fileID: 21300000, guid: 4821f9c494b79774fbbf0c49f2ea9056, type: 3}
-  actionDescription: 
+  actionDescription: Deal tiny amunt of damage
   roundsUntilAction: 1
   barColor: {r: 0.7647059, g: 0.52522326, b: 0.33333337, a: 1}
   minDamage: 2

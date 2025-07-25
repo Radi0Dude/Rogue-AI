@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e7d2b3109656e4fa13692c42888fa7, type: 3}
   m_Name: DamageAction1MidHeavy
   m_EditorClassIdentifier: 
-  actionName: Heavy Attack
+  actionName: Mid Heavy Attack
   actionIcon: {fileID: 21300000, guid: 9c63d6a9ca485ec489eb598b0edc441f, type: 3}
   actionDescription: 
   roundsUntilAction: 4

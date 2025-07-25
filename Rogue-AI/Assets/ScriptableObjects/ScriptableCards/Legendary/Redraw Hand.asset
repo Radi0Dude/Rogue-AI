@@ -16,12 +16,12 @@ MonoBehaviour:
   promptType: 0
   cardRarity: 8
   cardName: Blank Out
-  cardDescription: Redraw your hand
+  cardDescription: Discard your hand and draw 4 cards
   cardSymbol:
   - {fileID: 21300000, guid: 342ecadfa99d35c4db39378ab83f989b, type: 3}
   - {fileID: 21300000, guid: 3779f2a9b40177443892ab4a824be6a2, type: 3}
   cardsToDraw: 4
   cardsToDelete: 1
-  cardsToDiscard: 5
-  isPlayable: 0
+  cardsToDiscard: 6
   isPlayedEndOfTurn: 0
+  virusEffect: 0
