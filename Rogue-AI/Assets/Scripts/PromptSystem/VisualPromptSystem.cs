@@ -414,44 +414,72 @@ public class VisualPromptSystem : MonoBehaviour
 	public void RemoveNode()
 	{
 		ConnectNodes conNode = currenntlySelectedObject.GetComponent<ConnectNodes>();
-		foreach (GameObject obj in conNode.connectedTo)
-		{
+		if (!conNode.isPrompt) return;
 
+		foreach (GameObject obj in new List<GameObject>(conNode.connectedTo))
+		{
+			if (obj == null) continue;
 			ConnectNodes con = obj.GetComponent<ConnectNodes>();
-			con.connectedFrom.Remove(currenntlySelectedObject);
-			int i = 0;
-			foreach (LineRenderer line in con.connectorLines)
+			if (con != null)
 			{
-				
-				if (line.gameObject == conNode.connectedLines[i].gameObject)
+				con.connectedFrom.Remove(currenntlySelectedObject);
+
+				// Remove references from this node's connectedTo
+				foreach (GameObject toObj in new List<GameObject>(con.connectedTo))
 				{
-					con.connectorLines.Remove(line);
-					Destroy(line.gameObject);
-					break;
+					if (toObj != null)
+					{
+						ConnectNodes toCon = toObj.GetComponent<ConnectNodes>();
+						if (toCon != null)
+							toCon.connectedFrom.Remove(obj);
+					}
 				}
-				i++;
+
+				foreach (LineRenderer line in new List<LineRenderer>(con.connectorLines))
+				{
+					if (line != null)
+						Destroy(line.gameObject);
+				}
+			}
+			Destroy(obj);
+		}
+
+		foreach (GameObject obj in new List<GameObject>(conNode.connectedFrom))
+		{
+			if (obj == null) continue;
+			ConnectNodes con = obj.GetComponent<ConnectNodes>();
+			if (con != null)
+			{
+				con.connectedTo.Remove(currenntlySelectedObject);
+
+				foreach (LineRenderer line in new List<LineRenderer>(con.connectorLines))
+				{
+					if (line != null && line.gameObject == conNode.gameObject)
+					{
+						con.connectorLines.Remove(line);
+						Destroy(line.gameObject);
+					}
+				}
 			}
 		}
-		foreach (GameObject obj in conNode.connectedFrom)
-		{
-			obj.GetComponent<ConnectNodes>().connectedTo.Remove(currenntlySelectedObject);
-			obj.GetComponent<ConnectNodes>().connectorLines.RemoveAll(line => line.gameObject == conNode.gameObject);
-		}
-		foreach (LineRenderer line in conNode.connectedLines)
-		{
 
-			Destroy(line.gameObject);
-			
-		}
-		foreach (LineRenderer line in conNode.connectorLines)
+		foreach (LineRenderer line in new List<LineRenderer>(conNode.connectedLines))
 		{
-			Destroy(line.gameObject);
+			if (line != null)
+				Destroy(line.gameObject);
 		}
+		foreach (LineRenderer line in new List<LineRenderer>(conNode.connectorLines))
+		{
+			if (line != null)
+				Destroy(line.gameObject);
+		}
+
 		nodes.Remove(currenntlySelectedObject);
 		conNode.connectedTo.Clear();
 		conNode.connectedFrom.Clear();
 		conNode.connectedLines.Clear();
 		conNode.connectorLines.Clear();
+
 		Destroy(currenntlySelectedObject);
 	}
 

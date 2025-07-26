@@ -512,17 +512,6 @@
                     "action": "Delete",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8e33d10-830a-43bf-be61-c1d4c9cbf8ee",
-                    "path": "<Keyboard>/backspace",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Delete",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
