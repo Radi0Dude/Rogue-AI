@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class LoadButton : MonoBehaviour
 {
-	LoadUpPrompts loadUpPrompts;
-	PromptSystem promptSystem;
-	[SerializeField] public List<CardData> cards = new List<CardData>();
+	private LoadUpPrompts loadUpPrompts;
+	private PromptSystem promptSystem;
+
+	[SerializeField]
+	public List<CardData> cards = new List<CardData>();
+
 	[SerializeField]
 	TMP_Text promptText;
 
@@ -14,21 +17,36 @@ public class LoadButton : MonoBehaviour
 	{
 		loadUpPrompts = FindFirstObjectByType<LoadUpPrompts>();
 		promptSystem = FindFirstObjectByType<PromptSystem>();
-		cards = promptSystem.cards;
-		
+
+		if (promptSystem != null)
+			cards = promptSystem.cards;
 	}
+
 	private void Start()
 	{
-		promptText.text = loadUpPrompts.currentPrompt;
-
-
-
+		UpdatePromptText();
 	}
+
 	public void LoadPrompt()
 	{
-		int randomNum = Random.Range(0, cards.Count);
-		loadUpPrompts.GetCurrentCard(cards[randomNum]);
-		promptText.text = loadUpPrompts.currentPrompt;
+		if (cards == null || cards.Count == 0)
+		{
+			Debug.LogWarning("No cards available to load prompts.");
+			return;
+		}
 
+		int randomNum = Random.Range(0, cards.Count);
+		var selectedCard = cards[randomNum];
+
+		loadUpPrompts.GetCurrentCard(selectedCard);
+		UpdatePromptText();
+	}
+
+	void UpdatePromptText()
+	{
+		if (promptText != null && loadUpPrompts != null)
+		{
+			promptText.text = loadUpPrompts.currentPrompt;
+		}
 	}
 }

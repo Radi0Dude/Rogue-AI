@@ -8,7 +8,7 @@ using UnityEditor;
 
 public class SaveToJson : MonoBehaviour
 {
-	ConnectNodes findFirstNode;
+	private ConnectNodes findFirstNode;
 
 	public void ToJson()
 	{
@@ -22,14 +22,15 @@ public class SaveToJson : MonoBehaviour
 
 		var nodeList = new List<PromptNodeData>();
 		var visitedNodes = new HashSet<ConnectNodes>();
+		var nodeIdMap = new Dictionary<ConnectNodes, string>();
+		int globalIdCounter = 0;
 
-		Traverse(findFirstNode, nodeList, visitedNodes, 0);
+		Traverse(findFirstNode, nodeList, nodeIdMap, visitedNodes, ref globalIdCounter);
 
 		string json = JsonUtility.ToJson(new PromptNodeDataList { nodes = nodeList }, true);
 
 		Debug.Log(json);
 
-		// Optionally, save the JSON to a file in the Editor
 #if UNITY_EDITOR
 		string path = EditorUtility.SaveFilePanel("Save Story JSON", "", "story.json", "json");
 		if (!string.IsNullOrEmpty(path))
@@ -50,29 +51,44 @@ public class SaveToJson : MonoBehaviour
 		}
 	}
 
-	void Traverse(ConnectNodes node, List<PromptNodeData> nodeList, HashSet<ConnectNodes> visited, int id)
+	private void Traverse(
+		ConnectNodes node,
+		List<PromptNodeData> nodeList,
+		Dictionary<ConnectNodes, string> nodeIdMap,
+		HashSet<ConnectNodes> visited,
+		ref int globalIdCounter
+	)
 	{
 		if (visited.Contains(node))
-		{
 			return;
-		}
+
 		visited.Add(node);
+
+		// Assign a globally unique node ID
+		if (!nodeIdMap.ContainsKey(node))
+			nodeIdMap[node] = node.nodeName + "_" + globalIdCounter++;
+
+		string currentNodeId = nodeIdMap[node];
 
 		var nodeData = new PromptNodeData
 		{
-			nodeId = node.nodeName + id.ToString(),
+			nodeId = currentNodeId,
 			cardName = node.nodeName,
 			text = node.promptText,
 			options = new List<PromptOptionData>()
 		};
 
-		// Loop through each option and its connected node
 		for (int i = 0; i < node.connectedTo.Count; i++)
 		{
 			var targetObj = node.connectedTo[i];
 			var targetNode = targetObj != null ? targetObj.GetComponent<ConnectNodes>() : null;
+
 			if (targetNode != null)
 			{
+				// Assign ID for target node if it hasn't been mapped yet
+				if (!nodeIdMap.ContainsKey(targetNode))
+					nodeIdMap[targetNode] = targetNode.nodeName + "_" + globalIdCounter++;
+
 				string optionText = (node.optionTexts != null && i < node.optionTexts.Count)
 					? node.optionTexts[i]
 					: "Option";
@@ -80,11 +96,10 @@ public class SaveToJson : MonoBehaviour
 				nodeData.options.Add(new PromptOptionData
 				{
 					optionText = optionText,
-					nextNodeId = targetNode.nodeName,
-					
+					nextNodeId = nodeIdMap[targetNode]
 				});
 
-				Traverse(targetNode, nodeList, visited, i +1);
+				Traverse(targetNode, nodeList, nodeIdMap, visited, ref globalIdCounter);
 			}
 		}
 

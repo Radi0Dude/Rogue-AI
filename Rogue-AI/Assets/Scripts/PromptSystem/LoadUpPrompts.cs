@@ -1,40 +1,46 @@
-using System.Collections.Generic;
-using UnityEngine;
-using System.IO;
-using static SaveToJson;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using UnityEngine;
+using static SaveToJson;
 
 public class LoadUpPrompts : MonoBehaviour
 {
-    [SerializeField, Path]
-	List<string> paths = new List<string>();
+	[SerializeField, Path]
+	private List<string> paths = new List<string>();
 
-	int typeOfAi = 0;
-
-	InputField inputField;
 	[SerializeField]
-	string jsonContent;
+	private int typeOfAi = 0;
+
+	[SerializeField]
+	private string jsonContent;
+
 	[SerializeField]
 	public string currentPrompt;
-	[SerializeField]
-	string[] currentOptionNames;
-	CardData currentCardPlayed;
 
-	Dictionary<string, PromptNodeData> nodeDict = new Dictionary<string, PromptNodeData>();
+	[SerializeField]
+	public string[] currentOptionNames;
+
+	private PromptNodeData currentNode;
+	private PromptNodeDataList loadedNodeDataList;
+	private CardData currentCardPlayed;
+
+	private Dictionary<string, PromptNodeData> nodeDict = new Dictionary<string, PromptNodeData>();
+
+	// The list of card types (1 per node per group/layer)
+	public List<string> cardTypes = new List<string> {
+		"Basic Delete", "Basic Draw", "Basic Format",
+		"Basic Iterate", "Basic Persona", "Basic Specify",
+		"Basic Virus", "Specify and Expand", "DELETE"
+	};
 
 	private void Awake()
 	{
-		GetAllPossiblePrompts();
-		//inputField = FindFirstObjectByType<InputField>();
+		LoadFirstPromptFile();
 	}
 
-	private void Start()
-	{
-		//inputField.OnPlayCard += CardPlayed;
-		//Type of Ai Should be set by the developer before fighting and we should get it here
-	}
-	void GetAllPossiblePrompts()
+	void LoadFirstPromptFile()
 	{
 		if (typeOfAi < 0 || typeOfAi >= paths.Count)
 		{
@@ -58,73 +64,102 @@ public class LoadUpPrompts : MonoBehaviour
 			return;
 		}
 
-		int randomStartingPrompt = Random.Range(0, files.Length);
-		string file = files[randomStartingPrompt];
+		string file = files[0]; // Load the first file
+		Debug.Log($"Loading JSON file: {file}");
+
 		jsonContent = File.ReadAllText(file);
-		StartCoroutine(waitForJson());
-		BuildDict(JsonUtility.FromJson<PromptNodeDataList>(jsonContent));
+		loadedNodeDataList = JsonUtility.FromJson<PromptNodeDataList>(jsonContent);
+
+		if (loadedNodeDataList == null || loadedNodeDataList.nodes.Count == 0)
+		{
+			Debug.LogError("Failed to parse or empty JSON.");
+			return;
+		}
+
+		BuildDict(loadedNodeDataList);
+
+		// Use nodeId "0" if it exists, otherwise use the last
+		currentNode = loadedNodeDataList.nodes.FirstOrDefault(n => n.nodeId == "0")
+					  ?? loadedNodeDataList.nodes.Last();
+
+		UpdateCurrentPrompt(currentNode);
 	}
 
 	public void BuildDict(PromptNodeDataList nodeDataList)
 	{
+		nodeDict.Clear();
+
 		foreach (var n in nodeDataList.nodes)
 		{
 			nodeDict[n.nodeId] = n;
-			Debug.Log($"Node added: {n.nodeId} with text: {n.text}");
 		}
+
+		Debug.Log($"Built node dictionary with {nodeDict.Count} entries.");
 	}
 
-	IEnumerator waitForJson()
+	void UpdateCurrentPrompt(PromptNodeData node)
 	{
-		while (string.IsNullOrEmpty(jsonContent))
+		currentPrompt = node.text;
+		currentOptionNames = new string[node.options.Count];
+
+		for (int i = 0; i < node.options.Count; i++)
 		{
-			yield return new WaitForEndOfFrame();
-			
+			currentOptionNames[i] = node.options[i].optionText;
 		}
-		LoadUpStartPrompt();
-	}
-	
-	public void LoadUpStartPrompt()
-    {
-		PromptNodeDataList nodeDataList = JsonUtility.FromJson<PromptNodeDataList>(jsonContent);
-		if (nodeDataList.nodes != null && nodeDataList.nodes.Count > 0)
-		{
-			PromptNodeData node = nodeDataList.nodes[nodeDataList.nodes.Count - 1];
-			currentPrompt = node.text;
-			currentOptionNames = new string[node.options.Count];
-			for (int i = 0; i < node.options.Count; i++)
-			{
-				currentOptionNames[i] = node.options[i].nextNodeId;
-			}
-			Debug.Log(currentPrompt);
-		}
+
+		Debug.Log($"Prompt updated: {currentPrompt} ({node.nodeId})");
 	}
 
 	public void GetCurrentCard(CardData cardData)
 	{
 		currentCardPlayed = cardData;
-		if(nodeDict != null && nodeDict.TryGetValue(cardData.cardName, out PromptNodeData nodeData))
+
+		if (currentNode == null || currentNode.options == null)
 		{
-			currentPrompt = nodeData.text;
-			currentOptionNames = new string[nodeData.options.Count];
-			for (int i = 0; i < nodeData.options.Count; i++)
+			Debug.LogWarning("No current node to progress from.");
+			return;
+		}
+
+		string baseName = cardData.cardName;
+		int groupSize = cardTypes.Count;
+
+		int currentNumber = ExtractNumberSuffix(currentNode.nodeId);
+		int nextLayerStart = ((currentNumber / groupSize) + 1) * groupSize;
+
+		var candidates = currentNode.options
+			.Select(opt => opt.nextNodeId)
+			.Where(id => id.StartsWith(baseName + "_"))
+			.Select(id => new
 			{
-				currentOptionNames[i] = nodeData.options[i].nextNodeId;
-			}
-			Debug.Log($"Current Card: {cardData.cardName}, Prompt: {currentPrompt}");
-		}
-		else
+				nodeId = id,
+				number = ExtractNumberSuffix(id)
+			})
+			.Where(x => x.number >= nextLayerStart)
+			.OrderBy(x => x.number)
+			.ToList();
+
+		if (candidates.Count > 0)
 		{
-			Debug.LogError($"Card data for {cardData.cardName} not found in node dictionary.");
+			string nextId = candidates.First().nodeId;
+			if (nodeDict.TryGetValue(nextId, out PromptNodeData nextNode))
+			{
+				currentNode = nextNode;
+				UpdateCurrentPrompt(currentNode);
+				Debug.Log($"Progressed to next layer node: {nextId} via card: {baseName}");
+				return;
+			}
 		}
-	}
-	void UpdatePrompt()
-	{
 
-	}
-	private void CardPlayed(PromptType promptType)
-	{
-		
+		Debug.LogWarning($"No valid next-layer node found for '{baseName}' after '{currentNode.nodeId}'");
 	}
 
+	private int ExtractNumberSuffix(string nodeId)
+	{
+		int underscoreIndex = nodeId.LastIndexOf('_');
+		if (underscoreIndex >= 0 && int.TryParse(nodeId.Substring(underscoreIndex + 1), out int number))
+		{
+			return number;
+		}
+		return -1;
+	}
 }
