@@ -1150,6 +1150,7 @@ MonoBehaviour:
   nothingToEditText: {fileID: 1887944436}
   getSelectCards: {fileID: 1556194607}
   getSelectCardSpawnPoint: {fileID: 1201755385}
+  cards: []
 --- !u!1 &1310469658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1926,7 +1927,7 @@ GameObject:
   - component: {fileID: 1704265852}
   - component: {fileID: 1704265851}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: LoadUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
