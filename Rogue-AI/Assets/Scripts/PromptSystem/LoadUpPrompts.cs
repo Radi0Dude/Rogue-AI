@@ -16,7 +16,7 @@ public class LoadUpPrompts : MonoBehaviour
 	[SerializeField]
 	string jsonContent;
 	[SerializeField]
-	string currentPrompt;
+	public string currentPrompt;
 	[SerializeField]
 	string[] currentOptionNames;
 	CardData currentCardPlayed;
