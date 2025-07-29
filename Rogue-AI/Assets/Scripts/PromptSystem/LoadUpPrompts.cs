@@ -8,39 +8,24 @@ using static SaveToJson;
 public class LoadUpPrompts : MonoBehaviour
 {
 	[SerializeField, Path]
-	private List<string> paths = new List<string>();
+	List<string> paths = new List<string>();
 
-	[SerializeField]
-	private int typeOfAi = 0;
+	int typeOfAi = 0;
 
-	[SerializeField]
-	private string jsonContent;
+	[SerializeField] string jsonContent;
+	[SerializeField] public string currentPrompt;
+	[SerializeField] string[] currentOptionNames;
+	CardData currentCardPlayed;
 
-	[SerializeField]
-	public string currentPrompt;
-
-	[SerializeField]
-	public string[] currentOptionNames;
-
-	private PromptNodeData currentNode;
-	private PromptNodeDataList loadedNodeDataList;
-	private CardData currentCardPlayed;
-
-	private Dictionary<string, PromptNodeData> nodeDict = new Dictionary<string, PromptNodeData>();
-
-	// The list of card types (1 per node per group/layer)
-	public List<string> cardTypes = new List<string> {
-		"Basic Delete", "Basic Draw", "Basic Format",
-		"Basic Iterate", "Basic Persona", "Basic Specify",
-		"Basic Virus", "Specify and Expand", "DELETE"
-	};
+	Dictionary<string, PromptNodeData> nodeDict = new Dictionary<string, PromptNodeData>();
+	PromptNodeData currentNode;
 
 	private void Awake()
 	{
-		LoadFirstPromptFile();
+		GetAllPossiblePrompts();
 	}
 
-	void LoadFirstPromptFile()
+	void GetAllPossiblePrompts()
 	{
 		if (typeOfAi < 0 || typeOfAi >= paths.Count)
 		{
@@ -57,6 +42,7 @@ public class LoadUpPrompts : MonoBehaviour
 		}
 
 		string[] files = Directory.GetFiles(selectedPath, "*.json", SearchOption.TopDirectoryOnly);
+		Debug.Log($"Found {files.Length} JSON files in: {selectedPath}");
 
 		if (files.Length == 0)
 		{
@@ -64,101 +50,103 @@ public class LoadUpPrompts : MonoBehaviour
 			return;
 		}
 
-		string file = files[0]; // Load the first file
+		string file = files[0]; // always use the first file for now
 		Debug.Log($"Loading JSON file: {file}");
-
 		jsonContent = File.ReadAllText(file);
-		loadedNodeDataList = JsonUtility.FromJson<PromptNodeDataList>(jsonContent);
 
-		if (loadedNodeDataList == null || loadedNodeDataList.nodes.Count == 0)
-		{
-			Debug.LogError("Failed to parse or empty JSON.");
-			return;
-		}
+		PromptNodeDataList nodeDataList = JsonUtility.FromJson<PromptNodeDataList>(jsonContent);
+		BuildDict(nodeDataList);
 
-		BuildDict(loadedNodeDataList);
-
-		// Use nodeId "0" if it exists, otherwise use the last
-		currentNode = loadedNodeDataList.nodes.FirstOrDefault(n => n.nodeId == "0")
-					  ?? loadedNodeDataList.nodes.Last();
-
-		UpdateCurrentPrompt(currentNode);
+		LoadUpStartPrompt(nodeDataList);
 	}
 
 	public void BuildDict(PromptNodeDataList nodeDataList)
 	{
 		nodeDict.Clear();
-
 		foreach (var n in nodeDataList.nodes)
 		{
 			nodeDict[n.nodeId] = n;
+			Debug.Log($"Node added: {n.nodeId} with text: {n.text}");
 		}
-
-		Debug.Log($"Built node dictionary with {nodeDict.Count} entries.");
 	}
 
-	void UpdateCurrentPrompt(PromptNodeData node)
+	void LoadUpStartPrompt(PromptNodeDataList nodeDataList)
 	{
-		currentPrompt = node.text;
-		currentOptionNames = new string[node.options.Count];
+		var allNodeIds = new HashSet<string>(nodeDataList.nodes.Select(n => n.nodeId));
+		var referencedIds = new HashSet<string>(
+			nodeDataList.nodes.SelectMany(n => n.options).Select(o => o.nextNodeId)
+		);
 
-		for (int i = 0; i < node.options.Count; i++)
+		var entryCandidates = allNodeIds.Except(referencedIds).ToList();
+
+		if (entryCandidates.Count > 0 && nodeDict.TryGetValue(entryCandidates[0], out PromptNodeData entryNode))
 		{
-			currentOptionNames[i] = node.options[i].optionText;
+			currentNode = entryNode;
+		}
+		else
+		{
+			currentNode = nodeDataList.nodes[0]; // fallback
 		}
 
-		Debug.Log($"Prompt updated: {currentPrompt} ({node.nodeId})");
+		currentPrompt = currentNode.text;
+		currentOptionNames = new string[currentNode.options.Count];
+		for (int i = 0; i < currentNode.options.Count; i++)
+		{
+			currentOptionNames[i] = currentNode.options[i].optionText;
+		}
+
+		Debug.Log($"Start node loaded: {currentNode.nodeId}");
 	}
 
 	public void GetCurrentCard(CardData cardData)
 	{
 		currentCardPlayed = cardData;
 
-		if (currentNode == null || currentNode.options == null)
+		if (currentNode == null)
 		{
-			Debug.LogWarning("No current node to progress from.");
+			Debug.LogWarning("Current node is not set.");
 			return;
 		}
 
 		string baseName = cardData.cardName;
-		int groupSize = cardTypes.Count;
 
-		int currentNumber = ExtractNumberSuffix(currentNode.nodeId);
-		int nextLayerStart = ((currentNumber / groupSize) + 1) * groupSize;
-
-		var candidates = currentNode.options
-			.Select(opt => opt.nextNodeId)
-			.Where(id => id.StartsWith(baseName + "_"))
-			.Select(id => new
+		var nextOptions = currentNode.options
+			.Where(o => o.nextNodeId.StartsWith(baseName + "_"))
+			.Select(o => new
 			{
-				nodeId = id,
-				number = ExtractNumberSuffix(id)
+				option = o,
+				number = ExtractNumberSuffix(o.nextNodeId)
 			})
-			.Where(x => x.number >= nextLayerStart)
 			.OrderBy(x => x.number)
 			.ToList();
 
-		if (candidates.Count > 0)
+		if (nextOptions.Count > 0)
 		{
-			string nextId = candidates.First().nodeId;
-			if (nodeDict.TryGetValue(nextId, out PromptNodeData nextNode))
+			var nextNodeId = nextOptions.First().option.nextNodeId;
+			if (nodeDict.TryGetValue(nextNodeId, out PromptNodeData nextNode))
 			{
 				currentNode = nextNode;
-				UpdateCurrentPrompt(currentNode);
-				Debug.Log($"Progressed to next layer node: {nextId} via card: {baseName}");
+				currentPrompt = nextNode.text;
+				currentOptionNames = new string[nextNode.options.Count];
+				for (int i = 0; i < nextNode.options.Count; i++)
+				{
+					currentOptionNames[i] = nextNode.options[i].optionText;
+				}
+
+				Debug.Log($"Moved to: {nextNodeId} via card: {cardData.cardName}");
 				return;
 			}
 		}
 
-		Debug.LogWarning($"No valid next-layer node found for '{baseName}' after '{currentNode.nodeId}'");
+		Debug.LogWarning($"No valid node found for card '{cardData.cardName}' from '{currentNode.nodeId}'.");
 	}
 
-	private int ExtractNumberSuffix(string nodeId)
+	private int ExtractNumberSuffix(string id)
 	{
-		int underscoreIndex = nodeId.LastIndexOf('_');
-		if (underscoreIndex >= 0 && int.TryParse(nodeId.Substring(underscoreIndex + 1), out int number))
+		int underscoreIndex = id.LastIndexOf('_');
+		if (underscoreIndex >= 0 && int.TryParse(id.Substring(underscoreIndex + 1), out int num))
 		{
-			return number;
+			return num;
 		}
 		return -1;
 	}

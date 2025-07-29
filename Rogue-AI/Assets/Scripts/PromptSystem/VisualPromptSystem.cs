@@ -279,8 +279,8 @@ public class VisualPromptSystem : MonoBehaviour
 			ConnectNodes con = card.GetComponentInChildren<ConnectNodes>();
 			con.isPrompt = false;
 			con.connectedFrom.Add(newNode);
-			conNode.connectedTo.Add(card);
-			con.connectedFrom.Add(newNode);
+			//conNode.connectedTo.Add(card);
+			//con.connectedFrom.Add(newNode);
 
 			con.AssignCardData(promptSystem.cards[i]);
 

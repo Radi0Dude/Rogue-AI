@@ -23,12 +23,12 @@ public class SaveToJson : MonoBehaviour
 		var nodeList = new List<PromptNodeData>();
 		var visitedNodes = new HashSet<ConnectNodes>();
 		var nodeIdMap = new Dictionary<ConnectNodes, string>();
-		int globalIdCounter = 0;
 
-		Traverse(findFirstNode, nodeList, nodeIdMap, visitedNodes, ref globalIdCounter);
+		int textNodeCounter = 0;
+
+		Traverse(findFirstNode, nodeList, nodeIdMap, visitedNodes, ref textNodeCounter);
 
 		string json = JsonUtility.ToJson(new PromptNodeDataList { nodes = nodeList }, true);
-
 		Debug.Log(json);
 
 #if UNITY_EDITOR
@@ -56,7 +56,7 @@ public class SaveToJson : MonoBehaviour
 		List<PromptNodeData> nodeList,
 		Dictionary<ConnectNodes, string> nodeIdMap,
 		HashSet<ConnectNodes> visited,
-		ref int globalIdCounter
+		ref int textNodeCounter
 	)
 	{
 		if (visited.Contains(node))
@@ -64,9 +64,12 @@ public class SaveToJson : MonoBehaviour
 
 		visited.Add(node);
 
-		// Assign a globally unique node ID
+		// Assign a clean sequential ID
 		if (!nodeIdMap.ContainsKey(node))
-			nodeIdMap[node] = node.nodeName + "_" + globalIdCounter++;
+		{
+			nodeIdMap[node] = textNodeCounter.ToString();
+			textNodeCounter++;
+		}
 
 		string currentNodeId = nodeIdMap[node];
 
@@ -80,26 +83,35 @@ public class SaveToJson : MonoBehaviour
 
 		for (int i = 0; i < node.connectedTo.Count; i++)
 		{
-			var targetObj = node.connectedTo[i];
-			var targetNode = targetObj != null ? targetObj.GetComponent<ConnectNodes>() : null;
+			var cardObj = node.connectedTo[i];
+			var cardNode = cardObj != null ? cardObj.GetComponent<ConnectNodes>() : null;
+			if (cardNode == null) continue;
 
-			if (targetNode != null)
+			string optionText = (node.optionTexts != null && i < node.optionTexts.Count)
+				? node.optionTexts[i]
+				: "Option";
+
+			ConnectNodes nextPromptNode = null;
+			if (cardNode.connectedTo.Count > 0)
 			{
-				// Assign ID for target node if it hasn't been mapped yet
-				if (!nodeIdMap.ContainsKey(targetNode))
-					nodeIdMap[targetNode] = targetNode.nodeName + "_" + globalIdCounter++;
+				nextPromptNode = cardNode.connectedTo[0]?.GetComponent<ConnectNodes>();
+			}
 
-				string optionText = (node.optionTexts != null && i < node.optionTexts.Count)
-					? node.optionTexts[i]
-					: "Option";
+			if (nextPromptNode != null)
+			{
+				if (!nodeIdMap.ContainsKey(nextPromptNode))
+				{
+					nodeIdMap[nextPromptNode] = textNodeCounter.ToString();
+					textNodeCounter++;
+				}
 
 				nodeData.options.Add(new PromptOptionData
 				{
 					optionText = optionText,
-					nextNodeId = nodeIdMap[targetNode]
+					nextNodeId = nodeIdMap[nextPromptNode]
 				});
 
-				Traverse(targetNode, nodeList, nodeIdMap, visited, ref globalIdCounter);
+				Traverse(nextPromptNode, nodeList, nodeIdMap, visited, ref textNodeCounter);
 			}
 		}
 
