@@ -38,15 +38,30 @@ public class LoadButton : MonoBehaviour
 		int randomNum = Random.Range(0, cards.Count);
 		var selectedCard = cards[randomNum];
 
+		Debug.Log($"Selected card: {selectedCard.cardName}");
+
 		loadUpPrompts.GetCurrentCard(selectedCard);
-		UpdatePromptText();
+
+		// Safeguard: ensure the current prompt was actually updated
+		if (!string.IsNullOrEmpty(loadUpPrompts.currentPrompt))
+		{
+			UpdatePromptText();
+		}
+		else
+		{
+			Debug.LogWarning("No prompt text found after card selection.");
+		}
 	}
 
 	void UpdatePromptText()
 	{
-		if (promptText != null && loadUpPrompts != null)
+		if (promptText != null)
 		{
 			promptText.text = loadUpPrompts.currentPrompt;
+		}
+		else
+		{
+			Debug.LogWarning("Prompt text UI reference is missing.");
 		}
 	}
 }

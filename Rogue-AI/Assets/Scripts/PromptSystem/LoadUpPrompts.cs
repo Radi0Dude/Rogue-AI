@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -56,7 +55,6 @@ public class LoadUpPrompts : MonoBehaviour
 
 		PromptNodeDataList nodeDataList = JsonUtility.FromJson<PromptNodeDataList>(jsonContent);
 		BuildDict(nodeDataList);
-
 		LoadUpStartPrompt(nodeDataList);
 	}
 
@@ -88,13 +86,7 @@ public class LoadUpPrompts : MonoBehaviour
 			currentNode = nodeDataList.nodes[0]; // fallback
 		}
 
-		currentPrompt = currentNode.text;
-		currentOptionNames = new string[currentNode.options.Count];
-		for (int i = 0; i < currentNode.options.Count; i++)
-		{
-			currentOptionNames[i] = currentNode.options[i].optionText;
-		}
-
+		SetPromptFromNode(currentNode);
 		Debug.Log($"Start node loaded: {currentNode.nodeId}");
 	}
 
@@ -108,37 +100,37 @@ public class LoadUpPrompts : MonoBehaviour
 			return;
 		}
 
-		string baseName = cardData.cardName;
-
-		var nextOptions = currentNode.options
-			.Where(o => o.nextNodeId.StartsWith(baseName + "_"))
-			.Select(o => new
-			{
-				option = o,
-				number = ExtractNumberSuffix(o.nextNodeId)
-			})
-			.OrderBy(x => x.number)
-			.ToList();
-
-		if (nextOptions.Count > 0)
+		// Just pick the first available option
+		if (currentNode.options.Count > 0)
 		{
-			var nextNodeId = nextOptions.First().option.nextNodeId;
-			if (nodeDict.TryGetValue(nextNodeId, out PromptNodeData nextNode))
+			var nextId = currentNode.options[0].nextNodeId;
+
+			if (nodeDict.TryGetValue(nextId, out var nextNode))
 			{
 				currentNode = nextNode;
 				currentPrompt = nextNode.text;
-				currentOptionNames = new string[nextNode.options.Count];
-				for (int i = 0; i < nextNode.options.Count; i++)
-				{
-					currentOptionNames[i] = nextNode.options[i].optionText;
-				}
-
-				Debug.Log($"Moved to: {nextNodeId} via card: {cardData.cardName}");
-				return;
+				currentOptionNames = nextNode.options.Select(opt => opt.optionText).ToArray();
+				Debug.Log($"Loaded next node '{nextNode.nodeId}'");
+			}
+			else
+			{
+				Debug.LogWarning($"Next node ID '{nextId}' not found.");
 			}
 		}
+		else
+		{
+			Debug.Log("No options from current node.");
+		}
+	}
 
-		Debug.LogWarning($"No valid node found for card '{cardData.cardName}' from '{currentNode.nodeId}'.");
+	private void SetPromptFromNode(PromptNodeData node)
+	{
+		currentPrompt = node.text;
+		currentOptionNames = new string[node.options.Count];
+		for (int i = 0; i < node.options.Count; i++)
+		{
+			currentOptionNames[i] = node.options[i].optionText;
+		}
 	}
 
 	private int ExtractNumberSuffix(string id)
@@ -147,6 +139,10 @@ public class LoadUpPrompts : MonoBehaviour
 		if (underscoreIndex >= 0 && int.TryParse(id.Substring(underscoreIndex + 1), out int num))
 		{
 			return num;
+		}
+		if (int.TryParse(id, out int directNum)) // Handle simple numbered IDs like "1", "2", etc.
+		{
+			return directNum;
 		}
 		return -1;
 	}
