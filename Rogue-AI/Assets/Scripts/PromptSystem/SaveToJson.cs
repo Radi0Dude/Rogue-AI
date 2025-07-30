@@ -16,32 +16,32 @@ public class SaveToJson : MonoBehaviour
 
 		if (findFirstNode == null)
 		{
-			Debug.LogError("No starting node found. Please ensure there is a node with no connections.");
+			Debug.LogError("No starting node found. Please ensure there is a node with no incoming connections.");
 			return;
 		}
 
 		var nodeList = new List<PromptNodeData>();
-		var visitedNodes = new HashSet<ConnectNodes>();
+		var visited = new HashSet<ConnectNodes>();
 		var nodeIdMap = new Dictionary<ConnectNodes, string>();
+		int idCounter = 0;
 
-		int textNodeCounter = 0;
-
-		Traverse(findFirstNode, nodeList, nodeIdMap, visitedNodes, ref textNodeCounter);
+		Traverse(findFirstNode, nodeList, visited, nodeIdMap, ref idCounter);
 
 		string json = JsonUtility.ToJson(new PromptNodeDataList { nodes = nodeList }, true);
-		Debug.Log(json);
 
 #if UNITY_EDITOR
 		string path = EditorUtility.SaveFilePanel("Save Story JSON", "", "story.json", "json");
 		if (!string.IsNullOrEmpty(path))
 			File.WriteAllText(path, json);
 #endif
+
+		Debug.Log("JSON saved:\n" + json);
 	}
 
 	private void FindFirstNode()
 	{
-		ConnectNodes[] nodes = FindObjectsByType<ConnectNodes>(FindObjectsSortMode.None);
-		foreach (ConnectNodes node in nodes)
+		var nodes = FindObjectsByType<ConnectNodes>(FindObjectsSortMode.None);
+		foreach (var node in nodes)
 		{
 			if (node.connectedFrom == null || node.connectedFrom.Count == 0)
 			{
@@ -54,29 +54,25 @@ public class SaveToJson : MonoBehaviour
 	private void Traverse(
 		ConnectNodes node,
 		List<PromptNodeData> nodeList,
-		Dictionary<ConnectNodes, string> nodeIdMap,
 		HashSet<ConnectNodes> visited,
-		ref int textNodeCounter
+		Dictionary<ConnectNodes, string> nodeIdMap,
+		ref int idCounter
 	)
 	{
-		if (visited.Contains(node))
-			return;
-
+		if (visited.Contains(node)) return;
 		visited.Add(node);
 
-		// Assign a clean sequential ID
 		if (!nodeIdMap.ContainsKey(node))
 		{
-			nodeIdMap[node] = textNodeCounter.ToString();
-			textNodeCounter++;
+			nodeIdMap[node] = idCounter.ToString();
+			idCounter++;
 		}
 
-		string currentNodeId = nodeIdMap[node];
+		string nodeId = nodeIdMap[node];
 
-		var nodeData = new PromptNodeData
+		var promptData = new PromptNodeData
 		{
-			nodeId = currentNodeId,
-			cardName = node.nodeName,
+			nodeId = nodeId,
 			text = node.promptText,
 			options = new List<PromptOptionData>()
 		};
@@ -84,44 +80,36 @@ public class SaveToJson : MonoBehaviour
 		for (int i = 0; i < node.connectedTo.Count; i++)
 		{
 			var cardObj = node.connectedTo[i];
-			var cardNode = cardObj != null ? cardObj.GetComponent<ConnectNodes>() : null;
-			if (cardNode == null) continue;
+			if (cardObj == null) continue;
 
-			string optionText = (node.optionTexts != null && i < node.optionTexts.Count)
-				? node.optionTexts[i]
-				: "Option";
+			var cardNode = cardObj.GetComponent<ConnectNodes>();
+			if (cardNode == null || cardNode.connectedTo.Count == 0) continue;
 
-			ConnectNodes nextPromptNode = null;
-			if (cardNode.connectedTo.Count > 0)
+			var nextPrompt = cardNode.connectedTo[0]?.GetComponent<ConnectNodes>();
+			if (nextPrompt == null) continue;
+
+			if (!nodeIdMap.ContainsKey(nextPrompt))
 			{
-				nextPromptNode = cardNode.connectedTo[0]?.GetComponent<ConnectNodes>();
+				nodeIdMap[nextPrompt] = idCounter.ToString();
+				idCounter++;
 			}
 
-			if (nextPromptNode != null)
+			promptData.options.Add(new PromptOptionData
 			{
-				if (!nodeIdMap.ContainsKey(nextPromptNode))
-				{
-					nodeIdMap[nextPromptNode] = textNodeCounter.ToString();
-					textNodeCounter++;
-				}
+				cardName = cardNode.nodeName,
+				nextNodeId = nodeIdMap[nextPrompt]
+			});
 
-				nodeData.options.Add(new PromptOptionData
-				{
-					optionText = optionText,
-					nextNodeId = nodeIdMap[nextPromptNode]
-				});
-
-				Traverse(nextPromptNode, nodeList, nodeIdMap, visited, ref textNodeCounter);
-			}
+			Traverse(nextPrompt, nodeList, visited, nodeIdMap, ref idCounter);
 		}
 
-		nodeList.Add(nodeData);
+		nodeList.Add(promptData);
 	}
 
 	[System.Serializable]
 	public class PromptOptionData
 	{
-		public string optionText;
+		public string cardName;
 		public string nextNodeId;
 	}
 
@@ -129,9 +117,8 @@ public class SaveToJson : MonoBehaviour
 	public class PromptNodeData
 	{
 		public string nodeId;
-		public string cardName;
 		public string text;
-		public List<PromptOptionData> options = new List<PromptOptionData>();
+		public List<PromptOptionData> options;
 	}
 
 	[System.Serializable]

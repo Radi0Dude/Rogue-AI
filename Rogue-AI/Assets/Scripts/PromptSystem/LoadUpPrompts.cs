@@ -49,7 +49,7 @@ public class LoadUpPrompts : MonoBehaviour
 			return;
 		}
 
-		string file = files[0]; // always use the first file for now
+		string file = files[0]; // Load first file
 		Debug.Log($"Loading JSON file: {file}");
 		jsonContent = File.ReadAllText(file);
 
@@ -100,50 +100,24 @@ public class LoadUpPrompts : MonoBehaviour
 			return;
 		}
 
-		// Just pick the first available option
-		if (currentNode.options.Count > 0)
-		{
-			var nextId = currentNode.options[0].nextNodeId;
+		// Look for a matching cardName in current options
+		var matchingOption = currentNode.options.FirstOrDefault(opt => opt.cardName == cardData.cardName);
 
-			if (nodeDict.TryGetValue(nextId, out var nextNode))
-			{
-				currentNode = nextNode;
-				currentPrompt = nextNode.text;
-				currentOptionNames = nextNode.options.Select(opt => opt.optionText).ToArray();
-				Debug.Log($"Loaded next node '{nextNode.nodeId}'");
-			}
-			else
-			{
-				Debug.LogWarning($"Next node ID '{nextId}' not found.");
-			}
+		if (matchingOption != null && nodeDict.TryGetValue(matchingOption.nextNodeId, out var nextNode))
+		{
+			currentNode = nextNode;
+			SetPromptFromNode(nextNode);
+			Debug.Log($"Moved to node '{nextNode.nodeId}' using card '{cardData.cardName}'");
 		}
 		else
 		{
-			Debug.Log("No options from current node.");
+			Debug.LogWarning($"No valid option found for card '{cardData.cardName}' in node '{currentNode.nodeId}'");
 		}
 	}
 
 	private void SetPromptFromNode(PromptNodeData node)
 	{
 		currentPrompt = node.text;
-		currentOptionNames = new string[node.options.Count];
-		for (int i = 0; i < node.options.Count; i++)
-		{
-			currentOptionNames[i] = node.options[i].optionText;
-		}
-	}
-
-	private int ExtractNumberSuffix(string id)
-	{
-		int underscoreIndex = id.LastIndexOf('_');
-		if (underscoreIndex >= 0 && int.TryParse(id.Substring(underscoreIndex + 1), out int num))
-		{
-			return num;
-		}
-		if (int.TryParse(id, out int directNum)) // Handle simple numbered IDs like "1", "2", etc.
-		{
-			return directNum;
-		}
-		return -1;
+		currentOptionNames = node.options.Select(opt => opt.cardName).ToArray();
 	}
 }
