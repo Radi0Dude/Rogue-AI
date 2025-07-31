@@ -1,68 +1,61 @@
 using System;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class AI : MonoBehaviour
 {
     public event Action OnAISane;
-
-
-    [FormerlySerializedAs("Canvas")]
-    [Header("UI Elements")] 
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private TMP_Text aiSanityText;
-    [SerializeField] private Image sanityBar;
+    
+    [SerializeField] private AIVisual visual;
     
     private float _maxSanity;
     private float _currentSanity;
     private int _countDown;
     
-    [SerializeField] private AIData _data;
-    private Player _player;
+    private AIData _data;
+    private CombatManager _combatManager;
+    //private PlayerVisual _player;
     private AIActionData _currentAction;
+    private AIActionData _endOfTurnAction;
 
-    public void Initialize(Player player)
+
+    public void Initialize(CombatManager combatManager, AIData data)
     {
-        if (GameManager.GetRoom() is CombatRoom room)
-        {
-            _data = room.aiData;
-        }
-        else
-        {
-            Debug.LogError("The current room in GameManager is not a CombatRoom");
-            return;
-        }
-        
-        
-        _maxSanity = _data.maxSanity;
-        _currentSanity = _data.startSanity;
-        _player = player;
+        _data = data;
+        _combatManager = combatManager;
+        _currentSanity = _data.StartSanity;
+        _maxSanity = _data.MaxSanity;
         GetNextAction();
-        UpdateUI();
+        _endOfTurnAction = _data.EndOfTurnAction;
+
+        visual.UpdateSanityBar(_currentSanity, _maxSanity);
+
+        if (_data.EndOfTurnAction != null)
+        {
+            visual.SetEndOfTurnAction(_data.EndOfTurnAction);
+        }
     }
 
     private void GetNextAction()
     {
-        _currentAction = _data.aiActions[Random.Range(0, _data.aiActions.Count)];
-        _countDown = _currentAction.roundsUntilAction;
+        _currentAction = _data.AIActions[Random.Range(0, _data.AIActions.Count)];
+        visual.SetMainAction(_currentAction);
+        _countDown = _currentAction.RoundsUntilAction;
     }
     
     public void ReduceCountDown()
     {
         _countDown--;
+        visual.SetMainCountdown(_countDown);
         
-        if (_data.endOfTurnAction != null)
+        if (_endOfTurnAction != null)
         {
-            _data.endOfTurnAction.PerformAction(this, _player);
+            _endOfTurnAction.PerformAction(this, _combatManager);
         }
         
         if (_countDown <= 0)
         {
-            _currentAction.PerformAction(this, _player);
+            _currentAction.PerformAction(this, _combatManager);
             GetNextAction();
         }
     }
@@ -71,19 +64,25 @@ public class AI : MonoBehaviour
     {
         _currentSanity += value;
         
-        if (_currentSanity <= 0.0f)
+        if (_currentSanity <= 0f)
         {
             _currentSanity = 0.0f;
+            GameManager.GameOver();
         }
         else if (_currentSanity >= _maxSanity)
         {
             _currentSanity = _maxSanity;
-            canvas.enabled = false;
-            Debug.Log("AI was made sane");
+            visual.HideCanvas();
             OnAISane?.Invoke();
         }
-        UpdateUI();
+        visual.UpdateSanityBar(_currentSanity, _maxSanity);
 
+    }
+
+    public void LoseSanityByPercentage(float value)
+    {
+        var sanityLoss = -_currentSanity * value / 100.0f; 
+        ChangeSanity(sanityLoss);
     }
 
     public bool IsSane()
@@ -91,16 +90,5 @@ public class AI : MonoBehaviour
         return Mathf.Approximately(_currentSanity, _maxSanity);
     }
 
-    private void UpdateUI()
-    {
-        // Calculate Percentage
-        var percentageInDecimal = _currentSanity / _maxSanity;
-        var percentage = percentageInDecimal * 100f;
-
-        // Update SanityBar
-        DOTween.To(()=> sanityBar.fillAmount, x=> sanityBar.fillAmount = x, percentageInDecimal, 1f);
-
-        // Update SanityTextPercentage
-        aiSanityText.text = percentage.ToString("0.0") + "%";
-    }
+    
 }

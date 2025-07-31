@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1882170c62294f189693645581c4f889, type: 3}
+  m_Name: Event Surge Failure
+  m_EditorClassIdentifier: 
+  roomName: Surge Failure
+  roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
+  eventDescription: "You walk into a charged memory loop \u2014 it surges unexpectedly.\n\n"
+  optionDescriptions:
+  - eventDescription: Ground yourself
+    eventEffectTooltip: Lose 10 Tokens
+    eventResults: 1
+    currentHealthChange: -10
+    maxHealthChange: 0
+    drawAmountChange: 0
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 0}
+  - eventDescription: Touch the surge
+    eventEffectTooltip: Gain 1 powerful card but lose 1 draw
+    eventResults: 12
+    currentHealthChange: 0
+    maxHealthChange: 0
+    drawAmountChange: -1
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
+  - eventDescription: Back away slowly
+    eventEffectTooltip: Remove 1 card and lose 5 max tokens
+    eventResults: 18
+    currentHealthChange: 0
+    maxHealthChange: -5
+    drawAmountChange: 0
+    numberOfCardsToDelete: 1
+    cardToAdd: {fileID: 0}

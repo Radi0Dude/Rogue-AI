@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1882170c62294f189693645581c4f889, type: 3}
+  m_Name: Event Echo Chamber
+  m_EditorClassIdentifier: 
+  roomName: Echo Chamber
+  roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
+  eventDescription: The AI loops a prompt over and over. You start to hear your own
+    thoughts repeated in the void
+  optionDescriptions:
+  - eventDescription: Silence It
+    eventEffectTooltip: Remove a card from deck
+    eventResults: 16
+    currentHealthChange: 0
+    maxHealthChange: 25
+    drawAmountChange: 1
+    numberOfCardsToDelete: 1
+    cardToAdd: {fileID: 0}
+  - eventDescription: Amplify It
+    eventEffectTooltip: Gain 20 Max health and a status card
+    eventResults: 10
+    currentHealthChange: 0
+    maxHealthChange: 20
+    drawAmountChange: 1
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 11400000, guid: 0f9b1d2dc0c2eda44b87153e69e667d7, type: 2}
+  - eventDescription: Listen passively
+    eventEffectTooltip: Draw size increase by 1 but reduce max health by 25
+    eventResults: 6
+    currentHealthChange: 0
+    maxHealthChange: -25
+    drawAmountChange: 1
+    numberOfCardsToDelete: 0
+    cardToAdd: {fileID: 0}

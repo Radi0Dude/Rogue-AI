@@ -1,41 +1,82 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Serialization;
 
 public class CardVisual : MonoBehaviour
 {
     [Header("Visuals")]
     [SerializeField] private TMP_Text cardName;
     [SerializeField] private Image cardSymbol;
-    [SerializeField] private Image cardImage;
-    [SerializeField] private TMP_Text cardDescription;
+    
+    [SerializeField] private Image[] smallerCardSymbols;
+    [SerializeField] private AbilityTooltipText cardAbilityTooltip;
+
 
    
 
-    public void UpdateCardVisuals(CardData cardDataData)
+    public void UpdateCardVisuals(CardData data)
     {
-        cardName.text = cardDataData.cardName;
+        cardName.text = data.CardName;
         
-        if (cardDataData.cardSymbol != null)
+        if (data.CardSymbol == null || data.CardSymbol.Length == 0)
+            return;
+
+        if (data.CardSymbol.Length == 1)
         {
-            cardSymbol.sprite = cardDataData.cardSymbol;
+            cardSymbol.enabled = true;
+            cardSymbol.sprite = data.CardSymbol[0];
         }
         else
         {
-            Debug.LogWarning(cardDataData.name + " is missing a card symbol");
+            for (int i = 0; i < data.CardSymbol.Length; i++)
+            {
+                cardSymbol.enabled = false;
+                smallerCardSymbols[i].enabled = true;
+                smallerCardSymbols[i].sprite = data.CardSymbol[i];
+            }
+        }
+        
+        SetAbilityTooltipText(data);
+    }
+    
+    private void SetAbilityTooltipText(CardData data)
+    {
+        string tooltipText = "";
+        List<CardType> cardTypesEnum = data.GetCardTypes();
+        var cardTypes = new HashSet<CardType>(cardTypesEnum);
+        
+
+        if (cardTypes.Contains(CardType.Status))
+        {
+            tooltipText += $"<color=purple>{CardType.Status}</color> ";
+        }
+        
+        if (cardTypes.Contains(CardType.Prompt))
+        {
+            tooltipText += "Prompt term(s): ";
+            foreach (PromptType promptType in data.GetPromptTypes())
+            {
+                tooltipText += promptType + " ";
+            }
+            tooltipText += "\n";
+        }
+        
+        if (cardTypes.Contains(CardType.Discard))
+        {
+            tooltipText += $"<color=yellow>{CardType.Discard}</color> " + data.CardsToDiscard + " card(s)\n";
         }
 
-        if (cardDataData.cardImage != null)
+        if (cardTypes.Contains(CardType.Draw))
         {
-            cardImage.sprite = cardDataData.cardImage;
+            tooltipText += $"<color=yellow>{CardType.Draw}</color> " + data.CardsToDraw + " card(s)\n";
         }
-        else
+
+        if (cardTypes.Contains(CardType.Delete))
         {
-            Debug.LogWarning(cardDataData.name + " is missing a card image");
+            tooltipText += $"<color=yellow>{CardType.Delete}</color> " + data.CardsToDelete + " card(s)\n";
         }
         
-        cardDescription.text = cardDataData.cardDescription;
+        cardAbilityTooltip.SetAbilityTooltipText(tooltipText);
     }
 }

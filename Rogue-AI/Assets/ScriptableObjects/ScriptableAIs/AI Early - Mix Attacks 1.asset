@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dc062028b70d5c46818a7758e4a766d, type: 3}
+  m_Name: AI Early - Mix Attacks 1
+  m_EditorClassIdentifier: 
+  aiName: Syntax Lurker
+  maxSanity: 80
+  startSanity: 55
+  aiType: 1
+  aiActions:
+  - {fileID: 11400000, guid: 30966cf2c9a7d14429e9e012379b80cd, type: 2}
+  - {fileID: 11400000, guid: 40a730359c9042948aaaaf5cdf54ec50, type: 2}
+  - {fileID: 11400000, guid: fe1248e01c2f0c948ba429bfb62da920, type: 2}
+  endOfTurnAction: {fileID: 0}
