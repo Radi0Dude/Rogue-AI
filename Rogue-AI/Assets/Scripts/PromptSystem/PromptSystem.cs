@@ -43,6 +43,7 @@ public class PromptSystem : MonoBehaviour
 			CardData cardData = AssetDatabase.LoadAssetAtPath<CardData>(path);
 			if (cardData != null)
 			{
+				if(cardData.cardType == CardType.Prompt && cardData.cardRarity == CardRarity.Common)
 				cards.Add(cardData);
 			}
 		}
