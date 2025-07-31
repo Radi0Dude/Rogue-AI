@@ -261,7 +261,7 @@ public class VisualPromptSystem : MonoBehaviour
 		int howManyCards = 0;
 		for (int i = 0; i < cardCount; i++)
 		{
-			if (promptSystem.cards[i].cardType == CardType.Prompt)
+			if (promptSystem.cards[i].cardType == CardType.Prompt && promptSystem.cards[i].cardRarity != CardRarity.Rare)
 			{
 				howManyCards++;
 				
@@ -270,7 +270,7 @@ public class VisualPromptSystem : MonoBehaviour
 		float promptIndex = 0f;
 		for (int i = 0; i < cardCount; i++)
 		{
-			if (promptSystem.cards[i].cardType != CardType.Prompt)
+			if (promptSystem.cards[i].cardType != CardType.Prompt && promptSystem.cards[i].cardRarity != CardRarity.Rare)
 				continue;
 
 			float t = (howManyCards == 1) ? 0.5f : promptIndex / (howManyCards - 1);

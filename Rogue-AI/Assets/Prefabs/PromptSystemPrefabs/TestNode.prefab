@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 146880796262868876}
   - component: {fileID: 7687146541065738379}
   - component: {fileID: 5208317266514692406}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 2273533369357478926}
   - component: {fileID: 6414763896728080918}
   - component: {fileID: 14965496327506910}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 7144716113827327696}
   - component: {fileID: 7131065506366416987}
   - component: {fileID: 1401856097225261409}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1334764390460805146}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: IsPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 5866671808136676919}
   - component: {fileID: 6370074163610566981}
   - component: {fileID: 2872902964452776052}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -410,7 +410,7 @@ GameObject:
   - component: {fileID: 7754580543013693549}
   - component: {fileID: 428397968614189059}
   - component: {fileID: 4668007173291958398}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -546,7 +546,7 @@ GameObject:
   - component: {fileID: 6166581956777529757}
   - component: {fileID: 4199599818423913328}
   - component: {fileID: 4205909024862822166}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,7 +684,7 @@ GameObject:
   - component: {fileID: 8926486636751309340}
   - component: {fileID: 1810669087507769279}
   - component: {fileID: 7439012068220505438}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 6750034721908489178}
   - component: {fileID: 3664740508114643508}
   - component: {fileID: 4878051490724895133}
-  m_Layer: 6
+  m_Layer: 9
   m_Name: TestNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,6 +889,7 @@ MonoBehaviour:
   promptTextObject: {fileID: 4668007173291958398}
   cardUI: {fileID: 9220730096234025187}
   cardTextObject: {fileID: 7439012068220505438}
+  cardImage: {fileID: 0}
   optionTexts: []
   thisCardData: {fileID: 0}
 --- !u!1 &8008452339249040439
@@ -1023,7 +1024,7 @@ GameObject:
   - component: {fileID: 9037054539128228953}
   - component: {fileID: 5132868228310719164}
   - component: {fileID: 5663114043494142648}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CardImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1096,7 +1097,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6175979741569835615}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: '!IsPrompt'
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -48,7 +48,7 @@ public class CardData : ScriptableObject
 {
     [SerializeField] public CardType cardType;
     [SerializeField] private PromptType promptType;
-    [SerializeField] private CardRarity cardRarity;
+    [SerializeField] public CardRarity cardRarity;
 
     [SerializeField] public string cardName;
     [SerializeField, TextArea] private string cardDescription;
