@@ -7,7 +7,7 @@ public class ChangeNameAndImage : MonoBehaviour
 
 	[SerializeField] private TMP_Text nameText;
 	[SerializeField] private Image imageComponent;
-	public void ChangeNameImage(string name, Sprite image)
+	public void ChangeNameImage(string name)
 	{
 		
 		if (nameText != null)
@@ -15,9 +15,6 @@ public class ChangeNameAndImage : MonoBehaviour
 			nameText.text = name;
 		}
 
-		if (imageComponent != null && image != null)
-		{
-			imageComponent.sprite = image;
-		}
+		
 	}
 }

@@ -196,7 +196,7 @@ public class NodeUI : MonoBehaviour
 				{
 					GameObject selectCard = Instantiate(SelectCardPrefab, getSelectCardSpawnPoint.transform);
 					selectCard.transform.parent = getSelectCardSpawnPoint.transform;
-					selectCard.GetComponent<ChangeNameAndImage>().ChangeNameImage(card.cardName, card.cardImage);
+					selectCard.GetComponent<ChangeNameAndImage>().ChangeNameImage(card.cardName);
 					selectCard.GetComponentInChildren<GetCard>().cardData = card;
 					selectCard.GetComponentInChildren<GetCard>().currentlySelected = visualPromptSystem.currenntlySelectedObject;
 				}

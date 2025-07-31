@@ -46,11 +46,11 @@ public enum VirusEffect
 [CreateAssetMenu(fileName = "CardData", menuName = "Card/Card Data")]
 public class CardData : ScriptableObject
 {
-    [SerializeField] private CardType cardType;
+    [SerializeField] public CardType cardType;
     [SerializeField] private PromptType promptType;
     [SerializeField] private CardRarity cardRarity;
 
-    [SerializeField] private string cardName;
+    [SerializeField] public string cardName;
     [SerializeField, TextArea] private string cardDescription;
     [SerializeField] private Sprite[] cardSymbol;
 

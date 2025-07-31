@@ -258,10 +258,22 @@ public class VisualPromptSystem : MonoBehaviour
 		float startAngle = -arcDegrees / 2f; 
 		float endAngle = arcDegrees / 2f;    
 		int cardCount = promptSystem.cards.Count;
-
+		int howManyCards = 0;
 		for (int i = 0; i < cardCount; i++)
 		{
-			float t = (cardCount == 1) ? 0.5f : (float)i / (cardCount - 1);
+			if (promptSystem.cards[i].cardType == CardType.Prompt)
+			{
+				howManyCards++;
+				
+			}
+		}
+		float promptIndex = 0f;
+		for (int i = 0; i < cardCount; i++)
+		{
+			if (promptSystem.cards[i].cardType != CardType.Prompt)
+				continue;
+
+			float t = (howManyCards == 1) ? 0.5f : promptIndex / (howManyCards - 1);
 			float angle = Mathf.Lerp(startAngle, endAngle, t);
 			float angleRad = angle * Mathf.Deg2Rad;
 
@@ -279,8 +291,6 @@ public class VisualPromptSystem : MonoBehaviour
 			ConnectNodes con = card.GetComponentInChildren<ConnectNodes>();
 			con.isPrompt = false;
 			con.connectedFrom.Add(newNode);
-			//conNode.connectedTo.Add(card);
-			//con.connectedFrom.Add(newNode);
 
 			con.AssignCardData(promptSystem.cards[i]);
 
@@ -298,6 +308,8 @@ public class VisualPromptSystem : MonoBehaviour
 
 			conNode.connectorLines.Add(lr);
 			con.connectedLines.Add(lr);
+
+			promptIndex++;
 		}
 	}
 

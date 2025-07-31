@@ -58,8 +58,7 @@ public class ConnectNodes : MonoBehaviour
 	{
 		promptTextObject.text = isPrompt ? promptText : "";
 		cardTextObject.text = isPrompt ? "" : thisCardData != null ? thisCardData.cardName : "No Card Data Assigned";
-		if(thisCardData != null && thisCardData.cardImage != null)
-		cardImage.sprite = thisCardData != null ? thisCardData.cardImage : null;
+		
 	}
 
 	void UpdateUi()
