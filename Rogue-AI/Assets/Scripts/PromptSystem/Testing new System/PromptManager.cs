@@ -4,13 +4,29 @@ using UnityEngine;
 public class PromptManager : MonoBehaviour
 {
 
-	string currentPromt;
-
+	List<string> currentPromt = new List<string>();
+	string fullPrompt = "";
 	List<Prompts> promptData = new List<Prompts>();
+
+	CardList cardList = new CardList();
+
+	
 
 	public void SetPrompt(string prompt)
 	{
-		currentPromt = prompt;
+		for (int i = 0; i < prompt.Length; i++) 
+		{
+			for(int j = 0; j < cardList.cardTypes.Length; j++)
+			{
+				if (prompt[i].ToString() == cardList.cardTypes[j])
+				{
+					continue;
+				}
+			}
+			fullPrompt += prompt[i];
+		}
+
+	
 		Debug.Log("Current Prompt Set: " + currentPromt);
 	}
 
