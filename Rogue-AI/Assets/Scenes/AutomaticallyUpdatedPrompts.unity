@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 1492692617}
   - component: {fileID: 1492692616}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Load Right prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,6 +366,11 @@ MonoBehaviour:
     endPrompt: academic paper
   - startPrompt: 
     endPrompt: 
+  front: 
+  start: 
+  middle: 
+  originalEnd: 
+  end: 
 --- !u!4 &1492692617
 Transform:
   m_ObjectHideFlags: 0
