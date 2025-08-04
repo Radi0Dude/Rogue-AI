@@ -22,6 +22,9 @@ public class PromptManager : MonoBehaviour
 	List<Prompts> promptData = new List<Prompts>();
 
 	CardList cardList = new CardList();
+
+	List<string> segmenets;
+
 	[SerializeField]
 	string front; 
 	[SerializeField]
@@ -37,17 +40,41 @@ public class PromptManager : MonoBehaviour
 
 	private void Start()
 	{
+		segmenets = new List<string>()
+		{
+			front,
+			start,
+			middle,
+			originalEnd,
+			end
+		};
 		GetStartPrompt();
 	}
 
 	public void CreatePrompt(CardData cardData)
 	{
-		for(int i = 0; i < System.Enum.GetValues(typeof(PromptPlacement)).Length;) 
-		{ 
-		
+		for(int i = 0; i < System.Enum.GetValues(typeof(PromptPlacement)).Length; i++) 
+		{
+			if(cardData.promptPlacement == (PromptPlacement)i)
+			{
+				segmenets[i] = cardData.cardName;
+				break;
+			}
 		}
-
-		SetPrompt();
+		if (segmenets.Count >= 5)
+		{
+			front = segmenets[0];
+			start = segmenets[1];
+			middle = segmenets[2];
+			originalEnd = segmenets[3];
+			end = segmenets[4];
+		}
+		else
+		{
+			Debug.LogError("Prompt segments are not properly set up. Please check the PromptManager.");
+			return;
+		}
+			SetPrompt();
 	}
 
 	public void SetPrompt()
