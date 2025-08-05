@@ -15,12 +15,20 @@ MonoBehaviour:
   cardType: 1
   promptType: 2
   cardRarity: 2
+  promptPlacement: 0
   cardName: Assign a Role
   cardDescription: Tell the AI who it should behave like, to focus its responses.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
+  cardPromptUpdate:
+  - As a proffesor
+  - You are a proffesor
+  - You are a engineer
+  - You are a game developer
+  - You are a game programmer
+  - You are a Unity expert
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0
