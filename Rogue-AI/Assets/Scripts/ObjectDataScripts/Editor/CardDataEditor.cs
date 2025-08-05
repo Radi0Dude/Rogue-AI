@@ -20,8 +20,11 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _cardsToDiscard;
         private SerializedProperty _isPlayedEndOfTurn;
         private SerializedProperty _virusEffect;
-        
-        private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canDiscard, _canStatus;
+
+		private SerializedProperty _promptPlacement;    // Added to support Prompt stuff
+		private SerializedProperty _cardPromptUpdate;   // added to support prompt stuff
+
+		private bool _selectedPromptType, _selectedEffective, _canPrompt, _canDraw, _canDelete, _canDiscard, _canStatus;
         
 
 
@@ -38,7 +41,10 @@ namespace ObjectDataScripts.Editor
             _cardsToDiscard = serializedObject.FindProperty("cardsToDiscard");
             _isPlayedEndOfTurn = serializedObject.FindProperty("isPlayedEndOfTurn");
             _virusEffect = serializedObject.FindProperty("virusEffect");
-        }
+
+			_promptPlacement = serializedObject.FindProperty("promptPlacement");   // Added to support Prompt stuff
+			_cardPromptUpdate = serializedObject.FindProperty("cardPromptUpdate"); // added to support prompt stuff
+		}
 
         public override void OnInspectorGUI()
         {
@@ -106,11 +112,17 @@ namespace ObjectDataScripts.Editor
             
             
             EditorGUILayout.PropertyField(_cardSymbol, new GUIContent("Card Symbol"));
-            
-            
-            
-            // ↓↓ add bellow base inspector ↓↓
-            EditorGUILayout.Space(20);
+
+            //This is new stuff 
+			EditorGUILayout.LabelField("General Stats", EditorStyles.boldLabel);
+			EditorGUILayout.PropertyField(_cardName, new GUIContent("Card Name"));
+
+			//This is new stuff 
+			EditorGUILayout.PropertyField(_promptPlacement, new GUIContent("Prompt Placement"));      
+			EditorGUILayout.PropertyField(_cardPromptUpdate, new GUIContent("Card Prompt Update"));
+
+			// ↓↓ add bellow base inspector ↓↓
+			EditorGUILayout.Space(20);
             EditorGUILayout.LabelField("Script References", EditorStyles.boldLabel);
             
             GUI.enabled = false;

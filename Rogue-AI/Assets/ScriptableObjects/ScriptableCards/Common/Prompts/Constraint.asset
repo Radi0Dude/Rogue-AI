@@ -15,12 +15,14 @@ MonoBehaviour:
   cardType: 1
   promptType: 32
   cardRarity: 2
+  promptPlacement: 0
   cardName: Define Limits
   cardDescription: Set clear boundaries on what the AI should and shouldn't do.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
+  cardPromptUpdate: []
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

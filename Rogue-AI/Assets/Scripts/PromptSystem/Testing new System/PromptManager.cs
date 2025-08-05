@@ -56,7 +56,7 @@ public class PromptManager : MonoBehaviour
 
 	string GetRandomPrompt(CardData cardata)
 	{
-		return cardata.cardPromptUpdate[Random.Range(0, cardata.cardPromptUpdate.Count)];
+		return cardata.cardPromptUpdate[Random.Range(0, cardata.cardPromptUpdate.Length)];
 	}
 
 	public void SetPrompt()
