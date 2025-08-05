@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-
 
 public enum PromptPlacement
 {
@@ -14,89 +12,62 @@ public enum PromptPlacement
 
 public class PromptManager : MonoBehaviour
 {
-	[SerializeField]
-	List<StartPromptList> startingPrompts = new();
+	[SerializeField] List<StartPromptList> startingPrompts = new();
+	[SerializeField] string fullPrompt = "";
 
-	List<string> currentPromt = new List<string>();
-	string fullPrompt = "";
-	List<Prompts> promptData = new List<Prompts>();
-
-	CardList cardList = new CardList();
-
-	List<string> segmenets;
-
-	[SerializeField]
-	string front; 
-	[SerializeField]
-	string start; 
-	[SerializeField]
-	string middle; 
-	[SerializeField]
-	string originalEnd; 
-	[SerializeField]
-	string end;
-
-	PromptPlacement promptPlacement;
+	private Dictionary<PromptPlacement, string> segments = new()
+	{
+		{ PromptPlacement.Front, "" },
+		{ PromptPlacement.StartPromptStart, "" },
+		{ PromptPlacement.Middle, "" },
+		{ PromptPlacement.StartPromptEnd, "" },
+		{ PromptPlacement.End, "" }
+	};
 
 	private void Start()
 	{
-		segmenets = new List<string>()
-		{
-			front,
-			start,
-			middle,
-			originalEnd,
-			end
-		};
 		GetStartPrompt();
+	}
+
+	public void GetStartPrompt()
+	{
+		int randomIndex = Random.Range(0, startingPrompts.Count);
+		var prompt = startingPrompts[randomIndex];
+
+		segments[PromptPlacement.StartPromptStart] = prompt.startPrompt;
+		segments[PromptPlacement.StartPromptEnd] = prompt.endPrompt;
+
+		SetPrompt();
 	}
 
 	public void CreatePrompt(CardData cardData)
 	{
-		for(int i = 0; i < System.Enum.GetValues(typeof(PromptPlacement)).Length; i++) 
+		if (!segments.ContainsKey(cardData.promptPlacement))
 		{
-			if(cardData.promptPlacement == (PromptPlacement)i)
-			{
-				segmenets[i] = cardData.cardName;
-				break;
-			}
-		}
-		if (segmenets.Count >= 5)
-		{
-			front = segmenets[0];
-			start = segmenets[1];
-			middle = segmenets[2];
-			originalEnd = segmenets[3];
-			end = segmenets[4];
-		}
-		else
-		{
-			Debug.LogError("Prompt segments are not properly set up. Please check the PromptManager.");
+			Debug.LogWarning("Invalid prompt placement.");
 			return;
 		}
-			SetPrompt();
+
+		
+		segments[cardData.promptPlacement] = GetRandomPrompt(cardData); // or .GetRandomAddition()
+
+		SetPrompt();
+	}
+
+	string GetRandomPrompt(CardData cardata)
+	{
+		return cardata.cardPromptUpdate[Random.Range(0, cardata.cardPromptUpdate.Count)];
 	}
 
 	public void SetPrompt()
 	{
-		 fullPrompt = $"{front} {start} {middle} {originalEnd} {end}".Trim();
-	}
+		fullPrompt = $"{segments[PromptPlacement.Front]} " +
+					 $"{segments[PromptPlacement.StartPromptStart]} " +
+					 $"{segments[PromptPlacement.Middle]} " +
+					 $"{segments[PromptPlacement.StartPromptEnd]} " +
+					 $"{segments[PromptPlacement.End]}".Trim();
 
-	
-
-
-	public void GetStartPrompt()
-	{
-		int RandomIndex = Random.Range(0, startingPrompts.Count);
-
-		start = startingPrompts[RandomIndex].startPrompt;
-		originalEnd = startingPrompts[RandomIndex].endPrompt;
-		
-	}
-
-	public void UpdatePromptWithCard(string promptAddition, string placement, string[] newtags)
-	{
-
+		Debug.Log("Full Prompt: " + fullPrompt);
 	}
 }
 [System.Serializable]
