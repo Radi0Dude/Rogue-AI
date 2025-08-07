@@ -10,6 +10,8 @@ public enum PromptPlacement
 	End
 }
 
+[RequireComponent(typeof(PromptButtonTag))]
+
 public class PromptManager : MonoBehaviour
 {
 	[SerializeField] List<StartPromptList> startingPrompts = new();

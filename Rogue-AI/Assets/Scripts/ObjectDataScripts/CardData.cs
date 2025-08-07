@@ -57,6 +57,7 @@ public class CardData : ScriptableObject
     [SerializeField] private Sprite[] cardSymbol;
     [SerializeField]
     public string[] cardPromptUpdate;
+    
 
     [SerializeField] private int cardsToDraw = 1;
     [SerializeField] private int cardsToDelete = 1;
