@@ -17,6 +17,8 @@ public class PromptManager : MonoBehaviour
 	[SerializeField] List<StartPromptList> startingPrompts = new();
 	[SerializeField] string fullPrompt = "";
 
+	[SerializeField] string currentPromptTag;
+
 	private Dictionary<PromptPlacement, string> segments = new()
 	{
 		{ PromptPlacement.Front, "" },
