@@ -862,10 +862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingPrompts:
-  - startPrompt: Write me an
+  - startPrompt: WRITE ME AN
     endPrompt: academic paper
-  - startPrompt: Create
-    endPrompt: a list
   fullPrompt: 
   currentPromptTag: 0
 --- !u!4 &1492692617

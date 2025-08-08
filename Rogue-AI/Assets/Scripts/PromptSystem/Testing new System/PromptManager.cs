@@ -56,7 +56,7 @@ public class PromptManager : MonoBehaviour
 		}
 
 
-		segments[cardData.promptPlacement] = GetRandomPrompt(cardData); // or .GetRandomAddition()
+		segments[cardData.promptPlacement] = GetRandomPrompt(cardData); 
 
 		SetPrompt();
 	}
@@ -84,13 +84,30 @@ public class PromptManager : MonoBehaviour
 
 	public void SetPrompt()
 	{
-		fullPrompt = $"{segments[PromptPlacement.Front]} " +
-					 $"{segments[PromptPlacement.StartPromptStart]} " +
-					 $"{segments[PromptPlacement.Middle]} " +
-					 $"{segments[PromptPlacement.StartPromptEnd]} " +
+		fullPrompt = $"{segments[PromptPlacement.Front]}" +
+					 $"{segments[PromptPlacement.StartPromptStart]}" +
+					 $"{segments[PromptPlacement.Middle]}" +
+					 $"{segments[PromptPlacement.StartPromptEnd]}" +
 					 $"{segments[PromptPlacement.End]}".Trim();
 
 		Debug.Log("Full Prompt: " + fullPrompt);
+		segments[PromptPlacement.StartPromptStart] = segments[PromptPlacement.Front] + " " +
+													 segments[PromptPlacement.StartPromptStart];
+		string original = segments[PromptPlacement.StartPromptStart];
+		string result = "";
+
+		for (int i = 0; i < original.Length; i++)
+		{
+			char c = original[i];
+			if (i != 0)
+				c = char.ToLower(c);
+			result += c;
+		}
+
+		
+		segments[PromptPlacement.StartPromptStart] = result;
+		Debug.Log("Start Prompt Start: " + segments[PromptPlacement.StartPromptStart]);
+		
 	}
 }
 [System.Serializable]
