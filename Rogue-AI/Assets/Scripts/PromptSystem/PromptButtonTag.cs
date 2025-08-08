@@ -24,3 +24,10 @@ public enum Tags
 	Learning,
 	Programmer,
 }
+
+[Serializable]
+public class PormptAndTag
+{
+	public string[] prompt;
+	public Tags[] tags;
+}

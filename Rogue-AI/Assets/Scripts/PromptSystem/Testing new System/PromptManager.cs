@@ -17,7 +17,10 @@ public class PromptManager : MonoBehaviour
 	[SerializeField] List<StartPromptList> startingPrompts = new();
 	[SerializeField] string fullPrompt = "";
 
-	[SerializeField] string currentPromptTag;
+	[SerializeField] Tags currentPromptTag;
+	bool hasbeenSet = false;
+
+	List<CardData> cardData = new();
 
 	private Dictionary<PromptPlacement, string> segments = new()
 	{
@@ -52,7 +55,7 @@ public class PromptManager : MonoBehaviour
 			return;
 		}
 
-		
+
 		segments[cardData.promptPlacement] = GetRandomPrompt(cardData); // or .GetRandomAddition()
 
 		SetPrompt();
@@ -60,7 +63,23 @@ public class PromptManager : MonoBehaviour
 
 	string GetRandomPrompt(CardData cardata)
 	{
-		return cardata.cardPromptUpdate[Random.Range(0, cardata.cardPromptUpdate.Length)];
+		CardData cardData = cardata;
+		int randomIndex = Random.Range(0, cardData.cardPromptUpdate.prompt.Length);
+		if(hasbeenSet == false)
+		{
+			currentPromptTag = cardData.cardPromptUpdate.tags[randomIndex];
+			hasbeenSet = true;
+			return cardata.cardPromptUpdate.prompt[randomIndex];
+		}
+		else
+		{
+			while (currentPromptTag != cardData.cardPromptUpdate.tags[randomIndex])
+			{
+				randomIndex = Random.Range(0, cardData.cardPromptUpdate.prompt.Length);
+			}
+			return cardata.cardPromptUpdate.prompt[randomIndex] ;
+		}
+		
 	}
 
 	public void SetPrompt()

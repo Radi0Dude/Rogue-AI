@@ -148,7 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eff6fbde44bb5f459fdf7eb1e41394a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardData: {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
+  cardData:
+  - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
+  - {fileID: 11400000, guid: a80061ac4d003d341acea0785a2102c7, type: 2}
+  - {fileID: 11400000, guid: 4b0f066cc8ac61341b99819f3ecdaf4d, type: 2}
+  - {fileID: 11400000, guid: ff0dd82c96d0f7d48bb468836fea6f75, type: 2}
 --- !u!4 &430984595
 Transform:
   m_ObjectHideFlags: 0
@@ -860,7 +864,10 @@ MonoBehaviour:
   startingPrompts:
   - startPrompt: Write me an
     endPrompt: academic paper
+  - startPrompt: Create
+    endPrompt: a list
   fullPrompt: 
+  currentPromptTag: 0
 --- !u!4 &1492692617
 Transform:
   m_ObjectHideFlags: 0

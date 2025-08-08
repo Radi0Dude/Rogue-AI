@@ -56,7 +56,7 @@ public class CardData : ScriptableObject
     [SerializeField, TextArea] private string cardDescription;
     [SerializeField] private Sprite[] cardSymbol;
     [SerializeField]
-    public string[] cardPromptUpdate;
+    public PormptAndTag cardPromptUpdate;
     
 
     [SerializeField] private int cardsToDraw = 1;
@@ -72,7 +72,7 @@ public class CardData : ScriptableObject
     
     public PromptPlacement Placement => promptPlacement;
 
-    public string[] CardPromptUpdate => cardPromptUpdate;
+    public PormptAndTag CardPromptUpdate => cardPromptUpdate;
     // Prompt var
     public PromptType PromptType => promptType;
     // Draw var

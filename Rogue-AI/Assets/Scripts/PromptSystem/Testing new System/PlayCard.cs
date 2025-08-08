@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayCard : MonoBehaviour
 {
 	[SerializeField]
-	CardData cardData;
+	CardData[] cardData;
 
 	PromptManager promptManager;
 
@@ -14,6 +14,7 @@ public class PlayCard : MonoBehaviour
 
 	public void PlayCards()
 	{
-		promptManager.CreatePrompt(cardData);
+		int randomIndex = Random.Range(0, cardData.Length);
+		promptManager.CreatePrompt(cardData[randomIndex]);
 	}
 }
