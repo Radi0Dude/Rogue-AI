@@ -6,16 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunInfo.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunInfo.json.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/PerformanceTestRunSettings.json.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardCollections/Deck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardCollections/Deck.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/CombatManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/CombatManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/SignManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/SignManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/CrossRoadData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ObjectDataScripts/CrossRoadData.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/DOTweenSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/1_PathTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/1_PathTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerVisual.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,6 +170,7 @@
       <workItem from="1753450247199" duration="303000" />
       <workItem from="1753450635382" duration="714000" />
       <workItem from="1753451538863" duration="2491000" />
+      <workItem from="1754732842337" duration="1617000" />
     </task>
     <servers />
   </component>

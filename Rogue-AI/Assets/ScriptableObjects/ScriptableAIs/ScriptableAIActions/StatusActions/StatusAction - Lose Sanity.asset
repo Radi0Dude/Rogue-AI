@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Sanity Card
   actionIcon: {fileID: 21300000, guid: 0a26c588c59d5ad44b9d7c8127f0cb34, type: 3}
-  actionDescription: 
+  actionDescription: Add a card that makes the AI lose sanity
   roundsUntilAction: 1
   barColor: {r: 0.6886792, g: 0.21115166, b: 0.5985797, a: 1}
   statusCards:

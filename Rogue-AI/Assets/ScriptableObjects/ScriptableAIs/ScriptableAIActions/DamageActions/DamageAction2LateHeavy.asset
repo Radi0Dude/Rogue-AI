@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Heavy Attack
   actionIcon: {fileID: 21300000, guid: 9c63d6a9ca485ec489eb598b0edc441f, type: 3}
-  actionDescription: 
+  actionDescription: Deal lot of damage
   roundsUntilAction: 3
   barColor: {r: 0.8584906, g: 0.09313814, b: 0.09313814, a: 1}
   minDamage: 14
