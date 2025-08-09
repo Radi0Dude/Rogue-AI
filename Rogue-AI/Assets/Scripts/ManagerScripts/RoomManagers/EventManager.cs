@@ -47,7 +47,7 @@ public class EventManager : MonoBehaviour
     private void HandleEventResult(EventStruct thisEventStruct)
     {
         EventResults result = thisEventStruct.eventResults;
-        
+    
         if (result.HasFlag(EventResults.ChangeHealth))
         {
             GameManager.ChangePlayerHealth(thisEventStruct.currentHealthChange);
@@ -73,9 +73,8 @@ public class EventManager : MonoBehaviour
             cardLibrary.StartDeleteCards(thisEventStruct.numberOfCardsToDelete, false);
             _canLoad = false;
         }
-
     }
-    
+
     // When worked through all results load next scene
     private void LoadNextScene()
     {

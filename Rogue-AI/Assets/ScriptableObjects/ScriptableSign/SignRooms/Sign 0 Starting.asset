@@ -15,5 +15,5 @@ MonoBehaviour:
   roomName: Starting Room
   roomIcon: {fileID: 21300000, guid: 9a3108556f3639044bf20cb9c7652fa8, type: 3}
   numberOfSigns: 3
-  crossRoadData: {fileID: 11400000, guid: 749ea0d5ef33ff04282ece5dde06f254, type: 2}
-  nextSignRoom: {fileID: 11400000, guid: bd324843e72691d4fa7d52ff0de50853, type: 2}
+  crossRoadData: {fileID: 11400000, guid: 04cfa1a5c1c0ac643bf8969f6bdc319c, type: 2}
+  nextSignRoom: {fileID: 11400000, guid: 241a5262ca5a101498ca53bf24c08bd1, type: 2}
