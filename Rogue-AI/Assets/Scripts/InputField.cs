@@ -11,9 +11,6 @@ public class InputField : MonoBehaviour
     [SerializeField] TooltipText sendInTooltipText;
     public event Action OnEndingTurnEvent;
     public event Action<List<PromptType>> OnSendPromptEvent;
-
-    
-    public event Action<PromptType> OnPlayCard;
     
     
     private string _currentPrompt = "Prompt";
@@ -39,10 +36,17 @@ public class InputField : MonoBehaviour
     public void UpdatePrompt(PromptType promptType)
     {
         // TODO: Lines of code that connects Tobias' prompt generator
-        OnPlayCard?.Invoke(promptType);
-        
         _currentPrompt = promptType + " " + promptText.text;
-        _promptTypes.Add(promptType);
+        
+        
+        foreach (PromptType flag in Enum.GetValues(typeof(PromptType)))
+        {
+            if (flag != 0 && promptType.HasFlag(flag))
+            {
+                if (!_promptTypes.Contains(flag))
+                    _promptTypes.Add(flag);
+            }
+        }
         
         UpdateVisual();
     }
