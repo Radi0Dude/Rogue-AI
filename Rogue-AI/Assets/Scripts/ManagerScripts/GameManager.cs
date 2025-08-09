@@ -102,12 +102,13 @@ public static class GameManager
     public static void RemoveRoomFromListAndLoadNextScene()
     {
         _rooms.RemoveAt(0);
-        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
+        LoadNextScene();
     }
 
     public static void LoadNextScene()
     {
-        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
+        // Load scene in room else load the final scene
+        SceneManager.LoadScene(_rooms[0] != null ? _rooms[0].SceneNameToLoad : "6_EndMenu");
     }
 
 

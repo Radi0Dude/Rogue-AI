@@ -15,9 +15,7 @@ public class PlayerVisual : MonoBehaviour
         GameManager.OnGameLost += ShowLoseGameVisual;
         UpdateHealthVisuals();
     }
-
     
-
     private void UpdateHealthVisuals()
     {
         healthText.text = "Tokens: " + GameManager.PlayerHealth+"/"+GameManager.PlayerMaxHealth;
@@ -26,8 +24,6 @@ public class PlayerVisual : MonoBehaviour
     private void ShowLoseGameVisual()
     {
         gameOverPanel.gameObject.SetActive(true);
-        var color = gameOverPanel.color;
-        DOTween.To(() => color.a, x => color.a = x, 1, 2.0f);
     }
 
     public void LoadMainMenu()
