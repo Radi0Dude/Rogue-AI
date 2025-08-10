@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,9 @@ public class PromptManager : MonoBehaviour
 	[SerializeField] Tags currentPromptTag;
 	bool hasbeenSet = false;
 
-	List<CardData> cardData = new();
+	List<CardData> playedCards = new();
+
+	public GameObject alreadyPlayedCardText;
 
 	private Dictionary<PromptPlacement, string> segments = new()
 	{
@@ -73,10 +76,16 @@ public class PromptManager : MonoBehaviour
 		}
 		else
 		{
+			if(playedCards.Contains(cardData))
+			{
+				StartCoroutine(AlreadyPlayedCard());
+				return "";
+			}
 			while (currentPromptTag != cardData.cardPromptUpdate.tags[randomIndex])
 			{
 				randomIndex = Random.Range(0, cardData.cardPromptUpdate.prompt.Length);
 			}
+			playedCards.Add(cardData);
 			return cardata.cardPromptUpdate.prompt[randomIndex] ;
 		}
 		
@@ -108,6 +117,13 @@ public class PromptManager : MonoBehaviour
 		segments[PromptPlacement.StartPromptStart] = result;
 		Debug.Log("Start Prompt Start: " + segments[PromptPlacement.StartPromptStart]);
 		
+	}
+
+	IEnumerator AlreadyPlayedCard()
+	{
+		alreadyPlayedCardText.SetActive(true);
+		yield return new WaitForSeconds(2f);
+		alreadyPlayedCardText.SetActive(false);
 	}
 }
 [System.Serializable]
