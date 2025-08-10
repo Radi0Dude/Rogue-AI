@@ -12,17 +12,14 @@ public enum PromptPlacement
 }
 
 [RequireComponent(typeof(PromptButtonTag))]
-
 public class PromptManager : MonoBehaviour
 {
 	[SerializeField] List<StartPromptList> startingPrompts = new();
 	[SerializeField] string fullPrompt = "";
-
 	[SerializeField] Tags currentPromptTag;
 	bool hasbeenSet = false;
 
 	List<CardData> playedCards = new();
-
 	public GameObject alreadyPlayedCardText;
 
 	private Dictionary<PromptPlacement, string> segments = new()
@@ -53,70 +50,75 @@ public class PromptManager : MonoBehaviour
 	public void CreatePrompt(CardData cardData)
 	{
 		if (!segments.ContainsKey(cardData.promptPlacement))
+			return;
+
+		if (playedCards.Contains(cardData))
 		{
-			Debug.LogWarning("Invalid prompt placement.");
+			if (alreadyPlayedCardText) StartCoroutine(AlreadyPlayedCard());
 			return;
 		}
 
+		var picked = GetRandomPrompt(cardData);
+		if (string.IsNullOrEmpty(picked))
+			return;
 
-		segments[cardData.promptPlacement] = GetRandomPrompt(cardData); 
-
+		playedCards.Add(cardData);
+		segments[cardData.promptPlacement] = picked;
 		SetPrompt();
 	}
 
-	string GetRandomPrompt(CardData cardata)
+	string GetRandomPrompt(CardData cardData)
 	{
-		CardData cardData = cardata;
-		int randomIndex = Random.Range(0, cardData.cardPromptUpdate.prompt.Length);
-		if(hasbeenSet == false)
+		var tags = cardData.cardPromptUpdate.tags;
+		var prompts = cardData.cardPromptUpdate.prompt;
+
+		if (tags == null || prompts == null || tags.Length == 0 || prompts.Length == 0 || tags.Length != prompts.Length)
+			return "";
+
+		if (!hasbeenSet)
 		{
-			currentPromptTag = cardData.cardPromptUpdate.tags[randomIndex];
+			int idx = Random.Range(0, tags.Length);
+			currentPromptTag = tags[idx];
 			hasbeenSet = true;
-			return cardata.cardPromptUpdate.prompt[randomIndex];
+			return prompts[idx];
 		}
-		else
-		{
-			if(playedCards.Contains(cardData))
-			{
-				StartCoroutine(AlreadyPlayedCard());
-				return "";
-			}
-			while (currentPromptTag != cardData.cardPromptUpdate.tags[randomIndex])
-			{
-				randomIndex = Random.Range(0, cardData.cardPromptUpdate.prompt.Length);
-			}
-			playedCards.Add(cardData);
-			return cardata.cardPromptUpdate.prompt[randomIndex] ;
-		}
-		
+
+		const int maxTries = 1000;
+		int tries = 0;
+
+		int randomIndex = Random.Range(0, tags.Length);
+		while (currentPromptTag != tags[randomIndex] && tries++ < maxTries)
+			randomIndex = Random.Range(0, tags.Length);
+
+		if (tries >= maxTries)
+			return "";
+
+		return prompts[randomIndex];
 	}
 
 	public void SetPrompt()
 	{
-		fullPrompt = $"{segments[PromptPlacement.Front]}" +
-					 $"{segments[PromptPlacement.StartPromptStart]}" +
-					 $"{segments[PromptPlacement.Middle]}" +
-					 $"{segments[PromptPlacement.StartPromptEnd]}" +
-					 $"{segments[PromptPlacement.End]}".Trim();
+		fullPrompt = (
+			$"{segments[PromptPlacement.Front]}" +
+			$"{segments[PromptPlacement.StartPromptStart]}" +
+			$"{segments[PromptPlacement.Middle]}" +
+			$"{segments[PromptPlacement.StartPromptEnd]}" +
+			$"{segments[PromptPlacement.End]}"
+		).Trim();
 
 		Debug.Log("Full Prompt: " + fullPrompt);
-		segments[PromptPlacement.StartPromptStart] = segments[PromptPlacement.Front] + " " +
-													 segments[PromptPlacement.StartPromptStart];
-		string original = segments[PromptPlacement.StartPromptStart];
-		string result = "";
 
-		for (int i = 0; i < original.Length; i++)
+		string startStartDisplay = (segments[PromptPlacement.Front] + " " +
+									segments[PromptPlacement.StartPromptStart]).TrimStart();
+
+		if (!string.IsNullOrEmpty(startStartDisplay))
 		{
-			char c = original[i];
-			if (i != 0)
-				c = char.ToLower(c);
-			result += c;
+			char first = startStartDisplay[0];
+			string rest = startStartDisplay.Substring(1).ToLowerInvariant();
+			startStartDisplay = first + rest;
 		}
 
-		
-		segments[PromptPlacement.StartPromptStart] = result;
-		Debug.Log("Start Prompt Start: " + segments[PromptPlacement.StartPromptStart]);
-		
+		Debug.Log("Start Prompt Start: " + startStartDisplay);
 	}
 
 	IEnumerator AlreadyPlayedCard()
@@ -126,6 +128,7 @@ public class PromptManager : MonoBehaviour
 		alreadyPlayedCardText.SetActive(false);
 	}
 }
+
 [System.Serializable]
 public class StartPromptList
 {
