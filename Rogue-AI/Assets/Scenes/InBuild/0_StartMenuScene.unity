@@ -514,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36249cb880a929f40ab80637d69e20ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCardCollection: {fileID: 11400000, guid: 1dca2e019fdfc4b40a0b243fe9c27a82, type: 2}
+  startingCardCollection: {fileID: 11400000, guid: e86dbe0cfef42344494101a44ab86777, type: 2}
   startingSignRoom: {fileID: 11400000, guid: a772e5473d7f33e4583346b6e092e905, type: 2}
 --- !u!1 &501665400
 GameObject:
