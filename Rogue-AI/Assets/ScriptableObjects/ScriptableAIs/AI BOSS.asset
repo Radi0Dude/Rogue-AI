@@ -15,7 +15,7 @@ MonoBehaviour:
   aiName: THE BOSS
   maxSanity: 180
   startSanity: 19
-  aiType: 1
+  aiModelType: 3
   aiActions:
   - {fileID: 11400000, guid: 31904308c6bd1c84a9036c501250500c, type: 2}
   - {fileID: 11400000, guid: 9bbe0a9c2aabf38468110944883bda37, type: 2}
