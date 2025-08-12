@@ -10,7 +10,7 @@ namespace ObjectDataScripts.Editor
         private SerializedProperty _aiName;
         private SerializedProperty _maxSanity;
         private SerializedProperty _startSanity;
-        private SerializedProperty _aiType;
+        private SerializedProperty _aiModel;
         private SerializedProperty _aiActions;
         private SerializedProperty _endOfTurnAction;
         private void OnEnable()
@@ -19,7 +19,7 @@ namespace ObjectDataScripts.Editor
             _aiName = serializedObject.FindProperty("aiName");
             _maxSanity = serializedObject.FindProperty("maxSanity");
             _startSanity = serializedObject.FindProperty("startSanity");
-            _aiType = serializedObject.FindProperty("aiType");
+            _aiModel = serializedObject.FindProperty("aiModelType");
             _aiActions = serializedObject.FindProperty("aiActions");
             _endOfTurnAction = serializedObject.FindProperty("endOfTurnAction");
         }
@@ -45,7 +45,7 @@ namespace ObjectDataScripts.Editor
             EditorGUILayout.PropertyField(_aiName, new GUIContent("Name"));
             EditorGUILayout.PropertyField(_maxSanity, new GUIContent("Max Sanity"));
             EditorGUILayout.PropertyField(_startSanity, new GUIContent("Start Sanity"));
-            EditorGUILayout.PropertyField(_aiType, new GUIContent("AI Type"));
+            EditorGUILayout.PropertyField(_aiModel, new GUIContent("AI Model"));
             
             EditorGUILayout.Space(10);
             EditorGUILayout.LabelField("Action Part",EditorStyles.boldLabel);

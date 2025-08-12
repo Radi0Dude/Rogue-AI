@@ -7,6 +7,7 @@ public class AI : MonoBehaviour
     public event Action OnAISane;
     
     [SerializeField] private AIVisual visual;
+    [SerializeField] private AIModel model;
     
     private float _maxSanity;
     private float _currentSanity;
@@ -34,6 +35,8 @@ public class AI : MonoBehaviour
         {
             visual.SetEndOfTurnAction(_data.EndOfTurnAction);
         }
+        
+        model.Init(data);
     }
 
     private void GetNextAction()
