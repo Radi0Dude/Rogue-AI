@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -107,8 +108,16 @@ public static class GameManager
 
     public static void LoadNextScene()
     {
+        var timer = 1f;
+        while (true)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+                break;
+        }
         // Load scene in room else load the final scene
         SceneManager.LoadScene(_rooms[0] != null ? _rooms[0].SceneNameToLoad : "6_EndMenu");
+
     }
 
 
