@@ -9,10 +9,7 @@ public class PromptButtonTag : MonoBehaviour
 
 	private void Awake()
 	{
-		for(int i = 0; i < System.Enum.GetValues(typeof(Tags)).Length; i++)
-		{
-			promptTags[i] = Enum.GetName(typeof(Tags), i);
-		}
+		promptTags = System.Enum.GetNames(typeof(Tags));
 	}
 }
 

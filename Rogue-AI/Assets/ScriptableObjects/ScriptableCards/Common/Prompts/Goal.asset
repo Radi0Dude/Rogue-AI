@@ -15,15 +15,16 @@ MonoBehaviour:
   cardType: 1
   promptType: 128
   cardRarity: 2
-  promptPlacement: 4
+  promptPlacement: 0000000000000000
   cardName: Clarify Outcome
   cardDescription: Make sure the AI knows exactly what you're trying to get.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
   cardPromptUpdate:
     prompt:
-    - About the effect of strong smells
-    - a game about two people fighting
+    - prompts:
+      - Hhfehfe
+      - fefeefefef
     tags: 0000000002000000
   cardsToDraw: 1
   cardsToDelete: 1

@@ -82,9 +82,14 @@ public class PromptManager : MonoBehaviour
 
 	public void CreatePrompt(CardData cardData)
 	{
-		
-		if (!segments.ContainsKey(cardData.promptPlacement[0]))
+		if (cardData == null || cardData.promptPlacement == null || cardData.promptPlacement.Length == 0)
 			return;
+
+		// Make sure all placements are valid keys
+		bool anyValid = false;
+		foreach (var p in cardData.promptPlacement)
+			if (segments.ContainsKey(p)) { anyValid = true; break; }
+		if (!anyValid) return;
 
 		if (playedCards.Contains(cardData))
 		{
@@ -93,13 +98,47 @@ public class PromptManager : MonoBehaviour
 		}
 
 		var picked = GetRandomPrompt(cardData);
-		if (string.IsNullOrEmpty(picked))
+		if (string.IsNullOrWhiteSpace(picked))
 			return;
 
-		playedCards.Add(cardData);
-		segments[cardData.promptPlacement[0]] = picked; // this wont work yet, i need to change it to work with multiple systems
+		// 1) Try to place into the first EMPTY allowed segment (by the order defined on the card)
+		PromptPlacement? target = null;
+		foreach (var p in cardData.promptPlacement)
+		{
+			if (!segments.ContainsKey(p)) continue;
+			if (string.IsNullOrWhiteSpace(segments[p]))
+			{
+				target = p;
+				break;
+			}
+		}
 
+		if (target.HasValue)
+		{
+			segments[target.Value] = picked.Trim();
+		}
+		else
+		{
+			// 2) If all allowed segments already have content, APPEND to the last allowed one
+			var last = cardData.promptPlacement[cardData.promptPlacement.Length - 1];
+			if (!segments.ContainsKey(last)) return; // safety
+
+			segments[last] = AppendWithSpace(segments[last], picked);
+		}
+
+		playedCards.Add(cardData);
 		SetPrompt();
+	}
+
+	private string AppendWithSpace(string existing, string addition)
+	{
+		existing = existing ?? "";
+		addition = addition ?? "";
+		existing = existing.TrimEnd();
+		addition = addition.TrimStart();
+		if (existing.Length == 0) return addition;
+		if (!existing.EndsWith(" ")) existing += " ";
+		return existing + addition;
 	}
 
 	string GetRandomPrompt(CardData cardData)
