@@ -28,6 +28,11 @@ public enum Tags
 [Serializable]
 public class PormptAndTag
 {
-	public string[] prompt;
+	public MultiplePrompts[] prompt;
 	public Tags[] tags;
+}
+[Serializable]
+public class MultiplePrompts
+{
+	public string[] prompts;
 }

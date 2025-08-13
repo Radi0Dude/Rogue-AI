@@ -38,7 +38,6 @@ public class PromptManager : MonoBehaviour
 		{ PromptPlacement.End, "" }
 	};
 
-	// Use this as the snapshot of the previous segments (your “copy”)
 	private Dictionary<PromptPlacement, string> segmentsCopy = new()
 	{
 		{ PromptPlacement.Front, "" },
@@ -83,7 +82,8 @@ public class PromptManager : MonoBehaviour
 
 	public void CreatePrompt(CardData cardData)
 	{
-		if (!segments.ContainsKey(cardData.promptPlacement))
+		
+		if (!segments.ContainsKey(cardData.promptPlacement[0]))
 			return;
 
 		if (playedCards.Contains(cardData))
@@ -97,16 +97,22 @@ public class PromptManager : MonoBehaviour
 			return;
 
 		playedCards.Add(cardData);
-		segments[cardData.promptPlacement] = picked;
+		segments[cardData.promptPlacement[0]] = picked; // this wont work yet, i need to change it to work with multiple systems
+
 		SetPrompt();
 	}
 
 	string GetRandomPrompt(CardData cardData)
 	{
 		var tags = cardData.cardPromptUpdate.tags;
-		var prompts = cardData.cardPromptUpdate.prompt;
+		List<string> prompts = new List<string>();
+		foreach (var prompt in cardData.cardPromptUpdate.prompt)
+		{
+			prompts.AddRange(prompt.prompts);
+		}
+		//var prompts = cardData.cardPromptUpdate.prompt[0].prompts;
 
-		if (tags == null || prompts == null || tags.Length == 0 || prompts.Length == 0 || tags.Length != prompts.Length)
+		if (tags == null || prompts == null || tags.Length == 0 || prompts.Count == 0 || tags.Length != prompts.Count)
 			return "";
 
 		if (!hasbeenSet)
@@ -163,14 +169,12 @@ public class PromptManager : MonoBehaviour
 
 		Debug.Log("Start Prompt Start: " + startStartDisplay);
 
-		// Pause caret while typing
+		
 		hasStartedWriting = false;
 		StopCoroutine(ConstantUpdateTyping());
 
-		// Start insert-only typing based on segment deltas (lowercased before typing)
 		StartCoroutine(WritePromptBySegments());
 
-		// Update snapshot for next time
 		foreach (var p in Order) segmentsCopy[p] = segments[p];
 	}
 
@@ -178,21 +182,16 @@ public class PromptManager : MonoBehaviour
 	{
 		if (promptText == null) yield break;
 
-		// Normalize old/new segments to lowercase + trimmed + single-spaced
 		var oldSegs = SnapshotLower(segmentsCopy);
 		var newSegs = SnapshotLower(segments);
 
-		// Build the currently rendered old text like your join, then capitalize first visible char
-		string oldRenderedLower = JoinSegments(oldSegs); // all lower, single spaces
+		string oldRenderedLower = JoinSegments(oldSegs); 
 		string oldRendered = CapitalizeFirst(oldRenderedLower);
 
-		// If this is the first time, promptText may be empty/different; reset to oldRendered
 		promptText.text = oldRendered;
 
-		// Map where each old segment sits in the rendered text (lowercase layout; length-stable)
 		var layout = BuildLayout(oldSegs, out _);
 
-		// For each segment in order, compute delta and insert it at the correct boundary
 		foreach (var place in Order)
 		{
 			string oldT = oldSegs[place];
