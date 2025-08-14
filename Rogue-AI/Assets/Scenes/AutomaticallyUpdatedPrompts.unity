@@ -282,8 +282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardData:
+  - {fileID: 11400000, guid: 9ec3da727d071e341ab97907a630305d, type: 2}
   - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
-  - {fileID: 11400000, guid: a80061ac4d003d341acea0785a2102c7, type: 2}
 --- !u!4 &430984595
 Transform:
   m_ObjectHideFlags: 0
@@ -293,7 +293,7 @@ Transform:
   m_GameObject: {fileID: 430984593}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 650.8941, y: -72.62793, z: -729.87537}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1451,8 +1451,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingPrompts:
-  - startPrompt: WRITE ME AN
-    endPrompt: academic paper
+  - startPrompt: Write something
+    endPrompt: 
+  - startPrompt: Tell me a story
+    endPrompt: 
+  - startPrompt: Describe something
+    endPrompt: 
+  - startPrompt: Explain something
+    endPrompt: 
+  - startPrompt: Invent something
+    endPrompt: 
+  - startPrompt: Create a scene
+    endPrompt: 
+  - startPrompt: Talk about anything
+    endPrompt: 
+  - startPrompt: Write a poem
+    endPrompt: 
+  - startPrompt: Draw a picture in words
+    endPrompt: 
+  - startPrompt: Say something funny
+    endPrompt: 
+  - startPrompt: Imagine something
+    endPrompt: 
+  - startPrompt: Tell me a fact
+    endPrompt: 
+  - startPrompt: Make a list
+    endPrompt: 
+  - startPrompt: Start a conversation
+    endPrompt: 
+  - startPrompt: Write a letter
+    endPrompt: 
+  - startPrompt: Give me an idea
+    endPrompt: 
+  - startPrompt: Say something dramatic
+    endPrompt: 
+  - startPrompt: Begin a tale
+    endPrompt: 
   fullPrompt: 
   currentPromptTag: 0
   alreadyPlayedCardText: {fileID: 536700867}

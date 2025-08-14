@@ -15,7 +15,7 @@ MonoBehaviour:
   cardType: 1
   promptType: 2
   cardRarity: 2
-  promptPlacement: 0000000002000000
+  promptPlacement: 00000000
   cardName: Assign a Role
   cardDescription: Tell the AI who it should behave like, to focus its responses.
   cardSymbol:
@@ -23,10 +23,22 @@ MonoBehaviour:
   cardPromptUpdate:
     prompt:
     - prompts:
-      - 'Hello '
+      - As a historian,
     - prompts:
-      - 'Hello hows it going '
-    tags: 0000000002000000
+      - As a grandparent,
+    - prompts:
+      - As a professor,
+    - prompts:
+      - As an eccentric inventor,
+    - prompts:
+      - As a museum curator,
+    - prompts:
+      - As a game developer,
+    - prompts:
+      - As a game designer,
+    - prompts:
+      - As a game programmer,
+    tags: 0300000003000000000000000100000003000000020000000200000004000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

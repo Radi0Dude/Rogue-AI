@@ -16,5 +16,6 @@ public class PlayCard : MonoBehaviour
 	{
 		int randomIndex = Random.Range(0, cardData.Length);
 		promptManager.CreatePrompt(cardData[randomIndex]);
+		Debug.Log($"Played card: {cardData[randomIndex].cardName}");
 	}
 }

@@ -15,12 +15,43 @@ MonoBehaviour:
   cardType: 1
   promptType: 64
   cardRarity: 2
+  promptPlacement: 04000000
   cardName: Break it Down
   cardDescription: Ask for information in a structured, step-by-step way.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
+  cardPromptUpdate:
+    prompt:
+    - prompts:
+      - 'Format your reply as: 1) TL;DR. 2) Three key points. 3) Example. 4) Next
+        step.'
+    - prompts:
+      - 'Return: 1) One-sentence summary. 2) Outline (3 bullets). 3) Example. 4)
+        Question for me.'
+    - prompts:
+      - 'Respond with: 1) What/definition. 2) Why/importance. 3) How/steps (3). 4)
+        Pitfall.'
+    - prompts:
+      - 'Provide: 1) Title. 2) Setup. 3) Action steps (3). 4) Expected outcome.'
+    - prompts:
+      - 'Answer in this order: 1) Assumptions. 2) Steps. 3) Edge case. 4) Tip.'
+    - prompts:
+      - 'Use this structure: 1) Problem. 2) Solution. 3) Result. 4) Metric to track.'
+    - prompts:
+      - 'Output: 1) Short hook. 2) Three details. 3) Example. 4) One takeaway.'
+    - prompts:
+      - 'Organize as: 1) Context. 2) Step-by-step plan (3). 3) Tools/resources. 4)
+        Risks.'
+    - prompts:
+      - 'Include: 1) Definition. 2) Analogy. 3) Counterexample. 4) Rule of thumb.'
+    - prompts:
+      - 'Include: 1) Definition. 2) Analogy. 3) Counterexample. 4) Rule of thumb.'
+    - prompts:
+      - "Structure it: 1) Summary (\u226415 words). 2) List of 5 items. 3) Final
+        line."
+    tags: 0000000001000000020000000300000004000000000000000100000002000000030000000400000000000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0
