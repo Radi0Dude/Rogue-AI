@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -224,9 +224,8 @@ public class PromptManager : MonoBehaviour
 		var oldSegs = SnapshotLower(segmentsCopy);
 		var newSegs = SnapshotLower(segments);
 
-		string oldRenderedLower = JoinSegments(oldSegs); 
+		string oldRenderedLower = JoinSegments(oldSegs);
 		string oldRendered = CapitalizeFirst(oldRenderedLower);
-
 		promptText.text = oldRendered;
 
 		var layout = BuildLayout(oldSegs, out _);
@@ -237,52 +236,18 @@ public class PromptManager : MonoBehaviour
 			string newT = newSegs[place];
 			if (oldT == newT) continue;
 
-			// Figure out append vs prepend, else fall back to full insert
-			bool isAppend = newT.StartsWith(oldT);
-			bool isPrepend = newT.EndsWith(oldT);
+			var step = new Dictionary<PromptPlacement, string>(oldSegs);
+			step[place] = newT;
+			string targetStep = CapitalizeFirst(JoinSegments(step));
 
-			string delta = isAppend ? newT.Substring(oldT.Length)
-						 : isPrepend ? newT.Substring(0, newT.Length - oldT.Length)
-						 : newT;
+			yield return TypeToTargetGentle(targetStep);
 
-			// Auto-space at boundary if needed
-			if (!string.IsNullOrEmpty(oldT) && !string.IsNullOrEmpty(delta))
-			{
-				if (isPrepend && delta[^1] != ' ' && oldT[0] != ' ') delta += " ";
-				if (isAppend && oldT[^1] != ' ' && delta[0] != ' ') delta = " " + delta;
-			}
-			delta = Regex.Replace(delta, @"\s{2,}", " ");
-
-			// Where do we insert in the CURRENT text?
-			if (!layout.TryGetValue(place, out var info))
-			{
-				info = (promptText.text.Length, 0);
-			}
-			int insertIndex = isAppend ? info.start + info.len : info.start;
-			insertIndex = ClampIndex(promptText.text, insertIndex);
-
-			// If we�re inserting at very start and nothing is on screen yet, capitalize first char
-			bool capFirst = insertIndex == 0 && string.IsNullOrEmpty(promptText.text);
-
-			// Insert characters one by one (no replacement)
-			for (int i = 0; i < delta.Length; i++)
-			{
-				char ch = (capFirst && i == 0) ? char.ToUpperInvariant(delta[i]) : delta[i];
-				int clamped = ClampIndex(promptText.text, insertIndex + i);
-				promptText.text = promptText.text.Insert(clamped, ch.ToString());
-
-				// caret pulse
-				promptText.text += "|";
-				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
-				promptText.text = promptText.text.TrimEnd('|');
-			}
-
-			// Update our "old" model and layout for next segment
-			oldSegs[place] = (isPrepend ? (delta + oldT) : (oldT + delta)).Trim();
+			oldSegs[place] = newT;
 			layout = BuildLayout(oldSegs, out _);
 		}
 
-		// Resume caret
+		promptText.text = CapitalizeFirst(JoinSegments(newSegs));
+
 		hasStartedWriting = true;
 		StartCoroutine(ConstantUpdateTyping());
 	}
@@ -301,6 +266,117 @@ public class PromptManager : MonoBehaviour
 		return snap;
 	}
 
+	IEnumerator TypeToTargetGentle(string target)
+	{
+		string cur = promptText.text?.Replace("|", "") ?? "";
+		target ??= "";
+		if (target == cur) yield break;
+
+		if (target.EndsWith(cur))
+		{
+			string prefix = target.Substring(0, target.Length - cur.Length);
+
+			if (cur.Length == 0)
+			{
+				for (int i = 0; i < prefix.Length; i++)
+				{
+					char ch = (i == 0) ? char.ToUpperInvariant(prefix[i]) : prefix[i];
+					int insertAt = Mathf.Clamp(i, 0, promptText.text.Length); 
+					promptText.text = promptText.text.Insert(insertAt, ch.ToString());
+
+					promptText.text += "|";
+					yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+					promptText.text = promptText.text.TrimEnd('|');
+				}
+				yield break; // no deletion; caller will snap at the very end
+			}
+
+			// Normal prepend: insert prefix in REVERSE at index 0 so it appears left→right
+			for (int i = prefix.Length - 1; i >= 0; i--)
+			{
+				char ch = (i == 0) ? char.ToUpperInvariant(prefix[i]) : prefix[i];
+				promptText.text = promptText.text.Insert(0, ch.ToString());
+
+				// caret pulse
+				promptText.text += "|";
+				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+				promptText.text = promptText.text.TrimEnd('|');
+			}
+			yield break; // no deletion
+		}
+
+		// ========== APPEND (target starts with current) ==========
+		if (target.StartsWith(cur))
+		{
+			for (int j = cur.Length; j < target.Length; j++)
+			{
+				int insertAt = Mathf.Clamp(j, 0, promptText.text.Length);
+				promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
+
+				// caret pulse
+				promptText.text += "|";
+				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+				promptText.text = promptText.text.TrimEnd('|');
+			}
+			yield break; // no deletion
+		}
+
+		// ========== MIDDLE CHANGE (neither pure prepend nor pure append) ==========
+		// Insert only the target's middle chunk (between LCP and LCS). No deletions here.
+		int lcp = 0;
+		int max = Mathf.Min(cur.Length, target.Length);
+		while (lcp < max && cur[lcp] == target[lcp]) lcp++;
+
+		int ci = cur.Length - 1, ti = target.Length - 1;
+		int lcs = 0;
+		while (ci - lcs >= lcp && ti - lcs >= lcp && cur[ci - lcs] == target[ti - lcs]) lcs++;
+
+		int tgtMidStart = lcp;
+		int tgtMidEnd = target.Length - lcs; // exclusive
+		if (tgtMidEnd <= tgtMidStart) yield break; // nothing to insert
+
+		for (int j = tgtMidStart; j < tgtMidEnd; j++)
+		{
+			int insertAt = Mathf.Clamp(j, 0, promptText.text.Length);
+			promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
+
+			// caret pulse
+			promptText.text += "|";
+			yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+			promptText.text = promptText.text.TrimEnd('|');
+		}
+
+		// NOTE: We never delete here. Do one final snap after all segments:
+		// promptText.text = CapitalizeFirst(JoinSegments(newSegs));
+	}
+	IEnumerator AnimateInsertToTarget(string target)
+	{
+		// work on the version without the caret
+		string cur = promptText.text?.Replace("|", "") ?? "";
+		promptText.text = cur;
+
+		// Find first differing index
+		int i = 0;
+		int max = Mathf.Min(cur.Length, target.Length);
+		while (i < max && cur[i] == target[i]) i++;
+
+		// Insert target characters from the first difference onward
+		for (int j = i; j < target.Length; j++)
+		{
+			int insertAt = ClampIndex(promptText.text, j);
+			promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
+
+			// caret pulse
+			promptText.text += "|";
+			yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+			promptText.text = promptText.text.TrimEnd('|');
+
+			// update cur (strip caret) for next iteration if needed
+			cur = promptText.text.Replace("|", "");
+		}
+
+		// Do NOT delete during animation; we’ll snap to target after loop (caller handles it)
+	}
 	string JoinSegments(Dictionary<PromptPlacement, string> segs)
 	{
 		var parts = new List<string>();

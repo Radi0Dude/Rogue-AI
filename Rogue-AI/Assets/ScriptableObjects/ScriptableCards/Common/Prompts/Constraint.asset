@@ -15,12 +15,44 @@ MonoBehaviour:
   cardType: 1
   promptType: 32
   cardRarity: 2
-  promptPlacement: 0
+  promptPlacement: 04000000
   cardName: Define Limits
   cardDescription: Set clear boundaries on what the AI should and shouldn't do.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
-  cardPromptUpdate: []
+  cardPromptUpdate:
+    prompt:
+    - prompts:
+      - 'Stay simple: give short answers, no deep analysis.'
+    - prompts:
+      - Focus only on facts, no opinions.
+    - prompts:
+      - Be creative, but avoid anything violent.
+    - prompts:
+      - Be creative, but avoid anything violent.
+    - prompts:
+      - "Answer step by step, don\u2019t skip steps."
+    - prompts:
+      - Use plain language, no technical jargon.
+    - prompts:
+      - Stay positive, avoid negativity.
+    - prompts:
+      - "Be funny, but don\u2019t be offensive."
+    - prompts:
+      - "Be funny, but don\u2019t be offensive."
+    - prompts:
+      - Keep it short, under 100 words.
+    - prompts:
+      - Use only real-world examples, no fiction.
+    - prompts:
+      - "Focus on clarity, don\u2019t use metaphors."
+    - prompts:
+      - Stay neutral, avoid taking sides.
+    - prompts:
+      - "Be descriptive, but don\u2019t repeat yourself."
+    - prompts:
+      - "Stick to one idea, don\u2019t branch out."
+    tags: 000000000100000002000000030000000400000001000000020000000300000004000000000000000100000002000000030000000400000001000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
