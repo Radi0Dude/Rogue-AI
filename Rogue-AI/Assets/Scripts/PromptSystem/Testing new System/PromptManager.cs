@@ -85,7 +85,7 @@ public class PromptManager : MonoBehaviour
 		if (cardData == null || cardData.promptPlacement == null || cardData.promptPlacement.Length == 0)
 			return;
 
-		// Make sure all placements are valid keys
+		// Ensure at least one placement maps to our segments dictionary
 		bool anyValid = false;
 		foreach (var p in cardData.promptPlacement)
 			if (segments.ContainsKey(p)) { anyValid = true; break; }
@@ -101,7 +101,7 @@ public class PromptManager : MonoBehaviour
 		if (string.IsNullOrWhiteSpace(picked))
 			return;
 
-		// 1) Try to place into the first EMPTY allowed segment (by the order defined on the card)
+		// 1) Try first EMPTY allowed placement (by the order defined on the card)
 		PromptPlacement? target = null;
 		foreach (var p in cardData.promptPlacement)
 		{
@@ -115,15 +115,15 @@ public class PromptManager : MonoBehaviour
 
 		if (target.HasValue)
 		{
-			segments[target.Value] = picked.Trim();
+			// Always append (handles empty existing too)
+			segments[target.Value] = AppendWithSpace(segments[target.Value], picked.Trim());
 		}
 		else
 		{
-			// 2) If all allowed segments already have content, APPEND to the last allowed one
+			// 2) If all allowed are filled, append to the LAST allowed one
 			var last = cardData.promptPlacement[cardData.promptPlacement.Length - 1];
-			if (!segments.ContainsKey(last)) return; // safety
-
-			segments[last] = AppendWithSpace(segments[last], picked);
+			if (!segments.ContainsKey(last)) return;
+			segments[last] = AppendWithSpace(segments[last], picked.Trim());
 		}
 
 		playedCards.Add(cardData);
@@ -145,11 +145,10 @@ public class PromptManager : MonoBehaviour
 	{
 		var tags = cardData.cardPromptUpdate.tags;
 		List<string> prompts = new List<string>();
-		foreach (var prompt in cardData.cardPromptUpdate.prompt)
+		foreach (var p in cardData.cardPromptUpdate.prompt)
 		{
-			prompts.AddRange(prompt.prompts);
+			prompts.AddRange(p.prompts);
 		}
-		//var prompts = cardData.cardPromptUpdate.prompt[0].prompts;
 
 		if (tags == null || prompts == null || tags.Length == 0 || prompts.Count == 0 || tags.Length != prompts.Count)
 			return "";
@@ -208,7 +207,6 @@ public class PromptManager : MonoBehaviour
 
 		Debug.Log("Start Prompt Start: " + startStartDisplay);
 
-		
 		hasStartedWriting = false;
 		StopCoroutine(ConstantUpdateTyping());
 
@@ -224,28 +222,29 @@ public class PromptManager : MonoBehaviour
 		var oldSegs = SnapshotLower(segmentsCopy);
 		var newSegs = SnapshotLower(segments);
 
-		string oldRenderedLower = JoinSegments(oldSegs);
-		string oldRendered = CapitalizeFirst(oldRenderedLower);
-		promptText.text = oldRendered;
+		// Start from old rendered state (proper spaces), cap first char
+		string start = CapitalizeFirst(JoinSegments(oldSegs));
+		promptText.text = start;
 
-		var layout = BuildLayout(oldSegs, out _);
-
+		// Animate each segment change using insert-only (no mid-typing deletions)
 		foreach (var place in Order)
 		{
 			string oldT = oldSegs[place];
 			string newT = newSegs[place];
 			if (oldT == newT) continue;
 
+			// Build canonical target for this step
 			var step = new Dictionary<PromptPlacement, string>(oldSegs);
 			step[place] = newT;
 			string targetStep = CapitalizeFirst(JoinSegments(step));
 
 			yield return TypeToTargetGentle(targetStep);
 
+			// Update model; keep what's on screen (no snap here)
 			oldSegs[place] = newT;
-			layout = BuildLayout(oldSegs, out _);
 		}
 
+		// Final snap to the full target: clean spaces/case and remove any leftovers at once
 		promptText.text = CapitalizeFirst(JoinSegments(newSegs));
 
 		hasStartedWriting = true;
@@ -268,44 +267,46 @@ public class PromptManager : MonoBehaviour
 
 	IEnumerator TypeToTargetGentle(string target)
 	{
+		// Work without caret artifacts
 		string cur = promptText.text?.Replace("|", "") ?? "";
 		target ??= "";
 		if (target == cur) yield break;
 
+		// PREPEND: missing prefix at front
 		if (target.EndsWith(cur))
 		{
 			string prefix = target.Substring(0, target.Length - cur.Length);
 
+			// First-ever write: type forward left→right
 			if (cur.Length == 0)
 			{
 				for (int i = 0; i < prefix.Length; i++)
 				{
 					char ch = (i == 0) ? char.ToUpperInvariant(prefix[i]) : prefix[i];
-					int insertAt = Mathf.Clamp(i, 0, promptText.text.Length); 
+					int insertAt = Mathf.Clamp(i, 0, promptText.text.Length);
 					promptText.text = promptText.text.Insert(insertAt, ch.ToString());
 
 					promptText.text += "|";
 					yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
 					promptText.text = promptText.text.TrimEnd('|');
 				}
-				yield break; // no deletion; caller will snap at the very end
+				yield break;
 			}
 
-			// Normal prepend: insert prefix in REVERSE at index 0 so it appears left→right
+			// Normal prepend: insert prefix in REVERSE at index 0 (so it appears left→right)
 			for (int i = prefix.Length - 1; i >= 0; i--)
 			{
 				char ch = (i == 0) ? char.ToUpperInvariant(prefix[i]) : prefix[i];
 				promptText.text = promptText.text.Insert(0, ch.ToString());
 
-				// caret pulse
 				promptText.text += "|";
 				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
 				promptText.text = promptText.text.TrimEnd('|');
 			}
-			yield break; // no deletion
+			yield break;
 		}
 
-		// ========== APPEND (target starts with current) ==========
+		// APPEND: missing suffix at end
 		if (target.StartsWith(cur))
 		{
 			for (int j = cur.Length; j < target.Length; j++)
@@ -313,16 +314,14 @@ public class PromptManager : MonoBehaviour
 				int insertAt = Mathf.Clamp(j, 0, promptText.text.Length);
 				promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
 
-				// caret pulse
 				promptText.text += "|";
 				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
 				promptText.text = promptText.text.TrimEnd('|');
 			}
-			yield break; // no deletion
+			yield break;
 		}
 
-		// ========== MIDDLE CHANGE (neither pure prepend nor pure append) ==========
-		// Insert only the target's middle chunk (between LCP and LCS). No deletions here.
+		// MIDDLE CHANGE: insert only the middle chunk between LCP and LCS (no deletion)
 		int lcp = 0;
 		int max = Mathf.Min(cur.Length, target.Length);
 		while (lcp < max && cur[lcp] == target[lcp]) lcp++;
@@ -333,50 +332,20 @@ public class PromptManager : MonoBehaviour
 
 		int tgtMidStart = lcp;
 		int tgtMidEnd = target.Length - lcs; // exclusive
-		if (tgtMidEnd <= tgtMidStart) yield break; // nothing to insert
+		if (tgtMidEnd <= tgtMidStart) yield break;
 
 		for (int j = tgtMidStart; j < tgtMidEnd; j++)
 		{
 			int insertAt = Mathf.Clamp(j, 0, promptText.text.Length);
 			promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
 
-			// caret pulse
 			promptText.text += "|";
 			yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
 			promptText.text = promptText.text.TrimEnd('|');
 		}
-
-		// NOTE: We never delete here. Do one final snap after all segments:
-		// promptText.text = CapitalizeFirst(JoinSegments(newSegs));
+		// no deletion here; final snap will clean up
 	}
-	IEnumerator AnimateInsertToTarget(string target)
-	{
-		// work on the version without the caret
-		string cur = promptText.text?.Replace("|", "") ?? "";
-		promptText.text = cur;
 
-		// Find first differing index
-		int i = 0;
-		int max = Mathf.Min(cur.Length, target.Length);
-		while (i < max && cur[i] == target[i]) i++;
-
-		// Insert target characters from the first difference onward
-		for (int j = i; j < target.Length; j++)
-		{
-			int insertAt = ClampIndex(promptText.text, j);
-			promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
-
-			// caret pulse
-			promptText.text += "|";
-			yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
-			promptText.text = promptText.text.TrimEnd('|');
-
-			// update cur (strip caret) for next iteration if needed
-			cur = promptText.text.Replace("|", "");
-		}
-
-		// Do NOT delete during animation; we’ll snap to target after loop (caller handles it)
-	}
 	string JoinSegments(Dictionary<PromptPlacement, string> segs)
 	{
 		var parts = new List<string>();
@@ -411,7 +380,7 @@ public class PromptManager : MonoBehaviour
 			}
 			else
 			{
-				map[p] = (start, 0); // where it would start
+				map[p] = (start, 0);
 			}
 		}
 
