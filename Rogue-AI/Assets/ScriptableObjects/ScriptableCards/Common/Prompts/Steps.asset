@@ -15,7 +15,7 @@ MonoBehaviour:
   cardType: 1
   promptType: 64
   cardRarity: 2
-  promptPlacement: 00000000
+  promptPlacement: 04000000
   cardName: Break it Down
   cardDescription: Ask for information in a structured, step-by-step way.
   cardSymbol:

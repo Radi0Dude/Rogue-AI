@@ -23,7 +23,12 @@ public class PromptManager : MonoBehaviour
 	[SerializeField] Tags currentPromptTag;
 	bool hasbeenSet = false;
 
+	// Tracks exact instances (kept for your UI/logic if needed)
 	List<CardData> playedCards = new();
+
+	// Tracks logical identity (prevents replays across duplicate instances)
+	private readonly HashSet<string> playedCardKeys = new();
+
 	public GameObject alreadyPlayedCardText;
 
 	bool hasStartedWriting = false;
@@ -80,53 +85,68 @@ public class PromptManager : MonoBehaviour
 		SetPrompt();
 	}
 
+	// ---- Card identity key (use a unique ID if you have one; fallback to name) ----
+	private string GetCardKey(CardData c)
+	{
+		// If you add a serialized unique ID on CardData (e.g., public string cardId),
+		// return that here instead of name.
+		var name = c != null ? c.cardName : "";
+		return string.IsNullOrWhiteSpace(name) ? "" : name.Trim();
+	}
+
 	public void CreatePrompt(CardData cardData)
 	{
 		if (cardData == null || cardData.promptPlacement == null || cardData.promptPlacement.Length == 0)
 			return;
 
-		// Ensure at least one placement maps to our segments dictionary
-		bool anyValid = false;
-		foreach (var p in cardData.promptPlacement)
-			if (segments.ContainsKey(p)) { anyValid = true; break; }
-		if (!anyValid) return;
+		var key = GetCardKey(cardData);
+		if (string.IsNullOrEmpty(key)) return;
 
-		if (playedCards.Contains(cardData))
+		// Hard filter: if this logical card was already played before, don’t update anything.
+		if (playedCardKeys.Contains(key))
 		{
 			if (alreadyPlayedCardText) StartCoroutine(AlreadyPlayedCard());
 			return;
 		}
 
+		// Ensure at least one placement maps to our segments dictionary
+		var allowed = cardData.promptPlacement.Where(p => segments.ContainsKey(p)).ToArray();
+		if (allowed.Length == 0) return;
+
 		var picked = GetRandomPrompt(cardData);
-		if (string.IsNullOrWhiteSpace(picked))
-			return;
+		if (string.IsNullOrWhiteSpace(picked)) return;
+		picked = picked.Trim();
 
-		// 1) Try first EMPTY allowed placement (by the order defined on the card)
-		PromptPlacement? target = null;
-		foreach (var p in cardData.promptPlacement)
+		// Overlaps: placements from THIS card that are already non-empty -> update ONLY these
+		var overlaps = allowed.Where(p => !string.IsNullOrWhiteSpace(segments[p])).ToList();
+		if (overlaps.Count > 0)
 		{
-			if (!segments.ContainsKey(p)) continue;
-			if (string.IsNullOrWhiteSpace(segments[p]))
-			{
-				target = p;
-				break;
-			}
-		}
-
-		if (target.HasValue)
-		{
-			// Always append (handles empty existing too)
-			segments[target.Value] = AppendWithSpace(segments[target.Value], picked.Trim());
+			foreach (var p in overlaps)
+				segments[p] = AppendWithSpace(segments[p], picked);
 		}
 		else
 		{
-			// 2) If all allowed are filled, append to the LAST allowed one
-			var last = cardData.promptPlacement[cardData.promptPlacement.Length - 1];
-			if (!segments.ContainsKey(last)) return;
-			segments[last] = AppendWithSpace(segments[last], picked.Trim());
+			// No overlaps -> first empty among allowed, else append to last allowed
+			PromptPlacement? target = null;
+			foreach (var p in allowed)
+			{
+				if (string.IsNullOrWhiteSpace(segments[p]))
+				{
+					target = p;
+					break;
+				}
+			}
+
+			if (target.HasValue)
+				segments[target.Value] = AppendWithSpace(segments[target.Value], picked); // handles empty too
+			else
+				segments[allowed[^1]] = AppendWithSpace(segments[allowed[^1]], picked);
 		}
 
+		// Mark as played (logical + instance lists)
+		playedCardKeys.Add(key);
 		playedCards.Add(cardData);
+
 		SetPrompt();
 	}
 
