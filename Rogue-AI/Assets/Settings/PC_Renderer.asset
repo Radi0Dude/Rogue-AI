@@ -66,11 +66,11 @@ MonoBehaviour:
   m_Name: UniversalBlurFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  iterations: 6
-  downsample: 2.72
+  iterations: 12
+  downsample: 4.79
   enableMipMaps: 1
-  scale: 1.71
-  offset: 5.23
+  scale: 13.85
+  offset: 10
   scaleBlurWith: 1
   scaleReferenceSize: 1080
   blurType: 0

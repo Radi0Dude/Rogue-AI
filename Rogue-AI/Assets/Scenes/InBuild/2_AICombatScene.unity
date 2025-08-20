@@ -460,17 +460,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2425319404059947039, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6281196152407969578, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6932735126423558641, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -544,6 +536,18 @@ PrefabInstance:
     - target: {fileID: 1142549691812584894, guid: bd4264e2dcd450643b75fa1a30231c46, type: 3}
       propertyPath: m_Name
       value: Base-AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5786502252466820076, guid: bd4264e2dcd450643b75fa1a30231c46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8265123460359020682, guid: bd4264e2dcd450643b75fa1a30231c46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8826110669499492933, guid: bd4264e2dcd450643b75fa1a30231c46, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

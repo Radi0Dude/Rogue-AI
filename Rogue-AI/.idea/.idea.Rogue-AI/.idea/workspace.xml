@@ -6,10 +6,25 @@
   <component name="ChangeListManager">
     <list default="true" id="27227916-fc76-4a4e-a9fe-4b9a57ca5930" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Rogue-AI/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Base-AI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Base-AI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/AI BOSS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableAIs/AI BOSS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/M_Portal_Discard.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/M_Portal_Discard.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/M_Portal_Draw.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/M_Portal_Draw.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Sign/M_SignArrow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Sign/M_SignArrow.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Sign/M_SignPole.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Sign/M_SignPole.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/0_StartMenuScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/0_StartMenuScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/1_PathTestScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/1_PathTestScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/2_AICombatScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/2_AICombatScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/3_RestSiteScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/3_RestSiteScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/4_TreasureScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/4_TreasureScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/5_EventScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/5_EventScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/InBuild/6_EndMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/InBuild/6_EndMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableRooms/EventRooms/Event Healing Room.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableRooms/EventRooms/Event Healing Room.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/Sign 4.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ScriptableObjects/ScriptableSign/SignRooms/Sign 4.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardReward.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CardScripts/CardReward.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/EventManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/MainMenuManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ManagerScripts/RoomManagers/MainMenuManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/PC_Renderer.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.muse.common/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.muse.common/Settings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,6 +190,8 @@
       <workItem from="1754927549307" duration="664000" />
       <workItem from="1754994598458" duration="5674000" />
       <workItem from="1755080035931" duration="2000" />
+      <workItem from="1755691765490" duration="744000" />
+      <workItem from="1755694372547" duration="1453000" />
     </task>
     <servers />
   </component>

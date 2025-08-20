@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1882170c62294f189693645581c4f889, type: 3}
   m_Name: Event Healing Room
   m_EditorClassIdentifier: 
-  roomName: Base Event Room
+  roomName: Restoring AI
   roomIcon: {fileID: 21300000, guid: 54630d81cb166ff46bb2ef2dd87bb859, type: 3}
-  eventDescription: This AI is willing to help restore your health and offer you
-    10 points
+  eventDescription: This AI is willing to give you Tokens and offer you 10 points
   optionDescriptions:
   - eventDescription: Kindly receive
     eventEffectTooltip: Regain 10 Health
@@ -34,7 +33,7 @@ MonoBehaviour:
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 11400000, guid: 1ef9d8f48b92f5d44902f69181e6d5c7, type: 2}
   - eventDescription: I'm very healthy and would rather have an upgrade
-    eventEffectTooltip: Gain 15 Max Health and receive a Status card
+    eventEffectTooltip: Gain 15 Max Tokens and receive a worse Status card
     eventResults: 10
     currentHealthChange: 25
     maxHealthChange: 15
