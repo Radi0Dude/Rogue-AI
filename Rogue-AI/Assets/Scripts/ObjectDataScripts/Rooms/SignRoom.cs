@@ -4,7 +4,7 @@ using UnityEngine;
 public class SignRoom : RoomData
 {
     public override RoomType RoomType  => RoomType.Sign;
-    public override string SceneNameToLoad => "1_PathTestScene";
+    public override string SceneNameToLoad => "1_PathScene";
 
     [Header("Sign Room Settings")]
     [SerializeField] private int numberOfSigns = 3;

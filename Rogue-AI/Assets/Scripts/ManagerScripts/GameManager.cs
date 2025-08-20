@@ -24,6 +24,8 @@ public static class GameManager
     // Player Variables
     private static int _playerMaxHealth = 100;
     private static int _playerHealth = PlayerMaxHealth;
+
+    public static bool playedBefore = false;
     
     public static event Action OnHealthChanged;
     public static event Action OnGameLost;

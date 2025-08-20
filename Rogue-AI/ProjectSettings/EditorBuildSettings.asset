@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/InBuild/0_StartMenuScene.unity
     guid: 5acc015e528ea754e825f510fcaf62be
   - enabled: 1
-    path: Assets/Scenes/InBuild/1_PathTestScene.unity
+    path: Assets/Scenes/InBuild/1_PathScene.unity
     guid: cfdbe53f39a7f2240b5ebdf5b8e1a99c
   - enabled: 1
     path: Assets/Scenes/InBuild/2_AICombatScene.unity
