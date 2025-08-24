@@ -15,16 +15,32 @@ MonoBehaviour:
   cardType: 1
   promptType: 16
   cardRarity: 2
-  promptPlacement: 0
+  promptPlacement: 00000000
   cardName: Give Background
   cardDescription: Supply the AI with important facts or situational info.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
   cardPromptUpdate:
     prompt:
-    - I am creating a game similar to tetris
-    - I am reaserching the ways the human body reacts
-    tags: 0200000000000000
+    - prompts:
+      - I'm writing a paper
+    - prompts:
+      - I'm studying for an exam
+    - prompts:
+      - I'm designing a game
+    - prompts:
+      - I'm working with AI
+    - prompts:
+      - I have this programming problem
+    - prompts:
+      - I'm having a class
+    - prompts:
+      - I'm working in Python
+    - prompts:
+      - I'm learning something new
+    - prompts:
+      - I'm working on this level
+    tags: 000000000300000002000000010000000400000000000000040000000300000002000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1

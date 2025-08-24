@@ -15,7 +15,7 @@ MonoBehaviour:
   cardType: 1
   promptType: 128
   cardRarity: 2
-  promptPlacement: 0000000000000000
+  promptPlacement: 00000000
   cardName: Clarify Outcome
   cardDescription: Make sure the AI knows exactly what you're trying to get.
   cardSymbol:
@@ -23,9 +23,20 @@ MonoBehaviour:
   cardPromptUpdate:
     prompt:
     - prompts:
-      - Hhfehfe
-      - fefeefefef
-    tags: 0000000002000000
+      - I want a big-picture map so I can choose where to start
+    - prompts:
+      - "I want marketing strategies so I can grow my game\u2019s player base"
+    - prompts:
+      - I want optimization tips so I can get my Unity game running smoothly
+    - prompts:
+      - I want recent research so I can update my lecture slides
+    - prompts:
+      - I want clean coding practices so I can make my project easier to maintain
+    - prompts:
+      - I want clear explanations so I can understand how to use AI better
+    - prompts:
+      - I want concise answers so I can get information quickly
+    tags: 03000000020000000200000000000000040000000100000001000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
