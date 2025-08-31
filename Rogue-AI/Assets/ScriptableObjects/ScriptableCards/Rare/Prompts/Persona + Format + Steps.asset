@@ -15,12 +15,20 @@ MonoBehaviour:
   cardType: 1
   promptType: 70
   cardRarity: 4
+  cardata:
+  - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
+  - {fileID: 11400000, guid: d7abddbe361044745a0402987f4b9bf2, type: 2}
+  - {fileID: 11400000, guid: 9ec3da727d071e341ab97907a630305d, type: 2}
+  promptPlacement: 
   cardName: Expert Response Template
   cardDescription: Act as a pro and deliver a clean, step-based answer.
   cardSymbol:
   - {fileID: 21300000, guid: bd771f8a82957ea4086422dab6542a09, type: 3}
+  cardPromptUpdate:
+    prompt: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

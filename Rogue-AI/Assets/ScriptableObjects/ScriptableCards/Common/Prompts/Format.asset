@@ -15,12 +15,27 @@ MonoBehaviour:
   cardType: 1
   promptType: 4
   cardRarity: 2
+  cardata: []
+  promptPlacement: 00000000
   cardName: "Structure Answer\t"
   cardDescription: Guide how the AI should organize its response.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
+  cardPromptUpdate:
+    prompt:
+    - prompts:
+      - 1
+    - prompts:
+      - 1
+    - prompts:
+      - 1
+    - prompts:
+      - 1
+    - prompts:
+      - 1
+    tags: 0000000001000000020000000300000004000000
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0
