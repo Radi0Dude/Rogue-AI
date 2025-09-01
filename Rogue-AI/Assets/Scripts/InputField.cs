@@ -31,6 +31,8 @@ public class InputField : MonoBehaviour
     {
         // Returns start of new prompt for the player to adjust
         // TODO: Connect to Tobias' prompt generator
+        _currentPrompt = "Prompt";
+
     }
 
     public void UpdatePrompt(CardData data)
@@ -62,7 +64,7 @@ public class InputField : MonoBehaviour
         if (GameManager.RoundState == RoundState.EndCombat) return;
         OnSendPromptEvent?.Invoke(_promptTypes);
         
-        _currentPrompt = "Prompt";
+        GetNewPrompt();
         UpdateVisual();
         
         _promptTypes.Clear();
