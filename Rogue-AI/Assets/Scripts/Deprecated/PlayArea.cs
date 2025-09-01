@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Deprecated
 {
     public class PlayArea : MonoBehaviour
-    {
+    { /*
         private InputField _inputField;
         private Deck _deck;
 
@@ -43,6 +43,6 @@ namespace Deprecated
                     Debug.LogError(cardType + " has not been given an action");
                 }
             }
-        }
+        } */
     }
 }

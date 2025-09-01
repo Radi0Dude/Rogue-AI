@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace Deprecated
 {
     public class CardMovement : MonoBehaviour
-    {
+    {/*
         private Deck _deck;
         private Card _card;
         private CardPlayState _cardPlayState;
@@ -121,6 +121,6 @@ namespace Deprecated
             deleteWarningPanel.gameObject.SetActive(false);
         
             _cardPlayState = CardPlayState.Play;
-        }
+        }*/
     }
 }
