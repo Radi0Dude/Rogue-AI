@@ -117,7 +117,7 @@ public class CombatManager : MonoBehaviour
 
         if (cardTypes.Contains(CardType.Prompt))
         {
-            inputField.UpdatePrompt(data.PromptType);
+            inputField.UpdatePrompt(data);
         }
         if (cardTypes.Contains(CardType.Discard))
         {

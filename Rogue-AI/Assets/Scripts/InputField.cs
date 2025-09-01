@@ -33,12 +33,12 @@ public class InputField : MonoBehaviour
         // TODO: Connect to Tobias' prompt generator
     }
 
-    public void UpdatePrompt(PromptType promptType)
+    public void UpdatePrompt(CardData data)
     {
         // TODO: Lines of code that connects Tobias' prompt generator
-        _currentPrompt = promptType + " " + promptText.text;
-        
-        
+        // Her er data til kortet :D
+
+        var promptType = data.PromptType;
         foreach (PromptType flag in Enum.GetValues(typeof(PromptType)))
         {
             if (flag != 0 && promptType.HasFlag(flag))
