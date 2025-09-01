@@ -6,7 +6,9 @@ using Random = UnityEngine.Random;
 
 public class SignManager : MonoBehaviour
 {
+    [SerializeField] private GameObject intorCanvas;
     [SerializeField] private List<Sign> signs;
+    
     
     private SignRoom _signRoom;
     private CrossRoadData _crossRoadData;
@@ -20,8 +22,19 @@ public class SignManager : MonoBehaviour
             _crossRoadData = room.CrossRoadData;
             _signRoom = room.NextSignRoom;
         }
+
+        if (GameManager.playedBefore != true)
+        {
+            intorCanvas.SetActive(true);
+        }
         
         InitiateSigns();
+    }
+
+    public void IntroClose()
+    {
+        intorCanvas.SetActive(false);
+        GameManager.playedBefore = true;
     }
 
     private void InitiateSigns()
@@ -32,6 +45,12 @@ public class SignManager : MonoBehaviour
         // Get unique random rooms
         List<RoomData> allRandomRooms = _crossRoadData.GetRandomRooms(totalRoomCount);
 
+        if (allRandomRooms.Count == 1)
+        {
+            signs[0].gameObject.SetActive(true);
+            signs[0].Init(allRandomRooms, null);
+            return;
+        }
         // Assign rooms to each sign
         for (int i = 0; i < _numberOfSigns; i++)
         {

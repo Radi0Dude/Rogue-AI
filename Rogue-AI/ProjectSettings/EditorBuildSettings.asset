@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/InBuild/0_StartMenuScene.unity
     guid: 5acc015e528ea754e825f510fcaf62be
   - enabled: 1
-    path: Assets/Scenes/InBuild/1_PathTestScene.unity
+    path: Assets/Scenes/InBuild/1_PathScene.unity
     guid: cfdbe53f39a7f2240b5ebdf5b8e1a99c
   - enabled: 1
     path: Assets/Scenes/InBuild/2_AICombatScene.unity
@@ -23,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/InBuild/5_EventScene.unity
     guid: fc660bf56ede8ff46b02ebd9fd4cec70
+  - enabled: 1
+    path: Assets/Scenes/InBuild/6_EndMenu.unity
+    guid: c2e305409cc3953429890a2bfab6114d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

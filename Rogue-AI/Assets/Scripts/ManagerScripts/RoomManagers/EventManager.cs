@@ -1,10 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EventManager : MonoBehaviour
 {
     [SerializeField] private CardLibrary cardLibrary;
+    [SerializeField] private TextMeshProUGUI eventTitle, eventText;
     [SerializeField] private VerticalLayoutGroup eventChoiceGroup;
     [SerializeField] private EventChoice eventChoicePrefab;
     
@@ -22,6 +24,9 @@ public class EventManager : MonoBehaviour
             Debug.LogError("The current room in GameManager is not a TreasureRoom");
             return;
         }
+
+        eventTitle.text = _data.RoomName;
+        eventText.text = _data.EventDescription;
         // Updates visuals to show player
         foreach (var option in _data.OptionDescriptions)
         {
@@ -47,7 +52,7 @@ public class EventManager : MonoBehaviour
     private void HandleEventResult(EventStruct thisEventStruct)
     {
         EventResults result = thisEventStruct.eventResults;
-        
+    
         if (result.HasFlag(EventResults.ChangeHealth))
         {
             GameManager.ChangePlayerHealth(thisEventStruct.currentHealthChange);
@@ -73,9 +78,8 @@ public class EventManager : MonoBehaviour
             cardLibrary.StartDeleteCards(thisEventStruct.numberOfCardsToDelete, false);
             _canLoad = false;
         }
-
     }
-    
+
     // When worked through all results load next scene
     private void LoadNextScene()
     {

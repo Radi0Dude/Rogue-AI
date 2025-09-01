@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] private GameObject credits;
     [SerializeField] private CardCollectionData startingCardCollection;
     [SerializeField] private SignRoom startingSignRoom;
     public void StartGame()
@@ -29,9 +30,14 @@ public class MainMenuManager : MonoBehaviour
         GameManager.LoadNextScene();
     }
 
-    public void Options()
+    public void CreditsOpen()
     {
-        // Opens option panel when we have one
+        credits.SetActive(true);
+    }
+
+    public void CreditsClose()
+    {
+        credits.SetActive(false);
     }
 
     public void Quit()

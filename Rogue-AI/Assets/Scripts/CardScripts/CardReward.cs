@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -29,7 +30,13 @@ public class CardReward : MonoBehaviour
         CardData data = card.GetData();
         
         GameManager.PlayerCardCollection.AddCardToCollection(data);
-        
+
+        StartCoroutine(LoadNextScene());
+    }
+    
+    private IEnumerator LoadNextScene()
+    {
+        yield return new WaitForSeconds(.5f);
         GameManager.RemoveRoomFromListAndLoadNextScene();
     }
 }

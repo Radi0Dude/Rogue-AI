@@ -150,7 +150,6 @@ public class CombatManager : MonoBehaviour
     {
         GameManager.RoundState = RoundState.EndCombat;
         // Reward is presented to the player
-        Debug.Log("Ending Combat");
         cardReward.DisplayCardReward();
         // In UI Player can load next scene
     }

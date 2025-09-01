@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 85cf0b004bc4a654b9e501efcce47902, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5d133deeaa66ed445853e946ff25e073, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -548,6 +548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardLibrary: {fileID: 308375578}
+  eventTitle: {fileID: 1007746320}
+  eventText: {fileID: 1979672460}
   eventChoiceGroup: {fileID: 2050859498}
   eventChoicePrefab: {fileID: 5537549193284441956, guid: 766d2d5be44c64f43a1f771343ec2bb4, type: 3}
 --- !u!4 &383214267

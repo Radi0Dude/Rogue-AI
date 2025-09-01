@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,6 +24,8 @@ public static class GameManager
     // Player Variables
     private static int _playerMaxHealth = 100;
     private static int _playerHealth = PlayerMaxHealth;
+
+    public static bool playedBefore = false;
     
     public static event Action OnHealthChanged;
     public static event Action OnGameLost;
@@ -102,12 +105,21 @@ public static class GameManager
     public static void RemoveRoomFromListAndLoadNextScene()
     {
         _rooms.RemoveAt(0);
-        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
+        LoadNextScene();
     }
 
     public static void LoadNextScene()
     {
-        SceneManager.LoadScene(_rooms[0].SceneNameToLoad);
+        var timer = 1f;
+        while (true)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+                break;
+        }
+        // Load scene in room else load the final scene
+        SceneManager.LoadScene(_rooms[0] != null ? _rooms[0].SceneNameToLoad : "6_EndMenu");
+
     }
 
 
