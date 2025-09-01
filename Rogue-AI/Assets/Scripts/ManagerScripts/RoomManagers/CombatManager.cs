@@ -61,7 +61,6 @@ public class CombatManager : MonoBehaviour
     
     private void SendPrompt(List<PromptType> prompts)
     {
-        //TODO: Send prompt to the prompt manager, and gain the amount of sanity that should be given to the AI
         int sumSanity = 1;
         foreach (PromptType prompt in prompts)
         {
