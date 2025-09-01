@@ -11,19 +11,24 @@ public class InputField : MonoBehaviour
     [SerializeField] TooltipText sendInTooltipText;
     public event Action OnEndingTurnEvent;
     public event Action<List<PromptType>> OnSendPromptEvent;
-    
+
+    PlayCard playCard;
     
     private string _currentPrompt = "Prompt";
     
     private List<PromptType> _promptTypes = new();
 
+	private void Awake()
+	{
+		playCard = FindFirstObjectByType<PlayCard>();
+	}
 
-    private void Start()
+	private void Start()
     {
         // Find a prompt starter
         //GetNewPrompt();
         
-        UpdateVisual();
+        //UpdateVisual();
         sendInTooltipText.SetTooltipText("Send prompt to AI and end your turn");
     }
 
@@ -38,9 +43,10 @@ public class InputField : MonoBehaviour
     public void UpdatePrompt(CardData data)
     {
         // TODO: Lines of code that connects Tobias' prompt generator
-        // Her er data til kortet :D
+        playCard.PlayCardData(data);
+		// Her er data til kortet :D
 
-        var promptType = data.PromptType;
+		var promptType = data.PromptType;
         foreach (PromptType flag in Enum.GetValues(typeof(PromptType)))
         {
             if (flag != 0 && promptType.HasFlag(flag))
@@ -50,7 +56,7 @@ public class InputField : MonoBehaviour
             }
         }
         
-        UpdateVisual();
+        //UpdateVisual();
     }
 
     private void UpdateVisual()

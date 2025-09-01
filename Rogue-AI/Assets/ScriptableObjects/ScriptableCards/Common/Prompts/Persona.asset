@@ -15,6 +15,7 @@ MonoBehaviour:
   cardType: 1
   promptType: 2
   cardRarity: 2
+  cardata: []
   promptPlacement: 00000000
   cardName: Assign a Role
   cardDescription: Tell the AI who it should behave like, to focus its responses.
@@ -29,7 +30,7 @@ MonoBehaviour:
     - prompts:
       - As a professor,
     - prompts:
-      - As an eccentric inventor,
+      - As an inventor,
     - prompts:
       - As a museum curator,
     - prompts:

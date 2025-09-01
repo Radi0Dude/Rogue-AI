@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6359101273745061043
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010754074417611776}
+  - component: {fileID: 6984894682229890934}
+  - component: {fileID: 1060518369978593988}
+  m_Layer: 0
+  m_Name: Load Right prompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1010754074417611776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359101273745061043}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 650.8941, y: -72.62793, z: -729.87537}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6984894682229890934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359101273745061043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c4f606dbd4fe740b40608caff9a4f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingPrompts:
+  - startPrompt: Write something
+    endPrompt: 
+  - startPrompt: Tell me a story
+    endPrompt: 
+  - startPrompt: Describe something
+    endPrompt: 
+  - startPrompt: Explain something
+    endPrompt: 
+  - startPrompt: Invent something
+    endPrompt: 
+  - startPrompt: Create a scene
+    endPrompt: 
+  - startPrompt: Talk about anything
+    endPrompt: 
+  - startPrompt: Write a poem
+    endPrompt: 
+  - startPrompt: Draw a picture in words
+    endPrompt: 
+  - startPrompt: Say something funny
+    endPrompt: 
+  - startPrompt: Imagine something
+    endPrompt: 
+  - startPrompt: Tell me a fact
+    endPrompt: 
+  - startPrompt: Make a list
+    endPrompt: 
+  - startPrompt: Start a conversation
+    endPrompt: 
+  - startPrompt: Write a letter
+    endPrompt: 
+  - startPrompt: Give me an idea
+    endPrompt: 
+  - startPrompt: Say something dramatic
+    endPrompt: 
+  - startPrompt: Begin a tale
+    endPrompt: 
+  fullPrompt: 
+  currentPromptTag: 0
+  alreadyPlayedCardText: {fileID: 0}
+  promptText: {fileID: 0}
+--- !u!114 &1060518369978593988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359101273745061043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1edfcc0a46985d45a0e4b71ea50fc48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptTags:
+  - Proffesor
+  - AI
+  - Game Developer

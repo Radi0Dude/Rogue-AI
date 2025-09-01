@@ -15,12 +15,19 @@ MonoBehaviour:
   cardType: 1
   promptType: 136
   cardRarity: 4
+  cardata:
+  - {fileID: 11400000, guid: a80061ac4d003d341acea0785a2102c7, type: 2}
+  - {fileID: 11400000, guid: 578348c722d435543931634222553c09, type: 2}
+  promptPlacement: 
   cardName: Goal-Oriented Iteration
   cardDescription: Improve toward a specific outcome with each attempt.
   cardSymbol:
   - {fileID: 21300000, guid: b48e5903fc5fbb54982fa84631ffa6c6, type: 3}
+  cardPromptUpdate:
+    prompt: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

@@ -15,12 +15,19 @@ MonoBehaviour:
   cardType: 1
   promptType: 48
   cardRarity: 4
+  cardata:
+  - {fileID: 11400000, guid: a00256848177cbb4981f77c63d0ac48f, type: 2}
+  - {fileID: 11400000, guid: ff0dd82c96d0f7d48bb468836fea6f75, type: 2}
+  promptPlacement: 
   cardName: Constraints with Context
   cardDescription: Set boundaries that fit the situation precisely.
   cardSymbol:
   - {fileID: 21300000, guid: b48e5903fc5fbb54982fa84631ffa6c6, type: 3}
+  cardPromptUpdate:
+    prompt: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

@@ -15,12 +15,20 @@ MonoBehaviour:
   cardType: 1
   promptType: 145
   cardRarity: 4
+  cardata:
+  - {fileID: 11400000, guid: ff0dd82c96d0f7d48bb468836fea6f75, type: 2}
+  - {fileID: 11400000, guid: 4b0f066cc8ac61341b99819f3ecdaf4d, type: 2}
+  - {fileID: 11400000, guid: a80061ac4d003d341acea0785a2102c7, type: 2}
+  promptPlacement: 
   cardName: Laser-Focused Briefing
   cardDescription: "Pinpoint what matters, why, and what\u2019s expected."
   cardSymbol:
   - {fileID: 21300000, guid: bd771f8a82957ea4086422dab6542a09, type: 3}
+  cardPromptUpdate:
+    prompt: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0

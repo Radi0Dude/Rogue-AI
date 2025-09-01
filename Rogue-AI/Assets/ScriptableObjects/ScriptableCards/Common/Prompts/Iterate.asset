@@ -15,12 +15,27 @@ MonoBehaviour:
   cardType: 1
   promptType: 8
   cardRarity: 2
+  cardata: []
+  promptPlacement: 
   cardName: Iterate
   cardDescription: Ask the AI for multiple answers.
   cardSymbol:
   - {fileID: 21300000, guid: f60dfbec9a578ae498623a55fe54527b, type: 3}
+  cardPromptUpdate:
+    prompt:
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    - prompts: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0
