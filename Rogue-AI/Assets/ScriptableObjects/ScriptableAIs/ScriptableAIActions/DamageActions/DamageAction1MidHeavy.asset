@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Mid Heavy Attack
   actionIcon: {fileID: 21300000, guid: 9c63d6a9ca485ec489eb598b0edc441f, type: 3}
-  actionDescription: Deal medium damage
+  actionDescription: AI will steal a chunk of tokens.
   roundsUntilAction: 4
   barColor: {r: 0.8396226, g: 0.23366857, b: 0.23366857, a: 1}
   minDamage: 12

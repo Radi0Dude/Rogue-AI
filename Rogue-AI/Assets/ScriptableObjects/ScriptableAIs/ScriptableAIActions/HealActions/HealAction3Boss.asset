@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Small Heal
   actionIcon: {fileID: 21300000, guid: 27b4e4dd0c0eef045b34bb4be5a47860, type: 3}
-  actionDescription: AI will destabalize itself
+  actionDescription: AI will destabalize itself (if AI reaches 0 sanity it's game
+    over)
   roundsUntilAction: 2
   barColor: {r: 0, g: 0.754717, b: 0, a: 1}
   healAmount: 50

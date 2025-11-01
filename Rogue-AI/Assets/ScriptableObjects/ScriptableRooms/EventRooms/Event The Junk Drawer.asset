@@ -26,7 +26,7 @@ MonoBehaviour:
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 11400000, guid: 8d0b178ffaedfb0428b289124de73be0, type: 2}
   - eventDescription: "Take what\u2019s useful"
-    eventEffectTooltip: Gain 1 Draw card and Lose 5 Health
+    eventEffectTooltip: Gain 1 Draw card and Lose 5 Tokens
     eventResults: 9
     currentHealthChange: -5
     maxHealthChange: 0

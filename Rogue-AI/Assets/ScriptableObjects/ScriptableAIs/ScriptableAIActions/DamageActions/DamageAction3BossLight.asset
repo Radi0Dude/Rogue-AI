@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Light Attack
   actionIcon: {fileID: 21300000, guid: 4821f9c494b79774fbbf0c49f2ea9056, type: 3}
-  actionDescription: Deal medium damage
+  actionDescription: AI will steal a chunk of tokens.
   roundsUntilAction: 1
   barColor: {r: 0.6509804, g: 0.25357977, b: 0, a: 1}
   minDamage: 7

@@ -26,7 +26,7 @@ MonoBehaviour:
     numberOfCardsToDelete: 1
     cardToAdd: {fileID: 0}
   - eventDescription: Amplify It
-    eventEffectTooltip: Gain 20 Max health and a status card
+    eventEffectTooltip: Gain 20 Max token capacity and a status card
     eventResults: 10
     currentHealthChange: 0
     maxHealthChange: 20
@@ -34,7 +34,8 @@ MonoBehaviour:
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 11400000, guid: 0f9b1d2dc0c2eda44b87153e69e667d7, type: 2}
   - eventDescription: Listen passively
-    eventEffectTooltip: Draw size increase by 1 but reduce max health by 25
+    eventEffectTooltip: Draw size increase by 1 but reduce max token capacity by
+      25
     eventResults: 6
     currentHealthChange: 0
     maxHealthChange: -25

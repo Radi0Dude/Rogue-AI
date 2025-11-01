@@ -17,7 +17,7 @@ MonoBehaviour:
   eventDescription: This AI is willing to give you Tokens and offer you 10 points
   optionDescriptions:
   - eventDescription: Kindly receive
-    eventEffectTooltip: Regain 10 Health
+    eventEffectTooltip: Regain 10 Tokens
     eventResults: 1
     currentHealthChange: 10
     maxHealthChange: 0
@@ -25,7 +25,7 @@ MonoBehaviour:
     numberOfCardsToDelete: 0
     cardToAdd: {fileID: 0}
   - eventDescription: I need more
-    eventEffectTooltip: Regain 25 Health and receive a status card
+    eventEffectTooltip: Regain 25 Tokens and receive a status card
     eventResults: 9
     currentHealthChange: 25
     maxHealthChange: 0
