@@ -16,7 +16,7 @@ MonoBehaviour:
   promptType: 4
   cardRarity: 2
   cardata: []
-  promptPlacement: 00000000
+  promptPlacement: 04000000
   cardName: "Structure Answer\t"
   cardDescription: Guide how the AI should organize its response.
   cardSymbol:
@@ -24,15 +24,15 @@ MonoBehaviour:
   cardPromptUpdate:
     prompt:
     - prompts:
-      - 1
+      - Format the response in a table,
     - prompts:
-      - 1
+      - Format the response for an AI,
     - prompts:
-      - 1
+      - Format the Response as a list,
     - prompts:
-      - 1
+      - Format the response as flashscards,
     - prompts:
-      - 1
+      - Format the response as a programming course,
     tags: 0000000001000000020000000300000004000000
   cardsToDraw: 1
   cardsToDelete: 1

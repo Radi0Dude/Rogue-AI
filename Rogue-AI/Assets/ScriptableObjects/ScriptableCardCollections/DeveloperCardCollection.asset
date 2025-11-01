@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: DeveloperCardCollection
   m_EditorClassIdentifier: 
   cardsInCollection:
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
-  - {fileID: 11400000, guid: ed9b6f07fafdb4447b49316f8b226932, type: 2}
+  - {fileID: 11400000, guid: 8d0b178ffaedfb0428b289124de73be0, type: 2}
+  - {fileID: 11400000, guid: 47d809714bf9a0e48b537479cb79b2fc, type: 2}
+  - {fileID: 11400000, guid: d1e843e1233c0f4498a85e701da76bd4, type: 2}
+  - {fileID: 11400000, guid: f97b23f54f7da15438c6eefa935116d9, type: 2}
+  - {fileID: 11400000, guid: ecfcfa91659c0b34aba3ddae0ee7995c, type: 2}
+  - {fileID: 11400000, guid: ce6090b729ae0944bbd9957988b7d4a7, type: 2}
+  - {fileID: 11400000, guid: 9bfe11af29cdb6d4a92b29525a13bcaa, type: 2}

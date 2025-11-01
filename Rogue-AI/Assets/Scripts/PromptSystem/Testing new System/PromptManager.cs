@@ -19,9 +19,11 @@ public enum PromptPlacement
 public class PromptManager : MonoBehaviour
 {
 	[SerializeField] List<StartPromptList> startingPrompts = new();
-	[SerializeField] string fullPrompt = "";
+	[SerializeField] public string fullPrompt = "";
 	[SerializeField] Tags currentPromptTag;
 	bool hasbeenSet = false;
+
+	public bool canSendPrompt = true;
 
 	// Tracks exact instances (kept for your UI/logic if needed)
 	List<CardData> playedCards = new();
@@ -31,7 +33,7 @@ public class PromptManager : MonoBehaviour
 
 	public GameObject alreadyPlayedCardText;
 
-	bool hasStartedWriting = false;
+	public bool hasStartedWriting = false;
 	[SerializeField] TMP_Text promptText;
 
 	private Dictionary<PromptPlacement, string> segments = new()
@@ -93,7 +95,24 @@ public class PromptManager : MonoBehaviour
 		var name = c != null ? c.cardName : "";
 		return string.IsNullOrWhiteSpace(name) ? "" : name.Trim();
 	}
+	public void ResetPlayedCards()
+	{
+		playedCardKeys.Clear();
+		playedCards.Clear();
 
+		foreach(var seg in segments.Keys.ToList())
+		{
+			segments[seg] = "";
+		}
+		foreach (var seg in segmentsCopy.Keys.ToList())
+		{
+			segmentsCopy[seg] = "";
+		}
+
+		fullPrompt = "";
+		Debug.Log("Resetting played cards and prompt.");
+		GetStartPrompt();
+	}
 	public void CreatePrompt(CardData cardData)
 	{
 		if (cardData == null || cardData.promptPlacement == null || cardData.promptPlacement.Length == 0)
@@ -235,7 +254,7 @@ public class PromptManager : MonoBehaviour
 		foreach (var p in Order) segmentsCopy[p] = segments[p];
 	}
 
-	IEnumerator WritePromptBySegments()
+	public IEnumerator WritePromptBySegments()
 	{
 		if (promptText == null) yield break;
 

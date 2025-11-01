@@ -18,8 +18,11 @@ public class InputField : MonoBehaviour
     
     private List<PromptType> _promptTypes = new();
 
+	PromptManager promptManager;
+
 	private void Awake()
 	{
+		promptManager = FindFirstObjectByType<PromptManager>();
 		playCard = FindFirstObjectByType<PlayCard>();
 	}
 
@@ -36,7 +39,7 @@ public class InputField : MonoBehaviour
     {
         // Returns start of new prompt for the player to adjust
         // TODO: Connect to Tobias' prompt generator
-        _currentPrompt = "Prompt";
+        _currentPrompt = "";
 
     }
 
@@ -67,13 +70,16 @@ public class InputField : MonoBehaviour
     
     public void SendPrompt()
     {
-        if (GameManager.RoundState == RoundState.EndCombat) return;
+        if(!promptManager.hasStartedWriting) return;
+		if (GameManager.RoundState == RoundState.EndCombat) return;
         OnSendPromptEvent?.Invoke(_promptTypes);
-        
-        GetNewPrompt();
+		promptManager.ResetPlayedCards();
+		GetNewPrompt();
         UpdateVisual();
         
-        _promptTypes.Clear();
+       
+
+		_promptTypes.Clear();
     }
 
     public void EndTurn()

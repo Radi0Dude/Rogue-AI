@@ -15,6 +15,7 @@ MonoBehaviour:
   cardType: 1
   promptType: 1
   cardRarity: 2
+  cardata: []
   promptPlacement: 03000000
   cardName: Give an Example
   cardDescription: Provide a concrete example so the AI knows what you expect.
@@ -23,25 +24,25 @@ MonoBehaviour:
   cardPromptUpdate:
     prompt:
     - prompts:
-      - Explain photosynthesis to first-year students
+      - An example would be seeting the students more towards the back,
     - prompts:
-      - Describe the French Revolution to a classroom
+      - An example would be seeting the students more towards the front,
     - prompts:
-      - xplain how a spam filter works
+      - An example would be spam filters,
     - prompts:
-      - Describe how chatbots generate answers
+      - An example would be AI forgetfullness,
     - prompts:
-      - Describe a game where players swap gravity to move
+      - An example would be opening a door,
     - prompts:
-      - Invent a backstory for a desert trading town in an RPG
+      - An example would be world building
     - prompts:
-      - Explain how to multiply fractions
+      - An example would be flashcards
     - prompts:
-      - Describe why practice makes skills easier
+      - An example would be studying
     - prompts:
-      - 
+      - An example would be a for loop
     - prompts:
-      - 
+      - An example would be an int
     tags: 00000000000000000100000001000000020000000200000003000000030000000400000004000000
   cardsToDraw: 1
   cardsToDelete: 1
