@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: BaseAI
   m_EditorClassIdentifier: 
   aiName: The First
-  maxSanity: 50
-  startSanity: 40
-  aiType: 1
+  maxSanity: 109.6
+  startSanity: 44.4
+  aiModelType: 0
   aiActions:
   - {fileID: 11400000, guid: fe1248e01c2f0c948ba429bfb62da920, type: 2}
-  - {fileID: 11400000, guid: 30966cf2c9a7d14429e9e012379b80cd, type: 2}
   - {fileID: 11400000, guid: 42c7c60538d554a46b3a14c9d04f0379, type: 2}
-  - {fileID: 11400000, guid: 40a730359c9042948aaaaf5cdf54ec50, type: 2}
+  - {fileID: 11400000, guid: 42c7c60538d554a46b3a14c9d04f0379, type: 2}
+  - {fileID: 11400000, guid: 42c7c60538d554a46b3a14c9d04f0379, type: 2}
+  - {fileID: 11400000, guid: 42c7c60538d554a46b3a14c9d04f0379, type: 2}
   endOfTurnAction: {fileID: 0}
