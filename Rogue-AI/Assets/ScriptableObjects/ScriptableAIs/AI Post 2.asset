@@ -15,7 +15,7 @@ MonoBehaviour:
   aiName: Syntax Lurker
   maxSanity: 100
   startSanity: 30
-  aiType: 1
+  aiModelType: 2
   aiActions:
   - {fileID: 11400000, guid: 31904308c6bd1c84a9036c501250500c, type: 2}
   - {fileID: 11400000, guid: 31904308c6bd1c84a9036c501250500c, type: 2}

@@ -15,7 +15,7 @@ MonoBehaviour:
   aiName: The First
   maxSanity: 109.6
   startSanity: 44.4
-  aiModelType: 0
+  aiModelType: 3
   aiActions:
   - {fileID: 11400000, guid: fe1248e01c2f0c948ba429bfb62da920, type: 2}
   - {fileID: 11400000, guid: 42c7c60538d554a46b3a14c9d04f0379, type: 2}

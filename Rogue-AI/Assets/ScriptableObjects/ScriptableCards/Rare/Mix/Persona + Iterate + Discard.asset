@@ -15,13 +15,20 @@ MonoBehaviour:
   cardType: 9
   promptType: 10
   cardRarity: 4
+  cardata:
+  - {fileID: 11400000, guid: d811dbadca0cf28479cc20bf4172dd98, type: 2}
+  - {fileID: 11400000, guid: 578348c722d435543931634222553c09, type: 2}
+  promptPlacement: 
   cardName: Rewrite for Audience
   cardDescription: Tailor your revision to better suit the intended reader.
   cardSymbol:
   - {fileID: 21300000, guid: b48e5903fc5fbb54982fa84631ffa6c6, type: 3}
   - {fileID: 21300000, guid: 38e6f121ae58a7c4ab95f14c8919c01c, type: 3}
+  cardPromptUpdate:
+    prompt: []
+    tags: 
   cardsToDraw: 1
   cardsToDelete: 1
   cardsToDiscard: 1
-  isPlayable: 0
   isPlayedEndOfTurn: 0
+  virusEffect: 0
