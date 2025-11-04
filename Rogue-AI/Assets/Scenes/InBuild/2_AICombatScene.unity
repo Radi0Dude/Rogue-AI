@@ -296,17 +296,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!114 &604014296 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5074811889782174291, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
@@ -580,6 +586,30 @@ PrefabInstance:
     - target: {fileID: 6281196152407969578, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_fontSize
+      value: 5.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 8.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 5.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_lineSpacingMax
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_charWidthMaxAdj
+      value: 23.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669636873531067840, guid: 6076fd2683679d041ba19cfdfbb3bcfd, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
