@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 public enum PromptPlacement
 {
@@ -22,6 +23,8 @@ public class PromptManager : MonoBehaviour
 	[SerializeField] public string fullPrompt = "";
 	[SerializeField] Tags currentPromptTag;
 	bool hasbeenSet = false;
+
+	private Coroutine typingCoroutine;
 
 	public bool canSendPrompt = true;
 
@@ -248,8 +251,15 @@ public class PromptManager : MonoBehaviour
 
 		hasStartedWriting = false;
 		StopCoroutine(ConstantUpdateTyping());
+		if (typingCoroutine != null)
+		{
+			StopCoroutine(typingCoroutine);
+			typingCoroutine = null;
+		}
 
-		StartCoroutine(WritePromptBySegments());
+		typingCoroutine = StartCoroutine(WritePromptBySegments());
+		
+		
 
 		foreach (var p in Order) segmentsCopy[p] = segments[p];
 	}
@@ -285,6 +295,8 @@ public class PromptManager : MonoBehaviour
 
 		// Final snap to the full target: clean spaces/case and remove any leftovers at once
 		promptText.text = CapitalizeFirst(JoinSegments(newSegs));
+		if(promptText.text != fullPrompt)
+			promptText.text = fullPrompt;
 
 		hasStartedWriting = true;
 		StartCoroutine(ConstantUpdateTyping());
@@ -354,7 +366,7 @@ public class PromptManager : MonoBehaviour
 				promptText.text = promptText.text.Insert(insertAt, target[j].ToString());
 
 				promptText.text += "|";
-				yield return new WaitForSeconds(Random.Range(0.05f, 0.2f));
+				yield return new WaitForSeconds(Random.Range(0.01f, 0.05f));
 				promptText.text = promptText.text.TrimEnd('|');
 			}
 			yield break;
